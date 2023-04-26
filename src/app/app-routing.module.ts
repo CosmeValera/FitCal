@@ -9,7 +9,8 @@ const routes: Routes = [
   {path: '', redirectTo: 'profile', pathMatch: 'full'},
   {path: 'profile', component: ProfileComponent},
   {path: 'diary', component: DiaryComponent},
-  {path: 'nutrition', component: NutritionComponent}
+  {path: 'nutrition', component: NutritionComponent},
+  {path: 'more', component: ProfileComponent}
 ];
 
 @NgModule({
