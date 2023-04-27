@@ -1,27 +1,9 @@
 # FitCal
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.6.
+FitCal is a calorie tracking and fitness app that helps you achieve your health goals by tracking your daily food intake, steps, and macronutrient ratios. With FitCal, you can easily log your meals and snacks, track your calorie intake, and monitor your progress towards your daily calorie goals.
 
-## Development server
+FitCal provides a simple and intuitive user interface that makes it easy to log your meals and view your progress. You can quickly search and add foods to your daily log, and the app will automatically calculate the calorie count and macronutrient ratios based on the food you've logged. You can also track your steps and view your daily step count and progress towards your step goals.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+In addition to tracking your food and fitness, FitCal also allows you to set up a profile and customize your daily calorie goals based on your height, weight, age, and activity level. You can track your progress over time and make adjustments to your goals as needed.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+FitCal is the perfect app for anyone looking to improve their health and fitness. Whether you're trying to lose weight, gain muscle, or just maintain a healthy lifestyle, FitCal has everything you need to achieve your goals.
