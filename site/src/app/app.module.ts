@@ -9,6 +9,7 @@ import { BodyComponent } from './core/body/body.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NutritionComponent } from './pages/nutrition/nutrition.component';
 import { DiaryComponent } from './pages/diary/diary.component';
+import { MealComponent } from './shared/components/meal/meal.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { DiaryComponent } from './pages/diary/diary.component';
     BodyComponent,
     ProfileComponent,
     NutritionComponent,
-    DiaryComponent
+    DiaryComponent,
+    MealComponent
   ],
   imports: [
     BrowserModule,
