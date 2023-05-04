@@ -24,4 +24,8 @@ export class MealComponent {
     }
     this.foods.push(food);
   }
+
+  removeItem(index: number): void {
+    this.foods.splice(index, 1);
+  }
 }
