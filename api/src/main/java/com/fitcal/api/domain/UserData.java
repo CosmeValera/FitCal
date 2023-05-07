@@ -1,42 +1,57 @@
 package com.fitcal.api.domain;
 
 import jakarta.persistence.*;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import java.util.Objects;
+import java.time.LocalDate;
 
 @Entity
 public class UserData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long user_id;
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-    private int steps;
-    private int weight;
+    @Column
+    private String name;
+    @Column
+    private String surnames;
+    @Column
+    private double weight;
+    @Column
     private int height;
+    @Column
     private char gender;
+    @Column
+    private LocalDate birth_date;
+    @Column
     private Goals goal;
+    @Column
+    private ActivityLevel activityLevel;
 
     public UserData() {
     }
 
-    public UserData(Long id, User user, int steps, int weight, int height, char gender, Goals goal) {
-        this.id = id;
+    public UserData(Long user_id, User user, String name, String surnames, double weight, int height, char gender, LocalDate birth_date, Goals goal, ActivityLevel activityLevel) {
+        this.user_id = user_id;
         this.user = user;
-        this.steps = steps;
+        this.name = name;
+        this.surnames = surnames;
         this.weight = weight;
         this.height = height;
         this.gender = gender;
+        this.birth_date = birth_date;
         this.goal = goal;
+        this.activityLevel = activityLevel;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 
     public User getUser() {
@@ -47,19 +62,27 @@ public class UserData {
         this.user = user;
     }
 
-    public int getSteps() {
-        return steps;
+    public String getName() {
+        return name;
     }
 
-    public void setSteps(int steps) {
-        this.steps = steps;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getWeight() {
+    public String getSurnames() {
+        return surnames;
+    }
+
+    public void setSurnames(String surnames) {
+        this.surnames = surnames;
+    }
+
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
@@ -79,6 +102,14 @@ public class UserData {
         this.gender = gender;
     }
 
+    public LocalDate getBirth_date() {
+        return birth_date;
+    }
+
+    public void setBirth_date(LocalDate birth_date) {
+        this.birth_date = birth_date;
+    }
+
     public Goals getGoal() {
         return goal;
     }
@@ -87,29 +118,11 @@ public class UserData {
         this.goal = goal;
     }
 
-    @Override
-    public String toString() {
-        return "UserData{" +
-                "id=" + id +
-                ", user=" + user +
-                ", steps=" + steps +
-                ", weight=" + weight +
-                ", height=" + height +
-                ", gender=" + gender +
-                ", goal=" + goal +
-                '}';
+    public ActivityLevel getActivityLevel() {
+        return activityLevel;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserData userData = (UserData) o;
-        return steps == userData.steps && weight == userData.weight && height == userData.height && gender == userData.gender && Objects.equals(id, userData.id) && Objects.equals(user, userData.user) && goal == userData.goal;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, user, steps, weight, height, gender, goal);
+    public void setActivityLevel(ActivityLevel activityLevel) {
+        this.activityLevel = activityLevel;
     }
 }

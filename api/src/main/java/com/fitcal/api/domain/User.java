@@ -3,6 +3,8 @@ package com.fitcal.api.domain;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -10,29 +12,33 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long user_id;
     @OneToOne(mappedBy = "user")
     private UserData userData;
+    @Column
     private String username;
+    @Column
     private String email;
+    @Column
     private String password;
 
-    public User(){}
+    public User() {
+    }
 
-    public User(Long id, UserData userData, String username, String email, String password) {
-        this.id = id;
+    public User(Long user_id, UserData userData, String username, String email, String password) {
+        this.user_id = user_id;
         this.userData = userData;
         this.username = username;
         this.email = email;
         this.password = password;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 
     public UserData getUserData() {
@@ -65,29 +71,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", userData=" + userData +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(userData, user.userData) && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, userData, username, email, password);
     }
 }
