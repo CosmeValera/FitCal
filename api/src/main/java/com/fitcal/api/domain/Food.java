@@ -5,9 +5,10 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table
 public class Food {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private String name;

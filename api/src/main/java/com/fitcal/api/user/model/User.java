@@ -1,6 +1,7 @@
-package com.fitcal.api.domain;
+package com.fitcal.api.user.model;
 
 
+import com.fitcal.api.domain.UserData;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -8,18 +9,19 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Table
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
     @OneToOne(mappedBy = "user")
     private UserData userData;
-    @Column
+    @Column(length = 30, nullable = false)
     private String username;
-    @Column
+    @Column(length = 40, nullable = false)
     private String email;
-    @Column
+    @Column(length = 40, nullable = false)
     private String password;
 
     public User() {

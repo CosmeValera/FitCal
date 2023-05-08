@@ -1,14 +1,15 @@
 package com.fitcal.api.domain;
 
+import com.fitcal.api.user.model.User;
 import jakarta.persistence.*;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import java.time.LocalDate;
 
 @Entity
+@Table
 public class UserData {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
     @OneToOne
     @JoinColumn(name = "user_id")
