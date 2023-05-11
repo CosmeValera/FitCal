@@ -1,7 +1,28 @@
-<h1>Profile</h1>
-<div class="card">
-    <div class="card-head">Lorem ipsum - dashboard</div>
-    <div class="card-body">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas ducimus soluta, quasi aut ipsa non, ullam enim rem repudiandae, vitae provident animi. Inventore rerum, voluptas optio dignissimos blanditiis modi illo!
-    </div>
+<div class="main-content d-flex justify-content-center">
+    <main>
+        <h1> Perfil de Usuario </h1>
+
+        <app-personal-image></app-personal-image>        
+        <br>
+
+        <app-personal-information 
+            [dato]="'Peso'" 
+            [datoPrincipal]="'X'" 
+            [tipo]="'kg'">
+        </app-personal-information>
+        <app-personal-information 
+            [dato]="'Altura'" 
+            [datoPrincipal]="'X'" 
+            [tipo]="'cm'">
+        </app-personal-information>
+        <app-personal-information 
+            [dato]="'Calorias'" 
+            [datoPrincipal]="'X'" 
+            [tipo]="'cal'">
+        </app-personal-information>
+        <br>
+        <mat-dialog-actions>
+            <button mat-raised-button color="primary" (click)="openDialog()"> Metas </button>
+        </mat-dialog-actions>
+    </main>
 </div>

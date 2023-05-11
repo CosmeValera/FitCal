@@ -10,6 +10,15 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { NutritionComponent } from './pages/nutrition/nutrition.component';
 import { DiaryComponent } from './pages/diary/diary.component';
 import { MealComponent } from './shared/components/meal/meal.component';
+import { PersonalImageComponent } from '@shared/components/personal-image/personal-image.component';
+import { PersonalInformationComponent } from '@shared/components/personal-information/personal-information.component';
+import { GoalDialogComponent } from '@shared/components/goal-dialog/goal-dialog.component';
+import { MatButtonModule }from '@angular/material/button';
+import { MatIconModule }from '@angular/material/icon';
+import { MatFormFieldModule }from '@angular/material/form-field';
+import { MatInputModule }from '@angular/material/input';
+import { FormsModule }from '@angular/forms';
+import { MatDialogModule }from '@angular/material/dialog';
 
 
 @NgModule({
@@ -20,12 +29,21 @@ import { MealComponent } from './shared/components/meal/meal.component';
     ProfileComponent,
     NutritionComponent,
     DiaryComponent,
-    MealComponent
+    MealComponent,
+    PersonalImageComponent,
+    PersonalInformationComponent,
+    GoalDialogComponent   
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatDialogModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

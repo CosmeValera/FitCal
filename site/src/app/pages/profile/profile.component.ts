@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { GoalDialogComponent } from '@shared/components/goal-dialog/goal-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +9,15 @@ import { Component } from '@angular/core';
 })
 export class ProfileComponent {
 
-  constructor() { }
+  constructor(private matDialog:MatDialog) { }
 
   ngOnInit(): void {
+  }
+
+  openDialog(){
+    this.matDialog.open(GoalDialogComponent,{
+      width:'650px',
+    })
   }
 
 }
