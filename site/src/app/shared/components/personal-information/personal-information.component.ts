@@ -9,16 +9,20 @@ export class PersonalInformationComponent {
   @Input() dato: string = '';
   @Input() datoPrincipal: string = '';
   @Input() tipo: string = '';
-  
-  nuevoDato: number=0;
+
+  nuevoDato: number = 0;
   editarDato = false;
 
   guardarDato() {
-    // this.user.peso = this.nuevoPeso;
-    // this.editarPeso = false;
+    console.log("Guardar datgo");
+    this.datoPrincipal = '' + this.nuevoDato;
+
+    this.editarDato = false;
   }
 
   cancelarDato() {
-    // this.editarPeso = false;
+    console.log("caneclar datgo");
+
+    this.editarDato = false;
   }
 }

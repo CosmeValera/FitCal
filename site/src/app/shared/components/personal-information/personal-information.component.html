@@ -1,12 +1,12 @@
 <div class="d-flex justify-content-center">
-    <h4> {{ dato }}</h4>
-    <h4 *ngIf="!editarDato"> &nbsp; {{ datoPrincipal }} &nbsp; {{ tipo}} &nbsp; </h4>
-    <div *ngIf="editarDato" class="input-group">
-        <input type="number" class="form-control form-control-sm">
-        <!-- <input type="number" class="form-control form-control-sm" [(ngModel)]="nuevoDato"> -->
-        <div class="input-group-append">
-            <button class="btn btn-success" (click)="guardarDato">Guardar</button>
-            <button class="btn btn-danger" (click)="guardarDato">Cancelar</button>
-        </div>
+<h4> {{ dato }}</h4>
+<h4 *ngIf="!editarDato"> &nbsp; {{ datoPrincipal }} &nbsp; {{ tipo}} &nbsp; </h4>
+<button class="btn btn-primary" *ngIf="!editarDato" (click)="editarDato = true">Editar</button>
+<div *ngIf="editarDato" class="input-group">
+    <!-- <input type="number" class="form-control form-control-sm"> -->
+    <input type="number" class="form-control form-control-sm" [(ngModel)]="nuevoDato">
+    <div class="input-group-append">
+        <button class="btn btn-success" (click)="guardarDato()">Guardar</button>
+        <button class="btn btn-danger" (click)="cancelarDato()">Cancelar</button>
     </div>
-    <button class="btn btn-primary" *ngIf="!editarDato" (click)="editarDato = true">Editar</button>
+</div>
