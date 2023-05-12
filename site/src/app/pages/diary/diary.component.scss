@@ -1,0 +1,38 @@
+.half-circle {
+  border-radius: 50%;
+  width: 110px;
+  height: 110px;
+  background: linear-gradient(to bottom, #000000 50%, #ffe9f1 50%);
+  overflow: hidden;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  z-index: 2;
+}
+
+.top,
+.bottom {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  color: #fff;
+}
+
+.top {
+  top: 33%;
+  color: rgb(226, 226, 226);
+  font-weight: bold;
+}
+
+.bottom {
+  top: 67%;
+  color: black;
+  font-weight: bold;
+}
+
+.mat-mini-fab {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}

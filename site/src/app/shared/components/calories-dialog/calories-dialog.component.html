@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>
+  Calories Left
+  <span class="close-icon" (click)="onNoClick()">x</span>
+</h1>
+<div mat-dialog-content>
+  <p>{{data.goalCalories}} - {{data.foodCalories}} = {{data.leftCalories}}</p>
+  <p>(Goal) - (Food) = (Left)</p>
+</div>
+<div mat-dialog-actions>
+</div>

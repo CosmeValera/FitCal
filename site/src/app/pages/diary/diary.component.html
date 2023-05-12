@@ -6,3 +6,8 @@
     <app-meal [meal]="'Snacks'"></app-meal>
   </main>
 </div>
+
+<button mat-mini-fab class="half-circle" (click)="openDialog()">
+  <span class="top">Calories Left</span>
+  <span class="bottom">{{calories}}</span>
+</button>
