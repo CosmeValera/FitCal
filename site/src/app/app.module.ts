@@ -20,7 +20,11 @@ import { MatInputModule }from '@angular/material/input';
 import { FormsModule }from '@angular/forms';
 import { MatDialogModule }from '@angular/material/dialog';
 import { CaloriesDialogComponent } from './shared/components/calories-dialog/calories-dialog.component';
-
+import { FoodComponent } from './pages/food/food.component';
+import { DialogCreateFoodComponent } from './shared/components/dialog-create-food/dialog-create-food.component';
+import { ListFoodComponent } from './shared/components/list-food/list-food.component';
+import { MatCardModule } from '@angular/material/card';
+import { FiltroPipe } from './shared/pipes/filtro.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,11 @@ import { CaloriesDialogComponent } from './shared/components/calories-dialog/cal
     PersonalImageComponent,
     PersonalInformationComponent,
     GoalDialogComponent,
-    CaloriesDialogComponent   
+    CaloriesDialogComponent,
+    FoodComponent,
+    DialogCreateFoodComponent,
+    ListFoodComponent,
+    FiltroPipe   
   ],
   imports: [
     BrowserModule,
@@ -45,7 +53,8 @@ import { CaloriesDialogComponent } from './shared/components/calories-dialog/cal
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    MatDialogModule 
+    MatDialogModule,
+    MatCardModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

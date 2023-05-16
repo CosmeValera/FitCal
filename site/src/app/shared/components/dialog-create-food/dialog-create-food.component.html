@@ -1,0 +1,58 @@
+
+<mat-dialog-content align="center" style="max-height: 1000px; overflow: auto;">
+    <button mat-icon-button style="float:right">
+        <mat-icon> close </mat-icon>
+    </button>
+    <header class="justify-content-center">
+        <h1> Añadir un alimento </h1>
+    </header>    
+    <br>
+    <app-personal-image></app-personal-image>
+    <br>
+    <div class="row">
+        <div class="col-6">
+            <p><mat-form-field>
+                <input matInput placeholder="Nombre">
+                <mat-icon matSuffix>restaurant_menu</mat-icon>
+            </mat-form-field></p>
+        </div>
+        <div class="col-6">
+            <p><mat-form-field>
+                <input matInput placeholder="Marca">
+                <mat-icon matSuffix>branding_watermark</mat-icon>
+            </mat-form-field></p>
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <p><mat-form-field>
+                <input matInput placeholder="Calorias">
+                <mat-icon matSuffix>local_fire_department</mat-icon>
+            </mat-form-field></p>
+        </div>
+        <div class="col-6">
+            <p><mat-form-field>
+                <input matInput placeholder="Proteinas">
+                <mat-icon matSuffix>eco</mat-icon>
+            </mat-form-field></p>
+        </div>        
+    </div>    
+    <div class="row">
+        <div class="col-6">
+            <p><mat-form-field>
+                <input matInput placeholder="Carbohidratos">
+                <mat-icon matSuffix>grain</mat-icon>
+            </mat-form-field></p>
+        </div>
+        <div class="col-6">
+            <p><mat-form-field>
+                <input matInput placeholder="Grasas">
+                <mat-icon matSuffix>local_florist</mat-icon>
+            </mat-form-field></p>
+        </div>
+    </div>
+    <mat-dialog-actions align="center">
+        <button mat-raised-button color="primary"> Guardar </button>
+        <button mat-raised-button color="warm"> Cancelar </button>
+    </mat-dialog-actions>
+</mat-dialog-content>
