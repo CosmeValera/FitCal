@@ -1,12 +1,8 @@
 package com.fitcal.api.user.model;
 
 
-import com.fitcal.api.domain.UserData;
+import com.fitcal.api.userdata.model.UserData;
 import jakarta.persistence.*;
-
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table
@@ -14,9 +10,10 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long user_id;
     @OneToOne(mappedBy = "user")
-    private UserData userData;
+    private UserData userData; // Relacion 1 a 1 con UserData
     @Column(length = 30, nullable = false)
     private String username;
     @Column(length = 40, nullable = false)
