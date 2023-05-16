@@ -1,8 +1,8 @@
-package com.fitcal.api.userdata.model;
+package com.fitcal.api.model;
 
 import com.fitcal.api.enums.ActivityLevel;
 import com.fitcal.api.enums.Goals;
-import com.fitcal.api.user.model.User;
+import com.fitcal.api.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

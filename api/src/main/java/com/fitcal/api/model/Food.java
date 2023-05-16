@@ -1,4 +1,4 @@
-package com.fitcal.api.food.model;
+package com.fitcal.api.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

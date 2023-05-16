@@ -1,6 +1,5 @@
-package com.fitcal.api.day.model;
+package com.fitcal.api.model;
 
-import com.fitcal.api.food.model.Food;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

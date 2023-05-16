@@ -1,7 +1,6 @@
-package com.fitcal.api.user.model;
+package com.fitcal.api.model;
 
 
-import com.fitcal.api.userdata.model.UserData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

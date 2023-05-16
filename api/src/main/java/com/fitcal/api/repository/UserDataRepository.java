@@ -1,7 +1,6 @@
-package com.fitcal.api.userdata.repository;
+package com.fitcal.api.repository;
 
-import com.fitcal.api.food.model.Food;
-import com.fitcal.api.userdata.model.UserData;
+import com.fitcal.api.model.UserData;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserDataRepository extends JpaRepository<UserData, Long> {

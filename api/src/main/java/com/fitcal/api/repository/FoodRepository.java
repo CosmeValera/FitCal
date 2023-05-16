@@ -1,6 +1,6 @@
-package com.fitcal.api.food.repository;
+package com.fitcal.api.repository;
 
-import com.fitcal.api.food.model.Food;
+import com.fitcal.api.model.Food;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

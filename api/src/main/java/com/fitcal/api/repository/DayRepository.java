@@ -1,7 +1,6 @@
-package com.fitcal.api.day.repository;
+package com.fitcal.api.repository;
 
-import com.fitcal.api.day.model.Day;
-import com.fitcal.api.food.model.Food;
+import com.fitcal.api.model.Day;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DayRepository extends JpaRepository<Day, Long> {
