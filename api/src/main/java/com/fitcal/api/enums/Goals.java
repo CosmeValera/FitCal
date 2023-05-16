@@ -1,4 +1,4 @@
-package com.fitcal.api.domain;
+package com.fitcal.api.enums;
 
 public enum Goals {
     GAIN1000, GAIN750, GAIN500, GAIN250,
