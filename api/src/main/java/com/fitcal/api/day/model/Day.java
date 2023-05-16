@@ -2,12 +2,17 @@ package com.fitcal.api.day.model;
 
 import com.fitcal.api.food.model.Food;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Day {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,47 +28,4 @@ public class Day {
     @Column(nullable = false)
     private String mealType;
 
-    public Day() {
-        foods = new ArrayList<>();
-    }
-
-    public Day(LocalDate date, String mealType) {
-        this.date = date;
-        this.mealType = mealType;
-        foods = new ArrayList<>();
-    }
-
-    // Getters and setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public List<Food> getFoods() {
-        return foods;
-    }
-
-    public void setFoods(List<Food> foods) {
-        this.foods = foods;
-    }
-
-    public String getMealType() {
-        return mealType;
-    }
-
-    public void setMealType(String mealType) {
-        this.mealType = mealType;
-    }
 }
