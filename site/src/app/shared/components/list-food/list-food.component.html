@@ -7,10 +7,10 @@
 </div>
 
 <div class="wrapper card-columns" align="center" borde="black" style="width: 400px; margin:10px;column-count: 3;">
-    <div class="card" *ngFor="let dato of datos | filtro: searchText">
+    <div class="card" *ngFor="let foods of food | filtro: searchText">
         <div class="card-body">
             <div class="row">
-                <h3> {{ dato.name }}</h3>
+                <h3> {{ foods.name }}</h3>
             </div>
             <br>
             <div class="row">
@@ -18,10 +18,10 @@
                     <app-personal-image></app-personal-image>
                 </div>
                 <div class="col-6">
-                    <p class="card-text">Kcal: {{ dato.kcal}}</p>
-                    <p class="card-text">Protx: {{ dato.proteins}}</p>
-                    <p class="card-text">Carbs: {{ dato.carbs}}</p>
-                    <p class="card-text">Fats: {{ dato.fats}}</p>
+                    <p class="card-text">Kcal: {{ foods.kcal}}</p>
+                    <p class="card-text">Protx: {{ foods.proteins}}</p>
+                    <p class="card-text">Carbs: {{ foods.carbs}}</p>
+                    <p class="card-text">Fats: {{ foods.fats}}</p>
                 </div>
             </div>
             <br />

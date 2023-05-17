@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(value = "*")
 @RequestMapping("fitcal/food")
 public class FoodController {
     private final FoodService foodService;

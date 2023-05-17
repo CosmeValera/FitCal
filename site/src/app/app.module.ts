@@ -25,6 +25,8 @@ import { DialogCreateFoodComponent } from './shared/components/dialog-create-foo
 import { ListFoodComponent } from './shared/components/list-food/list-food.component';
 import { MatCardModule } from '@angular/material/card';
 import { FiltroPipe } from './shared/pipes/filtro.pipe';
+import { ServiceFoodService } from './shared/services/service-food.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,7 @@ import { FiltroPipe } from './shared/pipes/filtro.pipe';
     FoodComponent,
     DialogCreateFoodComponent,
     ListFoodComponent,
-    FiltroPipe   
+    FiltroPipe,    
   ],
   imports: [
     BrowserModule,
@@ -54,9 +56,10 @@ import { FiltroPipe } from './shared/pipes/filtro.pipe';
     MatInputModule,
     FormsModule,
     MatDialogModule,
-    MatCardModule 
+    MatCardModule,
+    HttpClientModule 
   ],
-  providers: [],
+  providers: [ServiceFoodService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
