@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { FiltroPipe } from '@shared/pipes/filtro.pipe';
 import {CommonModule } from '@angular/common'
-import { Food } from 'src/app/modelos/Food';
+import { food } from '@shared/interfaces/foodInterface';
 import { ServiceFoodService } from '@shared/services/service-food.service';
 import { Router } from '@angular/router';
 
@@ -15,19 +15,16 @@ import { Router } from '@angular/router';
 export class ListFoodComponent {
   filterFood = '';
   searchText = '';
-  
-  food:Food[] = [];
 
-  constructor(private service:ServiceFoodService, private router:Router){}
+  foods: food[] = [];
+
+  constructor(private service: ServiceFoodService, private router: Router){}
 
   ngOnInit(){
     this.service.getFood()
-    .subscribe(data=>{
-      this.food=data;
-      console.log(this.food)
+    .subscribe(data => {
+      this.foods = data;
+      console.log(this.foods)
     });
   }
-
-
-
 }
