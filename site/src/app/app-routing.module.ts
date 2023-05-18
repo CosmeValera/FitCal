@@ -6,11 +6,11 @@ import { DiaryComponent } from './pages/diary/diary.component';
 import { FoodComponent } from './pages/food/food.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'profile', pathMatch: 'full'},
-  {path: 'profile', component: ProfileComponent},
-  {path: 'diary', component: DiaryComponent},
-  {path: 'nutrition', component: NutritionComponent},
-  {path: 'more', component: FoodComponent}  
+  {path: '', redirectTo: 'perfil', pathMatch: 'full'},
+  {path: 'perfil', component: ProfileComponent},
+  {path: 'diario', component: DiaryComponent},
+  {path: 'nutricion', component: NutritionComponent},
+  {path: 'alimentos', component: FoodComponent}
 ];
 
 @NgModule({

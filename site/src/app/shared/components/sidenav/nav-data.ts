@@ -1,22 +1,22 @@
 export const navbarData = [
   {
-      routeLink: 'profile',
-      icon: 'fal fa-home',
-      label: 'Profile'
+      routeLink: 'perfil',
+      icon: 'fal fa-user',
+      label: 'Perfil'
   },
   {
-      routeLink: 'diary',
-      icon: 'fal fa-file',
-      label: 'Diary'
+      routeLink: 'diario',
+      icon: 'fal fa-book',
+      label: 'Diario'
   },
   {
-    routeLink: 'nutrition',
-    icon: 'fal fa-chart-bar',
-    label: 'Nutrition'
+    routeLink: 'nutricion',
+    icon: 'fal fa-chart-pie',
+    label: 'Nutricion'
   },
   {
-    routeLink: 'more',
-    icon: 'fal fa-bars',
-    label: 'More'
-  },
+    routeLink: 'alimentos',
+    icon: 'fal fa-apple-alt',
+    label: 'Alimentos'
+  }
 ];
