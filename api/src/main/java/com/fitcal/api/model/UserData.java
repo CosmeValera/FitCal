@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -15,29 +17,44 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserData {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long id;
+
     @OneToOne
-    @JoinColumn(name = "user_id") // Clave externa que se utiliza para vincular los registros de ambas tablas
+    @JoinColumn(name = "id") // Clave externa que se utiliza para vincular los registros de ambas tablas
     private User user;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String surnames;
+
     @Column(nullable = false)
     private String image;
+
     @Column(nullable = false)
     private double weight;
+
     @Column(nullable = false)
     private int height;
+
     @Column(nullable = false)
     private char gender;
+
     @Column(nullable = false)
     private LocalDate birth_date;
+
     @Column(nullable = false)
     private Goals goal;
+
     @Column(nullable = false)
     private ActivityLevel activityLevel;
+
+    // Un UserData tiene muchos dias
+    @OneToMany(mappedBy = "userData", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Day> days = new ArrayList<>();
 
 }

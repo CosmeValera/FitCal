@@ -15,14 +15,18 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long user_id;
+    @Column(name = "id")
+    private Long id;
+
     @OneToOne(mappedBy = "user")
     private UserData userData; // Relacion 1 a 1 con UserData
+
     @Column(length = 30, nullable = false)
     private String username;
+
     @Column(length = 40, nullable = false)
     private String email;
+
     @Column(length = 40, nullable = false)
     private String password;
 
