@@ -1,0 +1,36 @@
+.fixed-width {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h4 {
+  margin-left: 12px;
+  width: 80px;
+}
+
+.btn {
+  padding: 4px 8px;
+  margin: 2px 4px;
+}
+
+.btn-primary {
+  margin-right: 95px;
+}
+
+.content-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.input-group {
+  width: auto;
+}
+
+input {
+  max-width: 100px;
+  text-align: right;
+}
