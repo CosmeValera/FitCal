@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { food } from '@shared/interfaces/foodInterface';
+import { Food } from '@shared/interfaces/foodInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +12,14 @@ export class FoodService {
   constructor(private http: HttpClient) { }
 
   getFood() {
-    return this.http.get<food[]>(this.API_URL);
+    return this.http.get<Food[]>(this.API_URL);
   }
 
   getFoodById(id: number) {
-    return this.http.get<food>(`${this.API_URL}/${id}`);
+    return this.http.get<Food>(`${this.API_URL}/${id}`);
   }
 
-  createFood(food: food) {
-    return this.http.post<food>(this.API_URL, food);
+  createFood(food: Food) {
+    return this.http.post<Food>(this.API_URL, food);
   }
 }
