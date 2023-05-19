@@ -23,7 +23,8 @@
     "paths": {
       "@core/*": ["src/app/core/*"],
       "@modules/*": ["src/app/modules/*"],
-      "@shared/*": ["src/app/shared/*"]
+      "@shared/*": ["src/app/shared/*"],
+      "@env/*": ["src/environments/*"],
     },
     "lib": ["ES2022", "dom"]
   },

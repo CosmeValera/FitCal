@@ -18,10 +18,10 @@ export class ListFoodComponent {
 
   foods: food[] = [];
 
-  constructor(private service: FoodService, private router: Router){}
+  constructor(private foodService: FoodService, private router: Router){}
 
   ngOnInit(){
-    this.service.getFood()
+    this.foodService.getFood()
     .subscribe(data => {
       this.foods = data;
       console.log(this.foods)
