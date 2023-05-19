@@ -6,22 +6,25 @@
     </div>
 </div>
 
-<div class="wrapper card-columns" align="center" borde="black" style="width: 400px; margin:10px;column-count: 3;">
-    <div class="card" *ngFor="let foods of food | filtro: searchText">
+<div class="row">
+
+<!-- <div class="wrapper card-columns" align="center" borde="black"> -->
+    <div class="col-xxl-4 col-xl-6 col-md-12" *ngFor="let food of foods | filtro: searchText">
+      <div class="card">
         <div class="card-body">
-            <div class="row">
-                <h3> {{ foods.name }}</h3>
+            <div class="text-center">
+                <h2> {{ food.name }}</h2>
             </div>
             <br>
             <div class="row">
-                <div class="col-6">
-                    <app-personal-image></app-personal-image>
+                <div class="col-8">
+                    <app-personal-image [imageUrl]="food.image"></app-personal-image>
                 </div>
-                <div class="col-6">
-                    <p class="card-text">Kcal: {{ foods.kcal}}</p>
-                    <p class="card-text">Protx: {{ foods.proteins}}</p>
-                    <p class="card-text">Carbs: {{ foods.carbs}}</p>
-                    <p class="card-text">Fats: {{ foods.fats}}</p>
+                <div class="col-4">
+                    <p class="card-text">Kcal: {{ food.kcal}}</p>
+                    <p class="card-text">Prots: {{ food.proteins}}</p>
+                    <p class="card-text">Carbs: {{ food.carbs}}</p>
+                    <p class="card-text">Fats: {{ food.fats}}</p>
                 </div>
             </div>
             <br />
@@ -35,6 +38,7 @@
                 </div>
             </div>
         </div>
+      </div>
     </div>
-</div>
-<br/>
+  </div>
+<!-- </div> -->

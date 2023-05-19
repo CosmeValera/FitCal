@@ -1,7 +1,6 @@
 <div class="profile-picture justify-content-center">
-    <!-- profile.component.html -->
-    <!-- <img [src]="user.imagen" alt="Foto de perfil actual"> -->
-
-    <img type="file" src="https://via.placeholder.com/150" alt="Profile picture">
-    <!-- <input type="file"/>  -->
+  <input #imageInput id="imageInput" type="file" accept="image/*">
+  <label for="imageInput">
+    <img [src]="imageUrl || 'https://via.placeholder.com/150'" (click)="openFileExplorer($event)">
+  </label>
 </div>

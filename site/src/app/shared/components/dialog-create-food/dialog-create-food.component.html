@@ -1,6 +1,6 @@
 
 <mat-dialog-content align="center" style="max-height: 1000px; overflow: auto;">
-    <button mat-icon-button style="float:right">
+    <button mat-icon-button style="float:right" (click)="closeDialog()">
         <mat-icon> close </mat-icon>
     </button>
     <header class="justify-content-center">
@@ -12,13 +12,13 @@
     <div class="row">
         <div class="col-6">
             <p><mat-form-field>
-                <input matInput placeholder="Nombre">
+                <input matInput placeholder="Nombre" id="nameInput">
                 <mat-icon matSuffix>restaurant_menu</mat-icon>
             </mat-form-field></p>
         </div>
         <div class="col-6">
             <p><mat-form-field>
-                <input matInput placeholder="Marca">
+                <input matInput placeholder="Marca" id="brandInput">
                 <mat-icon matSuffix>loyalty</mat-icon>
             </mat-form-field></p>
         </div>
@@ -26,13 +26,13 @@
     <div class="row">
         <div class="col-6">
             <p><mat-form-field>
-                <input matInput placeholder="Calorias">
+                <input matInput placeholder="Calorias" id="kcalInput">
                 <mat-icon matSuffix>local_fire_department</mat-icon>
             </mat-form-field></p>
         </div>
         <div class="col-6">
             <p><mat-form-field>
-                <input matInput placeholder="Proteinas">
+                <input matInput placeholder="Proteinas" id="proteinsInput">
                 <mat-icon matSuffix>fitness_center</mat-icon>
             </mat-form-field></p>
         </div>
@@ -40,19 +40,19 @@
     <div class="row">
         <div class="col-6">
             <p><mat-form-field>
-                <input matInput placeholder="Carbohidratos">
+                <input matInput placeholder="Carbohidratos" id="carbsInput">
                 <mat-icon matSuffix>donut_large</mat-icon>
             </mat-form-field></p>
         </div>
         <div class="col-6">
             <p><mat-form-field>
-                <input matInput placeholder="Grasas">
+                <input matInput placeholder="Grasas" id="fatsInput">
                 <mat-icon matSuffix>fastfood</mat-icon>
             </mat-form-field></p>
         </div>
     </div>
     <mat-dialog-actions align="center">
-        <button mat-raised-button color="primary"> Guardar </button>
-        <button mat-raised-button color="warm"> Cancelar </button>
+        <button mat-raised-button color="primary" (click)="saveFood()"> Guardar </button>
+        <button mat-raised-button color="warm" (click)="closeDialog()"> Cancelar </button>
     </mat-dialog-actions>
 </mat-dialog-content>
