@@ -5,7 +5,7 @@ import { food } from '@shared/interfaces/foodInterface';
 @Injectable({
   providedIn: 'root'
 })
-export class ServiceFoodService {
+export class FoodService {
 
   urlGetFood: string = 'http://localhost:8080/fitcal/food';
   urlPostFood: string = 'http://localhost:8080/fitcal/food';
