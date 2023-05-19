@@ -38,10 +38,17 @@ export class DialogCreateFoodComponent {
       fats: Number((document.getElementById('fatsInput') as HTMLInputElement).value),
     }
 
+
     this.foodService.createFood(food)
       .subscribe(data => {
         console.log("Alimento dado de alta:", data);
+        this.dialogRef.close();
+        window.location.reload();
       });
 
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 }

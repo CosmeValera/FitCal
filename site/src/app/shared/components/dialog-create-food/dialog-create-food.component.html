@@ -1,6 +1,6 @@
 
 <mat-dialog-content align="center" style="max-height: 1000px; overflow: auto;">
-    <button mat-icon-button style="float:right">
+    <button mat-icon-button style="float:right" (click)="closeDialog()">
         <mat-icon> close </mat-icon>
     </button>
     <header class="justify-content-center">
@@ -53,6 +53,6 @@
     </div>
     <mat-dialog-actions align="center">
         <button mat-raised-button color="primary" (click)="saveFood()"> Guardar </button>
-        <button mat-raised-button color="warm"> Cancelar </button>
+        <button mat-raised-button color="warm" (click)="closeDialog()"> Cancelar </button>
     </mat-dialog-actions>
 </mat-dialog-content>
