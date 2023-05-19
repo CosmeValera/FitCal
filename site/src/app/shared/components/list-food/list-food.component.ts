@@ -20,7 +20,7 @@ export class ListFoodComponent {
 
   constructor(private foodService: FoodService, private router: Router){}
 
-  ngOnInit(){
+  ngOnInit() {
     this.foodService.getFood()
       .subscribe(data => {
         this.foods = data;

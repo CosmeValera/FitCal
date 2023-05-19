@@ -26,18 +26,19 @@ export class DialogCreateFoodComponent {
   }
 
   saveFood(): void {
+    console.log("save");
 
-    let foodMock: Food = {
-      name: 'galleta',
-      image: '',
-      brand: 'nestle',
-      kcal: 100,
-      proteins: 10,
-      carbs: 30,
-      fats: 40,
+    let food: Food = {
+      name: (document.getElementById('nameInput') as HTMLInputElement).value,
+      image: (document.getElementById('imageInput') as HTMLInputElement).value,
+      brand: (document.getElementById('brandInput') as HTMLInputElement).value,
+      kcal: Number((document.getElementById('kcalInput') as HTMLInputElement).value),
+      proteins: Number((document.getElementById('proteinsInput') as HTMLInputElement).value),
+      carbs: Number((document.getElementById('carbsInput') as HTMLInputElement).value),
+      fats: Number((document.getElementById('fatsInput') as HTMLInputElement).value),
     }
 
-    this.foodService.createFood(foodMock)
+    this.foodService.createFood(food)
       .subscribe(data => {
         console.log("Alimento dado de alta:", data);
       });
