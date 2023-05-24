@@ -1,3 +1,14 @@
 p {
   margin-bottom: 0.3rem;
+  font-size: 16px;
+}
+
+
+button {
+  padding: 2px 6px;
+  font-size: 16px;
+
+  &.addButton, &.closeButton {
+    margin-bottom: 1rem;
+  }
 }

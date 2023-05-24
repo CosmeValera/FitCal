@@ -1,12 +1,12 @@
 .half-circle {
   border-radius: 50%;
-  width: 110px;
-  height: 110px;
+  width: 130px;
+  height: 130px;
   background: linear-gradient(to bottom, #000000 50%, #ffe9f1 50%);
   overflow: hidden;
   position: absolute;
-  bottom: 30px;
-  right: 30px;
+  bottom: 40px;
+  right: 40px;
   z-index: 2;
 }
 
@@ -15,20 +15,21 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 10px;
   color: #fff;
 }
 
 .top {
-  top: 33%;
+  top: 29%;
   color: rgb(226, 226, 226);
   font-weight: bold;
+  font-size: 14px;
 }
 
 .bottom {
-  top: 67%;
+  top: 70%;
   color: black;
   font-weight: bold;
+  font-size: 18px;
 }
 
 .mat-mini-fab {
