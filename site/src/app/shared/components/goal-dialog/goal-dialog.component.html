@@ -1,54 +1,43 @@
-<button mat-icon-button style="float:right">
-    <mat-icon> close </mat-icon>
-</button>
-<mat-dialog-content>
-    <header class="justify-content-center">
-        <h1> Metas </h1>
-    </header>
-    <body>
-        <div class="row">
+<div class="d-flex align-items-center">
+    <h5 class="me-3">{{ selectTipo }}</h5>
+    <div class="flex-grow-1">
+      <select class="form-select" [(ngModel)]="selectedOption">
+        <ng-container *ngIf="selectTipo === 'Metas Semanal:'">
+          <option *ngFor="let option of metasSemanal" [value]="option.value">{{ option.label }}</option>
+        </ng-container>
+        <ng-container *ngIf="selectTipo === 'Nivel Activo:'">
+          <option *ngFor="let option of nivelActivo" [value]="option.value">{{ option.label }}</option>
+        </ng-container>
+      </select>
+    </div>
+  </div>
+  
+
+<!-- <div class="red-border">
+    <h3 class="justify-content-center"> Metas </h3>
+    <div class="row ">
             <div class="col-6">
-                <label> Peso Actual </label>
+                <h4> Meta Semanal </h4>
             </div>
             <div class="col-6">
-                <label> X kg </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                <label> Meta Semanal </label>
-            </div>
-            <div class="col-6">
-                <select name="metaSemanal" id="lang">
-                    <option value="ganar1000">Ganar 1kg a la semana</option>
-                    <option value="ganar750">Ganar 0.75kg a la semana</option>
-                    <option value="ganar500">Ganar 0.5kg a la semana</option>
-                    <option value="ganar250">Ganar 0.25kg a la semana</option>
-                    <option value="mantener">Mantenimiento</option>
-                    <option value="perder250">Perder 0.25kg a la semana</option>
-                    <option value="perder500">Perder 0.5kg a la semana</option>
-                    <option value="perder750">Perder 0.75kg a la semana</option>
-                    <option value="perder1000">Perder 1kg a la semana</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                <label> Nivel activo </label>
-            </div>
-            <div class="col-6">
-                <select name="nivelActivo" id="lang">
-                    <option value="pocoActivo">Poco Activo</option>
-                    <option value="algoActivo">Algo Activo</option>
-                    <option value="activo">Activo</option>
-                    <option value="muyActivo">Muy Activo</option>
+                <select class="form-select" name="metasSemanal" id="lang" [(ngModel)]="metasSemanal">
+                    <option *ngFor="let option of metasSemanal" [value]="option.value">{{ option.label }}</option>
                   </select>
             </div>
         </div>
         <br>
         <div class="row">
-            <label> Ingesta calórica diaria recomendada: 2000 </label>
+            <div class="col-6">
+                <label> Nivel activo </label>
+            </div>
+            <div class="col-6">
+                <select class="form-select" name="nivelActivo" id="lang">
+                    <option value="pocoActivo">Poco Activo</option>
+                    <option value="algoActivo">Algo Activo</option>
+                    <option value="activo">Activo</option>
+                    <option value="muyActivo">Muy Activo</option>
+                </select>
+            </div>
         </div>
-    </body>
-
-</mat-dialog-content>
+        <br>
+</div> -->

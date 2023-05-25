@@ -1,7 +1,7 @@
 <div class="fixed-width d-flex justify-content-center">
-  <h4>{{ dato }}</h4>
+  <h5>{{ dato }}</h5>
   <div class="content-right">
-    <h4 *ngIf="!editarDato">{{ datoPrincipal }} {{ tipo }}</h4>
+    <h5 *ngIf="!editarDato">{{ datoPrincipal }} {{ tipo }}</h5>
     <div *ngIf="editarDato" class="input-group">
       <!-- <input type="number" class="form-control form-control-sm"> -->
       <input type="number" class="form-control form-control-sm" [(ngModel)]="nuevoDato">
