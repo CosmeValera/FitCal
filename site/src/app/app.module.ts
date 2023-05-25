@@ -33,6 +33,8 @@ import { MatCardModule } from '@angular/material/card';
 import { FiltroPipe } from './shared/pipes/filtro.pipe';
 import { FoodService } from './shared/services/food.service';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginGuardService } from '@shared/services/loginGuard.service';
+import { AuthService } from '@shared/services/auth.service';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { HttpClientModule } from '@angular/common/http';
     SocialLoginModule
   ],
   providers: [
+    LoginGuardService,
+    AuthService,
     FoodService,
     {
       provide: 'SocialAuthServiceConfig',

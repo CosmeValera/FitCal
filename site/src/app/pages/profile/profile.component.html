@@ -1,11 +1,7 @@
-<asl-google-signin-button *ngIf="!user"></asl-google-signin-button>
+<asl-google-signin-button *ngIf="!user" type="standard" size="large"></asl-google-signin-button>
+
 
 <div *ngIf="user">
-  <!-- <img src="{{user.photoUrl}}">
-  <div>
-    <h4>{{ user.name }}</h4>
-    <p>{{ user.email }}</p>
-  </div> -->
 
   <div class="main-content d-flex justify-content-center">
       <main>
