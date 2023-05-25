@@ -1,28 +1,40 @@
-<div class="main-content d-flex justify-content-center">
-    <main>
-        <h1> Perfil de Usuario </h1>
+<asl-google-signin-button *ngIf="!user"></asl-google-signin-button>
 
-        <app-personal-image></app-personal-image>
-        <br>
+<div *ngIf="user">
+  <!-- <img src="{{user.photoUrl}}">
+  <div>
+    <h4>{{ user.name }}</h4>
+    <p>{{ user.email }}</p>
+  </div> -->
 
-        <app-personal-information
-            [dato]="'Peso:'"
-            [datoPrincipal]="'0'"
-            [tipo]="'kg'">
-        </app-personal-information>
-        <app-personal-information
-            [dato]="'Altura:'"
-            [datoPrincipal]="'0'"
-            [tipo]="'cm'">
-        </app-personal-information>
-        <app-personal-information
-            [dato]="'Calorias:'"
-            [datoPrincipal]="'0'"
-            [tipo]="'cal'">
-        </app-personal-information>
-        <br>
-        <mat-dialog-actions class="d-flex justify-content-center w-100">
-            <button mat-raised-button color="primary" (click)="openDialog()"> Metas </button>
-        </mat-dialog-actions>
-    </main>
+  <div class="main-content d-flex justify-content-center">
+      <main>
+          <div class="imagenYTexto">
+            <h1> Perfil de Usuario </h1>
+            <h4>{{ user.name }}</h4>
+            <img src="{{user.photoUrl}}">
+          </div>
+
+          <app-personal-information
+              [dato]="'Peso:'"
+              [datoPrincipal]="'0'"
+              [tipo]="'kg'">
+          </app-personal-information>
+          <app-personal-information
+              [dato]="'Altura:'"
+              [datoPrincipal]="'0'"
+              [tipo]="'cm'">
+          </app-personal-information>
+          <app-personal-information
+              [dato]="'Calorias:'"
+              [datoPrincipal]="'0'"
+              [tipo]="'cal'">
+          </app-personal-information>
+          <br>
+          <mat-dialog-actions class="d-flex justify-content-center w-100">
+              <button mat-raised-button color="primary" (click)="openDialog()"> Metas </button>
+          </mat-dialog-actions>
+      </main>
+  </div>
+
 </div>
