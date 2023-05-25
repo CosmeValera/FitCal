@@ -32,4 +32,13 @@ export class ProfileComponent {
     })
   }
 
+  modalOpen = false;
+
+  abrirModal() {
+    this.modalOpen = true;
+  }
+
+  cerrarModal() {
+    this.modalOpen = false;
+  }
 }

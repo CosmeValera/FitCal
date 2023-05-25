@@ -35,6 +35,7 @@ import { FoodService } from './shared/services/food.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginGuardService } from '@shared/services/loginGuard.service';
 import { AuthService } from '@shared/services/auth.service';
+import { CaloriesProfileComponent } from './shared/components/calories-profile/calories-profile.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { AuthService } from '@shared/services/auth.service';
     DialogCreateFoodComponent,
     ListFoodComponent,
     FiltroPipe,
+    CaloriesProfileComponent,
   ],
   imports: [
     BrowserModule,

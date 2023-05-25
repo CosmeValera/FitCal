@@ -1,36 +1,91 @@
 <asl-google-signin-button *ngIf="!user" type="standard" size="large"></asl-google-signin-button>
 
-
 <div *ngIf="user">
 
-  <div class="main-content d-flex justify-content-center">
-      <main>
-          <div class="imagenYTexto">
+<div class="main-content d-flex justify-content-center">
+    <main>
+        <div class="imagenYTexto">
             <h1> Perfil de Usuario </h1>
             <h4>{{ user.name }}</h4>
             <img src="{{user.photoUrl}}">
-          </div>
+        </div>
+        <div class="row">
+            <div class="col-6 red-border">
+                <div class="row ">
 
-          <app-personal-information
-              [dato]="'Peso:'"
-              [datoPrincipal]="'0'"
-              [tipo]="'kg'">
-          </app-personal-information>
-          <app-personal-information
-              [dato]="'Altura:'"
-              [datoPrincipal]="'0'"
-              [tipo]="'cm'">
-          </app-personal-information>
-          <app-personal-information
-              [dato]="'Calorias:'"
-              [datoPrincipal]="'0'"
-              [tipo]="'cal'">
-          </app-personal-information>
-          <br>
-          <mat-dialog-actions class="d-flex justify-content-center w-100">
-              <button mat-raised-button color="primary" (click)="openDialog()"> Metas </button>
-          </mat-dialog-actions>
-      </main>
-  </div>
+                <h4 class="d-flex justify-content-center" style="margin-bottom: 24px;">
+                    Datos personales
+                </h4>
+                <app-personal-information class="d-flex justify-content-center"
+                    [dato]="'Edad:'"
+                    [datoPrincipal]="'0'"
+                    [tipo]="'años'"
+                >
+                </app-personal-information>
+                <app-personal-information class="d-flex justify-content-center"
+                    [dato]="'Altura:'"
+                    [datoPrincipal]="'0'"
+                    [tipo]="'cm'"
+                >
+                </app-personal-information>
+                <app-personal-information class="d-flex justify-content-center"
+                    [dato]="'Peso:'"
+                    [datoPrincipal]="'0'"
+                    [tipo]="'kg'"
+                >
+                </app-personal-information>
+                <app-personal-information class="d-flex justify-content-center"
+                    [dato]="'Genero:'"
+                    [datoPrincipal]="'0'"
+                    [tipo]="'cal'"
+                >
+                </app-personal-information>
+                </div>
+            </div>            
+            <div class="col-6 red-border">                
+                <h4 class="main-content d-flex justify-content-center" style="margin-bottom: 24px;">
+                    Metas
+                </h4>
+                <app-goal-dialog [selectTipo]="'Metas Semanal:'"></app-goal-dialog>
+                <br>
+                <app-goal-dialog [selectTipo]="'Nivel Activo:'"></app-goal-dialog>
+            </div>
+        </div>
+        <br />
+        <div class="row red-border">
+            <app-calories-profile
+                [dato]="'Calorias:'"
+                [datoPrincipal]="'0'"
+                [tipo]="'cal'">                
+            </app-calories-profile>
+        </div>
+        <br>
+        <div class="row">
+            <button type="button" data-toggle="modal" data-target="#exampleModal" (click)="abrirModal()" class="d-flex justify-content-center btn btn-success"> Guardar </button>
+        </div>
+        <br>
 
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> ¿Deseas guardar los cambios?</h5>
+                <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </main>
+</div>
 </div>
