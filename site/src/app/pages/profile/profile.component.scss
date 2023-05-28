@@ -20,6 +20,7 @@ img {
   width: 200px;
   height: 200px;
   object-fit: cover;
+  box-shadow: 0px 0px 15px rgba(195, 171, 101, 0.6);
 }
 
 #imageInput {
@@ -48,10 +49,10 @@ input {
      color: rgba(255,255,255,0.7);
   }
   ::-moz-placeholder {
-     color: rgba(255,255,255,0.7);  
+     color: rgba(255,255,255,0.7);
   }
-  :-ms-input-placeholder {  
-     color: rgba(255,255,255,0.7);  
+  :-ms-input-placeholder {
+     color: rgba(255,255,255,0.7);
   }
   &:focus {
     outline: 0 transparent solid;
@@ -59,10 +60,10 @@ input {
      color: rgba(0,0,0,0.7);
     }
     ::-moz-placeholder {
-       color: rgba(0,0,0,0.7);  
+       color: rgba(0,0,0,0.7);
     }
-    :-ms-input-placeholder {  
-       color: rgba(0,0,0,0.7);  
+    :-ms-input-placeholder {
+       color: rgba(0,0,0,0.7);
     }
   }
 }
@@ -157,9 +158,21 @@ input {
   z-index: -1;
   opacity: 30%;
 }
+
 .underlay-black {
-  background: rgba(37, 37, 34, 0.7);
+  background: linear-gradient(to bottom right, rgba(80, 80, 80, 0.75), rgba(5, 5, 5, 0.75));
   z-index: -1;
+}
+
+
+h3, h5 {
+  color: white;
+  align-items: center;
+  text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.45);
+}
+
+h3 {
+  font-weight: bold;
 }
 
 @keyframes hue-rotate {
