@@ -1,5 +1,21 @@
-h1 {
-  text-align: center;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700);
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+
+body, html {
+  height: 100%;
+}
+
+body {
+  font-family: 'Open Sans';
+  font-weight: 100;
+  display: flex;
+  overflow: hidden;
+}
+
+.no-user {
+  margin-left: -5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .imagenYTexto {
@@ -9,18 +25,14 @@ h1 {
   margin-bottom: 2rem;
 }
 
-.profile-picture {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 img {
   width: 200px;
   height: 200px;
   object-fit: cover;
-  box-shadow: 0px 0px 15px rgba(195, 171, 101, 0.6);
+
+  &.img-logo {
+    box-shadow: 0px 0px 15px rgba(195, 171, 101, 0.6);
+  }
 }
 
 #imageInput {
@@ -32,18 +44,6 @@ img {
   border-radius: 5px;
 }
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700);
-@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
-
-body, html {
-  height: 100%;
-}
-body {
-  font-family: 'Open Sans';
-  font-weight: 100;
-  display: flex;
-  overflow: hidden;
-}
 input {
   ::-webkit-input-placeholder {
      color: rgba(255,255,255,0.7);
@@ -163,7 +163,6 @@ input {
   background: linear-gradient(to bottom right, rgba(80, 80, 80, 0.75), rgba(5, 5, 5, 0.75));
   z-index: -1;
 }
-
 
 h3, h5 {
   color: white;

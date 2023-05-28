@@ -1,6 +1,6 @@
-<div *ngIf="!user" >
+<div *ngIf="!user" class="no-user" >
     <div class="main-content d-flex justify-content-center">
-        <img src="../../../../assets/FitCal.png" alt="Logo" class="logo"/>
+        <img [ngClass]="'img-logo'" src="../../../../assets/FitCal.png" alt="Logo" class="logo"/>
     </div>
     <h3 class="display-4 text-center">
         ¡Bienvenido a FitCal!
