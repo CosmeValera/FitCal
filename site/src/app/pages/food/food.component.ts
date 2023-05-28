@@ -1,18 +1,33 @@
 import { Component } from '@angular/core';
+import { Food } from '@shared/interfaces/foodInterface';
+import { FoodService } from '@shared/services/food.service';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { Dialog } from '@angular/cdk/dialog';
-import { DialogCreateFoodComponent } from '@shared/components/dialog-create-food/dialog-create-food.component';
-import { NONE_TYPE } from '@angular/compiler';
+import { DialogCreateFoodComponent } from '../../shared/components/dialog-create-food/dialog-create-food.component';
 
 @Component({
-  selector: 'app-food',
+  selector: 'app-list-food',
   templateUrl: './food.component.html',
   styleUrls: ['./food.component.scss']
 })
 export class FoodComponent {
-  constructor(private matDialog:MatDialog) { }
+  filterFood = '';
+  searchText = '';
 
-  ngOnInit(): void {
+  foods: Food[] = [];
+
+  constructor(
+    private foodService: FoodService,
+    private router: Router,
+    private matDialog: MatDialog
+  ) {}
+
+  ngOnInit() {
+    this.foodService.getFood()
+      .subscribe(data => {
+        this.foods = data;
+        console.log(this.foods)
+      });
   }
 
   openCreateFood(){

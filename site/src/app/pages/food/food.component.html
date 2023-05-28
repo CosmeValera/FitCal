@@ -1,11 +1,51 @@
-<div class="jumbotron center">
-    <h3 class="display-4 text-center"> Gestión de los alimentos </h3>
-    <p class="lead text-center"> En esta parte gestionaremos los alimentos </p>
-    <mat-dialog-actions>
-        <button mat-raised-button color="primary" (click)="openCreateFood()"> Añadir Alimento </button>
-    </mat-dialog-actions>
-    <br><br>
-    <app-list-food></app-list-food>
-    
-    
+<div class="row">
+  <div class="col">
+    <div class="input-group align-items-baseline">
+      <mat-form-field class="flex-grow-1 me-2">
+        <input type="text" matInput [(ngModel)]="searchText" placeholder="Buscar alimentos">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <div class="input-group-append">
+        <button class="btn btn-primary ms-2" (click)="openCreateFood()">Añadir Alimento</button>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+<div class="row">
+
+<!-- <div class="wrapper card-columns" align="center" borde="black"> -->
+    <div class="col-xxl-4 col-xl-6 col-md-12" *ngFor="let food of foods | filtro: searchText">
+      <div class="card">
+        <div class="card-body">
+            <div class="text-center">
+                <h2> {{ food.name }}</h2>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-8">
+                    <app-personal-image [imageUrl]="food.image"></app-personal-image>
+                </div>
+                <div class="col-4">
+                    <p class="card-text">Kcal: {{ food.kcal}}</p>
+                    <p class="card-text">Prots: {{ food.proteins}}</p>
+                    <p class="card-text">Carbs: {{ food.carbs}}</p>
+                    <p class="card-text">Fats: {{ food.fats}}</p>
+                </div>
+            </div>
+            <br />
+            <div class="example-button-row">
+                <div class="example-flex-container">
+                    <div class="example-button-container">
+                    <button mat-mini-fab color="primary">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- </div> -->

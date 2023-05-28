@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NutritionComponent } from './pages/nutrition/nutrition.component';
 import { DiaryComponent } from './pages/diary/diary.component';
-import { FoodComponent } from './pages/food/food.component';
 import { LoginGuardService } from '@shared/services/loginGuard.service';
+import { FoodComponent } from 'src/app/pages/food/food.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'perfil', pathMatch: 'full'},

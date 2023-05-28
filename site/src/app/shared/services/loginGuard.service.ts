@@ -12,7 +12,7 @@ export class LoginGuardService implements CanActivate {
     console.log(this.authService.isAuthenticated());
 
     // Descomenta esta linea, si no quieres tener que logearte
-    // return true;
+    return true;
 
     if (this.authService.isAuthenticated()) {
       return true;
