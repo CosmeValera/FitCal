@@ -2,16 +2,16 @@
     <h5 class="me-3">{{ selectTipo }}</h5>
     <div class="flex-grow-1">
       <select class="form-select" [(ngModel)]="selectedOption">
-        <ng-container *ngIf="selectTipo === 'Metas Semanal:'">
+        <ng-container *ngIf="selectTipo === 'Meta Semanal:'">
           <option *ngFor="let option of metasSemanal" [value]="option.value">{{ option.label }}</option>
         </ng-container>
-        <ng-container *ngIf="selectTipo === 'Nivel Activo:'">
+        <ng-container *ngIf="selectTipo === 'Nivel de Actividad:'">
           <option *ngFor="let option of nivelActivo" [value]="option.value">{{ option.label }}</option>
         </ng-container>
       </select>
     </div>
   </div>
-  
+
 
 <!-- <div class="red-border">
     <h3 class="justify-content-center"> Metas </h3>

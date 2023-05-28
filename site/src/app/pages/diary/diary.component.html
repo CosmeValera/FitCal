@@ -1,13 +1,13 @@
 <div class="main-content">
   <main>
-    <app-meal [meal]="'Breakfast'"></app-meal>
-    <app-meal [meal]="'Lunch'"></app-meal>
-    <app-meal [meal]="'Dinner'"></app-meal>
+    <app-meal [meal]="'Desayuno'"></app-meal>
+    <app-meal [meal]="'Comida'"></app-meal>
+    <app-meal [meal]="'Cena'"></app-meal>
     <app-meal [meal]="'Snacks'"></app-meal>
   </main>
 </div>
 
 <button mat-mini-fab class="half-circle" (click)="openDialog()">
-  <span class="top">Calories Left</span>
+  <span class="top">Calorías restantes</span>
   <span class="bottom">{{calories}}</span>
 </button>
