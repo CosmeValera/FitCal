@@ -18,6 +18,33 @@ body {
   padding-right: 2rem;
 }
 
+.logout-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.logout-button:hover {
+  background-color: #444;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+.logout-button:focus {
+  outline: none;
+}
+
+.logout-button:active {
+  background-color: #222;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+
 .imagenYTexto {
   display: flex;
   align-items: center;

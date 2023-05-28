@@ -1,3 +1,4 @@
+<!-- No hay usuario -->
 <div *ngIf="!user" class="no-user" >
     <div class="main-content d-flex justify-content-center">
         <img [ngClass]="'img-logo'" src="../../../../assets/FitCal.png" alt="Logo" class="logo"/>
@@ -18,9 +19,12 @@
     <div class="underlay-photo"></div>
     <div class="underlay-black"></div>
 </div>
+
+<!-- Hay usuario -->
 <div *ngIf="user">
     <div class="main-content d-flex justify-content-center">
         <main>
+            <button class="logout-button" (click)="logout()">Logout</button>
             <div class="imagenYTexto">
                 <h1> Perfil de Usuario </h1>
                 <h4>{{ user.name }}</h4>

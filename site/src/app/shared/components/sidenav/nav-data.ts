@@ -12,7 +12,7 @@ export const navbarData = [
   {
     routeLink: 'nutricion',
     icon: 'fal fa-chart-pie',
-    label: 'Nutricion'
+    label: 'Nutrición'
   },
   {
     routeLink: 'alimentos',

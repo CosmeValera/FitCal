@@ -11,6 +11,7 @@ import { AuthService } from '@shared/services/auth.service';
 })
 export class ProfileComponent {
   user: any;
+  modalOpen = false;
 
   constructor(
     private matDialog: MatDialog,
@@ -32,13 +33,16 @@ export class ProfileComponent {
     })
   }
 
-  modalOpen = false;
-
   abrirModal() {
     this.modalOpen = true;
   }
 
   cerrarModal() {
     this.modalOpen = false;
+  }
+
+  logout() {
+    this.fitcalAuthService.logout();
+    this.user = null;
   }
 }
