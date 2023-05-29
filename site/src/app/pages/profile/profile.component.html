@@ -22,20 +22,19 @@
 
 <!-- Hay usuario -->
 <div *ngIf="user">
+    <button class="logout-button" (click)="logout()">Logout</button>
+    <div class="imagenYTexto">
+        <h4>{{ user.name }}</h4>
+        <img [ngClass]="'img-user'" src="{{user.photoUrl}}">
+    </div>
     <div class="main-content d-flex justify-content-center">
         <main>
-            <button class="logout-button" (click)="logout()">Logout</button>
-            <div class="imagenYTexto">
-                <h1> Perfil de Usuario </h1>
-                <h4>{{ user.name }}</h4>
-                <img src="{{user.photoUrl}}">
-            </div>
-            <div class="row">
-                <div class="col-6 red-border">
-                    <div class="row ">
+            <div class="row mb-2">
+                <div class="col-12 col-md-6 p-0">
+                  <div class="red-border mb-4 mb-md-0 me-md-2">
 
-                    <h4 class="d-flex justify-content-center" style="margin-bottom: 24px;">
-                        Datos personales
+                    <h4 class="d-flex justify-content-center mb-4">
+                      Datos personales
                     </h4>
                     <app-personal-information class="d-flex justify-content-center"
                         [dato]="'Edad:'"
@@ -61,21 +60,23 @@
                         [tipo]="'cal'"
                     >
                     </app-personal-information>
-                    </div>
+                  </div>
                 </div>
-                <div class="col-6 red-border">
-                    <h4 class="main-content d-flex justify-content-center" style="margin-bottom: 24px;">
-                        Metas
+                <div class="col-12 col-md-6 p-0">
+                  <div class="red-border ms-md-2 h-100">
+                    <h4 class="d-flex justify-content-center mb-4">
+                      Metas
                     </h4>
                     <app-goal-dialog [selectTipo]="'Meta Semanal:'"></app-goal-dialog>
                     <br>
                     <app-goal-dialog [selectTipo]="'Nivel de Actividad:'"></app-goal-dialog>
+                  </div>
                 </div>
             </div>
             <br />
             <div class="row red-border">
                 <app-calories-profile
-                    [dato]="'Calorias:'"
+                    [dato]="'Calorías:'"
                     [datoPrincipal]="'0'"
                     [tipo]="'cal'">
                 </app-calories-profile>

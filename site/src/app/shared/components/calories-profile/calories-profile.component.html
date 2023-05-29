@@ -1,10 +1,10 @@
 <div class="row">
     <h4 class="main-content d-flex justify-content-center" style="margin-bottom: 24px;">
-        Calorias
+        Calorías
     </h4>
 </div>
 <div class="row">
-    <div class="fixed-width d-flex justify-content-center">
+    <div class="fixed-width d-flex justify-content-center align-items-baseline">
         <h5>{{ dato }} &nbsp;&nbsp;</h5>
             <h5 *ngIf="!editarDato">{{ datoPrincipal }} {{ tipo }} &nbsp;&nbsp;</h5>
             <div *ngIf="editarDato" class="input-group">
@@ -14,10 +14,10 @@
                     <button class="btn btn-danger" (click)="cancelarDato()">Cancelar</button>
                 </div>
             </div>
-            
+
             <button class="btn btn-primary" *ngIf="!editarDato" (click)="editarDato = true">Editar</button>
             &nbsp; <button class="btn btn-warning" (click)="recalcularCalorias()">Recalcular</button>
-    </div>    
+    </div>
 </div>
 <div class="row ">
     <label class="main-content d-flex justify-content-center"> Ingesta calórica diaria recomendada: {{calRecomendada}}</label>

@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+h5 {
+  padding-top: 4px;
+}
+
 h4 {
   margin-left: 12px;
   width: 80px;
@@ -23,7 +27,7 @@ h4 {
   flex: 1;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
+  align-items: baseline;
 }
 
 .input-group {
