@@ -3,7 +3,8 @@ import { Food } from '@shared/interfaces/foodInterface';
 import { FoodService } from '@shared/services/food.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogCreateFoodComponent } from '../../shared/components/dialog-create-food/dialog-create-food.component';
+import { DialogCreateFoodComponent } from '@shared/components/dialog-create-food/dialog-create-food.component';
+import { DialogUpdateFoodComponent } from '@shared/components/dialog-update-food/dialog-update-food.component';
 
 @Component({
   selector: 'app-list-food',
@@ -32,6 +33,13 @@ export class FoodComponent {
 
   openCreateFood(){
     this.matDialog.open(DialogCreateFoodComponent,{
+      width: '700px',
+      height: '600px',
+    })
+  }
+
+  openUpdateFood(){
+    this.matDialog.open(DialogUpdateFoodComponent,{
       width: '700px',
       height: '600px',
     })

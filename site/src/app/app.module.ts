@@ -28,6 +28,7 @@ import { MatDialogModule }from '@angular/material/dialog';
 import { CaloriesDialogComponent } from './shared/components/calories-dialog/calories-dialog.component';
 import { FoodComponent } from './pages/food/food.component';
 import { DialogCreateFoodComponent } from './shared/components/dialog-create-food/dialog-create-food.component';
+import { DialogUpdateFoodComponent } from './shared/components/dialog-update-food/dialog-update-food.component';
 import { MatCardModule } from '@angular/material/card';
 import { FiltroPipe } from './shared/pipes/filtro.pipe';
 import { FoodService } from './shared/services/food.service';
@@ -51,6 +52,7 @@ import { CaloriesProfileComponent } from './shared/components/calories-profile/c
     CaloriesDialogComponent,
     FoodComponent,
     DialogCreateFoodComponent,
+    DialogUpdateFoodComponent,
     FiltroPipe,
     CaloriesProfileComponent,
   ],
