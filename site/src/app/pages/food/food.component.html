@@ -15,6 +15,8 @@
 
 <div class="row">
 
+<!-- food-> name, kcal, proteins, carbs, fats -->
+
 <!-- <div class="wrapper card-columns" align="center" borde="black"> -->
     <div class="col-xxl-4 col-xl-6 col-md-12" *ngFor="let food of foods | filtro: searchText">
       <div class="card">
@@ -28,10 +30,10 @@
                     <app-personal-image [imageUrl]="food.image"></app-personal-image>
                 </div>
                 <div class="col-4">
-                    <p class="card-text">Kcal: {{ food.kcal}}</p>
-                    <p class="card-text">Prots: {{ food.proteins}}</p>
-                    <p class="card-text">Carbs: {{ food.carbs}}</p>
-                    <p class="card-text">Fats: {{ food.fats}}</p>
+                    <p class="card-text">Kcal: {{ food.kcal }}</p>
+                    <p class="card-text">Prots: {{ food.proteins }}</p>
+                    <p class="card-text">Carbs: {{ food.carbs }}</p>
+                    <p class="card-text">Grasas: {{ food.fats }}</p>
                 </div>
             </div>
             <br />
