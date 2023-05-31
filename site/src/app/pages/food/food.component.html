@@ -23,47 +23,43 @@
 <section class="wrapper">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 col-md-6 col-lg-4 p-2" *ngFor="let food of foods | filtro: searchText">
-        <!-- <div class="col-sm-12 col-md-6 col-lg-4 mb-4 p-0"> -->
-          <div
-            class="card text-white card-has-bg click-col"
-            style="
-              background-image: url('https://source.unsplash.com/600x900/?healthy,gym,fitness,exercise,health,wellness');
-            "
-          >
-            <img
-              class="card-img d-none"
-              src="https://source.unsplash.com/600x900/?healthy,gym,fitness,exercise,health,wellness"
-              alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?"
-            />
-            <div class="card-img-overlay d-flex flex-column">
-              <div class="card-body">
-                <small class="card-meta mb-2">{{food.brand}}</small>
-                <h4 class="card-title mt-0">
-                  <a class="text-white" herf="#"
-                    >{{food.name}}</a
-                  >
-                </h4>
-                <small class="d-hover-none"><b><i class="fas fa-fire"></i> Calorías: {{ food.kcal }}</b></small><br>
-                <div class="d-none d-hover-flex">
-                  <small><b><i class="fas fa-fire"></i> Calorías: {{ food.kcal }}</b></small><br>
-                  <small><b><i class="fas fa-bread-slice"></i> Carbos: {{ food.carbs }}</b></small><br>
-                  <small><b><i class="fas fa-cheese"></i> Grasas: {{ food.fats }}</b></small><br>
-                  <small><b><i class="fas fa-drumstick-bite"></i> Proteínas: {{ food.proteins }}</b></small>
-                </div>
+      <div class="col-sm-12 col-md-6 col-lg-4 p-2" *ngFor="let food of foods | filtro: searchText; let i = index">
+        <div
+          class="card text-white card-has-bg click-col"
+          [style.backgroundImage]="'url(https://source.unsplash.com/600x900/?healthy,gym,fitness,exercise,health,wellness,' + i + ')'"
+        >
+          <img
+            class="card-img d-none"
+            src="https://source.unsplash.com/600x900/?healthy,gym,fitness,exercise,health,wellness"
+            alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?"
+          />
+          <div class="card-img-overlay d-flex flex-column">
+            <div class="card-body">
+              <small class="card-meta mb-2">{{food.brand}}</small>
+              <h4 class="card-title mt-0">
+                <a class="text-white" herf="#"
+                  >{{food.name}}</a
+                >
+              </h4>
+              <small class="d-hover-none"><b><i class="fas fa-fire"></i> Calorías: {{ food.kcal }}</b></small><br>
+              <div class="d-none d-hover-flex">
+                <small><b><i class="fas fa-fire"></i> Calorías: {{ food.kcal }}</b></small><br>
+                <small><b><i class="fas fa-bread-slice"></i> Carbos: {{ food.carbs }}</b></small><br>
+                <small><b><i class="fas fa-cheese"></i> Grasas: {{ food.fats }}</b></small><br>
+                <small><b><i class="fas fa-drumstick-bite"></i> Proteínas: {{ food.proteins }}</b></small>
               </div>
-              <div class="card-footer">
-                <div class="media">
-                  <app-personal-image
-                  class="mr-3 rounded-circle d-hover-transparent"
-                  [imageUrl]="food.image"
-                  style="max-width: 50px!important">
-                  </app-personal-image>
-                </div>
+            </div>
+            <div class="card-footer">
+              <div class="media">
+                <app-personal-image
+                class="mr-3 rounded-circle d-hover-transparent"
+                [imageUrl]="food.image"
+                style="max-width: 50px!important">
+                </app-personal-image>
               </div>
             </div>
           </div>
-        <!-- </div> -->
+        </div>
       </div>
     </div>
   </div>
