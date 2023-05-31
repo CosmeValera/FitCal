@@ -15,7 +15,26 @@ export class FoodComponent {
   filterFood = '';
   searchText = '';
 
-  foods: Food[] = [];
+  // foods: Food[] = [];
+  foods: Food[] = [{
+    id: 2,
+    brand: "Marca A",
+    image: "https://ejemplo.com/imagenes/manzana.jpg",
+    name: "Mandarina",
+    kcal: 52,
+    proteins: 14,
+    fats: 0.2,
+    carbs: 0.3},
+  {
+    brand: "Marca B",
+    carbs: 14,
+    fats: 0.2,
+    id: 2,
+    image: "https://ejemplo.com/imagenes/manzana.jpg",
+    kcal: 52,
+    name: "Platanos",
+    proteins: 0
+  }];
 
   constructor(
     private foodService: FoodService,
@@ -24,11 +43,11 @@ export class FoodComponent {
   ) {}
 
   ngOnInit() {
-    this.foodService.getFood()
-      .subscribe(data => {
-        this.foods = data;
-        console.log(this.foods)
-      });
+    // this.foodService.getFood()
+    //   .subscribe(data => {
+    //     this.foods = data;
+    //     console.log(this.foods)
+    //   });
   }
 
   openCreateFood(){
