@@ -16,25 +16,48 @@ export class FoodComponent {
   searchText = '';
 
   // foods: Food[] = [];
-  foods: Food[] = [{
-    id: 2,
-    brand: "Marca A",
-    image: "https://ejemplo.com/imagenes/manzana.jpg",
-    name: "Mandarina",
-    kcal: 52,
-    proteins: 14,
-    fats: 0.2,
-    carbs: 0.3},
-  {
-    brand: "Marca B",
-    carbs: 14,
-    fats: 0.2,
-    id: 2,
-    image: "https://ejemplo.com/imagenes/manzana.jpg",
-    kcal: 52,
-    name: "Platanos",
-    proteins: 0
-  }];
+  foods: Food[] = [
+    {
+      id: 2,
+      brand: "Marca A",
+      image: "https://source.unsplash.com/600x900/?food",
+      name: "Mandarina",
+      kcal: 52,
+      proteins: 14,
+      fats: 0.2,
+      carbs: 0.3
+    },
+    {
+      id: 2,
+      brand: "Marca A",
+      image: "https://source.unsplash.com/600x900/?food,gym",
+      name: "Mandarina",
+      kcal: 52,
+      proteins: 14,
+      fats: 0.2,
+      carbs: 0.3
+    },
+    {
+      id: 2,
+      brand: "Marca A",
+      image: "https://source.unsplash.com/600x900/?food,healthy",
+      name: "Mandarina",
+      kcal: 52,
+      proteins: 14,
+      fats: 0.2,
+      carbs: 0.3
+    },
+    {
+      id: 2,
+      brand: "Marca A",
+      image: "https://source.unsplash.com/600x900/?food,wellness",
+      name: "Mandarina",
+      kcal: 52,
+      proteins: 14,
+      fats: 0.2,
+      carbs: 0.3
+    }
+  ];
 
   constructor(
     private foodService: FoodService,
