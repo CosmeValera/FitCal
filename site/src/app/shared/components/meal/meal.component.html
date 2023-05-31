@@ -4,15 +4,4 @@
 <div *ngFor="let item of foods, let i = index">
   <p>{{i + 1}} - {{item }} <button class="removeButton" (click)="removeItem(i)">Remove</button></p>
 </div>
-<ng-container *ngIf="showOptions">
-  <div>
-    <div class="d-inline" *ngFor="let ingredient of ingredients">
-      <button class="me-1 ingredient" (click)="addItem(ingredient)">{{ingredient}}</button>
-    </div>
-    <button class="closeButton" (click)="addItem('')">X</button>
-  </div>
-</ng-container>
-<ng-container *ngIf="!showOptions">
-  <button class="addButton" (click)="showOptions = true">+</button>
-  <button class="add-food-button" id={{meal}} (click)="anadirAlimentoModal()"> + Añadir alimento</button>
-</ng-container>
+<button class="add-food-button" id={{meal}} (click)="anadirAlimentoModal()"> + Añadir alimento</button>

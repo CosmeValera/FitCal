@@ -13,7 +13,6 @@ import { FoodService } from '@shared/services/food.service';
 export class MealComponent {
   @Input() meal: string = '';
   foods: string[] = [];
-  showOptions = false;
   mostrarBotonModal = true;
 
   desayuno: string[] = [];
@@ -39,21 +38,6 @@ export class MealComponent {
     });
   }
 
-  readonly ingredients = [
-    'lettuce',
-    'tomato',
-    'avocado'
-  ];
-
-  addItem(food: string): void {
-    this.showOptions = false;
-
-    if (food == '') {
-      return;
-    }
-    this.foods.push(food);
-  }
-
   removeItem(index: number): void {
     this.foods.splice(index, 1);
   }
@@ -68,7 +52,7 @@ export class MealComponent {
 
     this.matDialog.open(FoodComponent,{
       width: '1300px',
-      height: '600px',      
+      height: '600px',
     })
   }
 

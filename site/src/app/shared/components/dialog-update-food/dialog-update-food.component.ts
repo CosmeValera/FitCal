@@ -5,25 +5,25 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-dialog-create-food',
-  templateUrl: './dialog-create-food.component.html',
-  styleUrls: ['./dialog-create-food.component.scss']
+  selector: 'app-dialog-update-food',
+  templateUrl: './dialog-update-food.component.html',
+  styleUrls: ['./dialog-update-food.component.scss']
 })
-export class DialogCreateFoodComponent {
+export class DialogUpdateFoodComponent {
   constructor(
-    public dialogRef: MatDialogRef<DialogCreateFoodComponent>,
+    public dialogRef: MatDialogRef<DialogUpdateFoodComponent>,
     private foodService: FoodService,
     private router: Router
   ) { }
 
-  // No se está usando
-  crearAlimento(food: Food){
-    this.foodService.createFood(food)
-    .subscribe(data => {
-      alert("Se Agrego con Exito...!!");
-      this.dialogRef.close();
-    })
-  }
+  // // No se está usando
+  // crearAlimento(food: Food){
+  //   this.foodService.createFood(food)
+  //   .subscribe(data => {
+  //     alert("Se Agrego con Exito...!!");
+  //     this.dialogRef.close();
+  //   })
+  // }
 
   saveFood(): void {
     console.log("save");

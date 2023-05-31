@@ -2,59 +2,83 @@
   <div class="col">
     <div class="input-group align-items-baseline">
       <mat-form-field class="flex-grow-1 me-2">
-        <input type="text" matInput [(ngModel)]="searchText" placeholder="Buscar alimentos">
+        <input
+          type="text"
+          matInput
+          [(ngModel)]="searchText"
+          placeholder="Buscar alimentos"
+        />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
       <div class="input-group-append">
-        <button class="btn btn-primary ms-2" (click)="openCreateFood()">Añadir Alimento</button>
+        <button class="btn btn-primary ms-2" (click)="openCreateFood()">
+          Añadir Alimento
+        </button>
       </div>
     </div>
   </div>
 </div>
 
-
-<div class="row" style="margin: 10px">
-
-<!-- <div class="wrapper card-columns" align="center" borde="black"> -->
-    <div class="col-xxl-4 col-xl-6 col-md-12" *ngFor="let food of foods | filtro: searchText">
-      <div class="card">
-        <div class="card-body">
-            <div class="text-center">
-                <h2> {{ food.name }}</h2>
+<!-- food-> name, kcal, proteins, carbs, fats -->
+<section class="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-4 p-2" *ngFor="let food of foods | filtro: searchText; let i = index">
+        <div
+          class="card text-white card-has-bg click-col"
+          [style.backgroundImage]="'url(https://source.unsplash.com/600x900/?healthy,gym,fitness,exercise,health,wellness,' + i + ')'"
+        >
+          <img
+            class="card-img d-none"
+            src="https://source.unsplash.com/600x900/?healthy,gym,fitness,exercise,health,wellness"
+            alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?"
+          />
+          <div class="card-img-overlay d-flex flex-column">
+            <div class="card-body">
+              <small class="card-meta mb-2">{{food.brand}}</small>
+              <h4 class="card-title mt-0">
+                <a class="text-white" herf="#"
+                  >{{food.name}}</a
+                >
+              </h4>
+              <small class="d-hover-none"><b><i class="fas fa-fire"></i> Calorías: {{ food.kcal }}</b></small><br>
+              <div class="d-none d-hover-flex">
+                <small><b><i class="fas fa-fire"></i> Calorías: {{ food.kcal }}</b></small><br>
+                <small><b><i class="fas fa-bread-slice"></i> Carbos: {{ food.carbs }}</b></small><br>
+                <small><b><i class="fas fa-cheese"></i> Grasas: {{ food.fats }}</b></small><br>
+                <small><b><i class="fas fa-drumstick-bite"></i> Proteínas: {{ food.proteins }}</b></small>
+              </div>
             </div>
-            <br>
-            <div class="row">
-                <div class="col-8">
-                    <app-personal-image [imageUrl]="food.image"></app-personal-image>
-                </div>
-                <div class="col-4">
-                    <p class="card-text">Kcal: {{ food.kcal}}</p>
-                    <p class="card-text">Prots: {{ food.proteins}}</p>
-                    <p class="card-text">Carbs: {{ food.carbs}}</p>
-                    <p class="card-text">Fats: {{ food.fats}}</p>
-                </div>
+            <div class="card-footer">
+              <div class="media">
+                <app-personal-image
+                class="mr-3 rounded-circle d-hover-transparent"
+                [imageUrl]="food.image"
+                style="max-width: 50px!important">
+                </app-personal-image>
+              </div>
             </div>
-            <br />
             <div *ngIf="mostrarBotonModal" class="example-button-row">
-                <div class="example-flex-container">
-                    <div class="example-button-container">
+              <div class="example-flex-container">
+                  <div class="example-button-container">
                     <button mat-mini-fab color="primary">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    </div>
-                </div>
+                  </div>
+              </div>
             </div>
             <div *ngIf="!mostrarBotonModal" id="anadirAliment" class="example-button-row">
               <div class="example-flex-container">
                   <div class="example-button-container">
-                  <button (click)="anadirAlimento(food)" mat-mini-fab color="primary">
-                      <mat-icon>add</mat-icon>
-                  </button>
+                    <button (click)="anadirAlimento(food)" mat-mini-fab color="primary">
+                        <mat-icon>add</mat-icon>
+                    </button>
                   </div>
               </div>
+            </div>
+            </div>
           </div>
-        </div>
       </div>
     </div>
   </div>
-<!-- </div> -->
+</section>
