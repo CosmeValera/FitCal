@@ -13,6 +13,7 @@ import { DialogCreateFoodComponent } from '../../shared/components/dialog-create
 export class FoodComponent {
   filterFood = '';
   searchText = '';
+  mostrarBotonModal = false;
 
   foods: Food[] = [];
 
@@ -26,7 +27,7 @@ export class FoodComponent {
     this.foodService.getFood()
       .subscribe(data => {
         this.foods = data;
-        console.log(this.foods)
+        // console.log(this.foods)
       });
   }
 
@@ -35,5 +36,9 @@ export class FoodComponent {
       width: '700px',
       height: '600px',
     })
+  }
+
+  anadirAlimento(alimento: any) {
+    this.foodService.seleccionarAlimento(alimento);
   }
 }

@@ -2,12 +2,21 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Food } from '@shared/interfaces/foodInterface';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FoodService {
   private readonly API_URL = environment.foodUrl;
+  
+  private alimentoSeleccionadoSubject = new BehaviorSubject<any>(null);
+  alimentoSeleccionado$ = this.alimentoSeleccionadoSubject.asObservable();
+
+  seleccionarAlimento(alimento: any) {
+    this.alimentoSeleccionadoSubject.next(alimento);
+    console.log(alimento)
+  }
 
   constructor(private http: HttpClient) { }
 

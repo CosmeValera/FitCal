@@ -35,6 +35,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginGuardService } from '@shared/services/loginGuard.service';
 import { AuthService } from '@shared/services/auth.service';
 import { CaloriesProfileComponent } from './shared/components/calories-profile/calories-profile.component';
+import { FechaComponentComponent } from '@shared/components/fecha-component/fecha-component.component';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
+registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
@@ -53,6 +58,7 @@ import { CaloriesProfileComponent } from './shared/components/calories-profile/c
     DialogCreateFoodComponent,
     FiltroPipe,
     CaloriesProfileComponent,
+    FechaComponentComponent
   ],
   imports: [
     BrowserModule,

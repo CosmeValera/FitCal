@@ -5,6 +5,7 @@ import { NutritionComponent } from './pages/nutrition/nutrition.component';
 import { DiaryComponent } from './pages/diary/diary.component';
 import { LoginGuardService } from '@shared/services/loginGuard.service';
 import { FoodComponent } from 'src/app/pages/food/food.component';
+import { FechaComponentComponent } from '@shared/components/fecha-component/fecha-component.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'perfil', pathMatch: 'full'},

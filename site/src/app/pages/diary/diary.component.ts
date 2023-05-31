@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CaloriesDialogComponent } from '@shared/components/calories-dialog/calories-dialog.component';
+import { Food } from '@shared/interfaces/foodInterface';
+import { FoodService } from '@shared/services/food.service';
 
 
 @Component({
@@ -11,7 +13,7 @@ import { CaloriesDialogComponent } from '@shared/components/calories-dialog/calo
 export class DiaryComponent {
   calories: number = 2500;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(private alimentoService: FoodService, public dialog: MatDialog) {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(CaloriesDialogComponent, {
@@ -28,5 +30,4 @@ export class DiaryComponent {
       console.log(result);
     });
   }
-
 }
