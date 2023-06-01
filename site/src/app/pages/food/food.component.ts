@@ -14,7 +14,7 @@ import { DialogUpdateFoodComponent } from '@shared/components/dialog-update-food
 export class FoodComponent {
   filterFood = '';
   searchText = '';
-  mostrarBotonModal = false;
+  habilitarEditar = true;
 
   // foods: Food[] = [];
   foods: Food[] = [
@@ -32,7 +32,7 @@ export class FoodComponent {
       id: 2,
       brand: "Marca A",
       image: "https://source.unsplash.com/600x900/?food,gym",
-      name: "Mandarina",
+      name: "Pera",
       kcal: 52,
       proteins: 14,
       fats: 0.2,
@@ -42,7 +42,7 @@ export class FoodComponent {
       id: 2,
       brand: "Marca A",
       image: "https://source.unsplash.com/600x900/?food,healthy",
-      name: "Mandarina",
+      name: "Mandazo",
       kcal: 52,
       proteins: 14,
       fats: 0.2,
@@ -69,7 +69,7 @@ export class FoodComponent {
   ngOnInit() {
     this.foodService.getFood()
       .subscribe(data => {
-        this.foods = data;
+        // this.foods = data;
         // console.log(this.foods)
       });
   }
@@ -84,6 +84,7 @@ export class FoodComponent {
   anadirAlimento(alimento: any) {
     this.foodService.seleccionarAlimento(alimento);
   }
+
   openUpdateFood(){
     this.matDialog.open(DialogUpdateFoodComponent,{
       width: '700px',

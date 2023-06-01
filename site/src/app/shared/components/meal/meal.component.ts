@@ -13,7 +13,7 @@ import { FoodService } from '@shared/services/food.service';
 export class MealComponent {
   @Input() meal: string = '';
   foods: string[] = [];
-  mostrarBotonModal = true;
+  habilitarEditar = true; //NO HACE NADA
 
   desayuno: string[] = [];
   comida: string[] = [];

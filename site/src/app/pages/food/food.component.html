@@ -1,4 +1,4 @@
-<div class="row" style="margin: 30px">
+<div class="row m-4">
   <div class="col">
     <div class="input-group align-items-baseline">
       <mat-form-field class="flex-grow-1 me-2">
@@ -52,22 +52,21 @@
             <div class="card-footer">
               <div class="media">
                 <app-personal-image
-                class="mr-3 rounded-circle d-hover-transparent"
-                [imageUrl]="food.image"
-                style="max-width: 50px!important">
+                class="mr-3 d-hover-transparent"
+                [imageUrl]="food.image">
                 </app-personal-image>
               </div>
             </div>
-            <div *ngIf="mostrarBotonModal" class="example-button-row">
+            <div *ngIf="habilitarEditar" class="example-button-row">
               <div class="example-flex-container">
                   <div class="example-button-container">
-                    <button mat-mini-fab color="primary">
+                    <button (click)="openUpdateFood()" mat-mini-fab color="primary">
                         <mat-icon>edit</mat-icon>
                     </button>
                   </div>
               </div>
             </div>
-            <div *ngIf="!mostrarBotonModal" id="anadirAliment" class="example-button-row">
+            <div *ngIf="!habilitarEditar" id="anadirAliment" class="example-button-row">
               <div class="example-flex-container">
                   <div class="example-button-container">
                     <button (click)="anadirAlimento(food)" mat-mini-fab color="primary">
