@@ -1,11 +1,11 @@
 import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 @Component({
-  selector: 'app-personal-image',
-  templateUrl: './personal-image.component.html',
-  styleUrls: ['./personal-image.component.scss']
+  selector: 'app-food-image',
+  templateUrl: './food-image.component.html',
+  styleUrls: ['./food-image.component.scss']
 })
-export class PersonalImageComponent implements AfterViewInit {
+export class FoodImageComponent implements AfterViewInit {
   @Input() imageUrl: string | undefined;
   @ViewChild('imageInput') imageInput!: ElementRef<HTMLInputElement> | undefined;
   selectedFile: File | undefined;

@@ -16,7 +16,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { NutritionComponent } from './pages/nutrition/nutrition.component';
 import { DiaryComponent } from './pages/diary/diary.component';
 import { MealComponent } from './shared/components/meal/meal.component';
-import { PersonalImageComponent } from '@shared/components/personal-image/personal-image.component';
+import { FoodImageComponent } from '@shared/components/food-image/food-image.component';
 import { PersonalInformationComponent } from '@shared/components/personal-information/personal-information.component';
 import { GoalDialogComponent } from '@shared/components/goal-dialog/goal-dialog.component';
 import { MatButtonModule }from '@angular/material/button';
@@ -51,7 +51,7 @@ registerLocaleData(localeEs);
     NutritionComponent,
     DiaryComponent,
     MealComponent,
-    PersonalImageComponent,
+    FoodImageComponent,
     PersonalInformationComponent,
     GoalDialogComponent,
     CaloriesDialogComponent,
