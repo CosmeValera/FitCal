@@ -2,6 +2,25 @@
   margin: 10vh;
 }
 
+@media (max-width: 768px) {
+  section.wrapper {
+    margin: 0;
+  }
+  .card .card-body small {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 420px) {
+  section.wrapper {
+    margin: 0;
+  }
+  .card .card-body small {
+    font-size: 0.6rem;
+  }
+}
+
+
 .card {
   --calories-color: red;
   --carbs-color: #eabe83;
@@ -33,14 +52,6 @@
     & .fa-drumstick-bite {
       color: var(--prots-color);
     }
-  }
-
-  @media (max-width: 768px) {
-    min-height: 350px;
-  }
-
-  @media (max-width: 420px) {
-    min-height: 300px;
   }
 
   &.card-has-bg {
