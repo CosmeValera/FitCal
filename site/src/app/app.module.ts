@@ -39,8 +39,10 @@ import { CaloriesProfileComponent } from './shared/components/calories-profile/c
 import { FechaComponentComponent } from '@shared/components/fecha-component/fecha-component.component';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { InjectionToken } from '@angular/core';
 
 registerLocaleData(localeEs);
+export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
 
 @NgModule({
   declarations: [
@@ -74,12 +76,13 @@ registerLocaleData(localeEs);
     MatDialogModule,
     MatCardModule,
     HttpClientModule,
-    SocialLoginModule
+    SocialLoginModule,
   ],
   providers: [
     LoginGuardService,
     AuthService,
     FoodService,
+    { provide: MAT_MDC_DIALOG_DATA, useValue: {} },
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
