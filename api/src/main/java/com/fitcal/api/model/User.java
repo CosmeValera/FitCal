@@ -1,6 +1,5 @@
 package com.fitcal.api.model;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +18,7 @@ public class User {
     private Long id;
 
     @OneToOne(mappedBy = "user")
-    private UserData userData; // Relacion 1 a 1 con UserData
+    private UserData userData; // Relación 1 a 1 con UserData
 
     @Column(length = 30, nullable = false)
     private String username;
@@ -30,4 +29,21 @@ public class User {
     @Column(length = 40, nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private String googleId;
+
+    @Column(nullable = false)
+    private String fullName;
+
+    @Column(nullable = false)
+    private String pictureUrl;
+
+    public User(String username, String email, String password, String googleId, String fullName, String pictureUrl) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.googleId = googleId;
+        this.fullName = fullName;
+        this.pictureUrl = pictureUrl;
+    }
 }
