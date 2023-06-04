@@ -14,7 +14,7 @@ import { DiaryService } from '@shared/services/diary.service';
 export class MealComponent {
   @Input() meal: string = '';
   foods: string[] = [];
-  mostrarBotonModal = true;
+  habilitarEditar = false;
   idBoton = '';
   modalAlimentoAbierto = false;
 
@@ -43,7 +43,7 @@ export class MealComponent {
    *  lo debemos añadir en el que corresponde.
    */
   anadirAlimentoModal(){
-    this.diaryService.setMostrarBotonModal(true);
+    this.diaryService.setHabilitarEditar(false);
 
     this.idBoton = document.getElementById(this.meal)!.id;
     console.log(this.idBoton);
@@ -51,7 +51,7 @@ export class MealComponent {
     this.matDialog.open(FoodComponent,{
       width: '1300px',
       height: '600px',
-      data: { mostrarBotonModal: this.mostrarBotonModal}
+      data: { habilitarEditar: this.habilitarEditar}
     })
   }
 

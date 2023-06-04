@@ -8,21 +8,21 @@ button {
   padding: 2px 6px;
   font-size: 16px;
 
-  &.addButton, &.closeButton {
+  &.add-food-button {
+    background-color: transparent;
+    border: none;
+    color: #000;
+    text-decoration: underline;
+    outline: none;
     margin-bottom: 1rem;
+    cursor: pointer;
+  }
+  &.add-food-button:hover {
+    font-weight: bold;
   }
 }
 
 
-.add-food-button {
-  background-color: transparent;
-  border: none;
-  color: #000;
-  text-decoration: underline;
-  outline: none;
-  cursor: pointer;
-}
 
-.add-food-button:hover {
-  font-weight: bold;
-}
+
+

@@ -9,7 +9,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class DiaryService {  
+export class DiaryService {
   private readonly API_URL_DAY = environment.dayUrl;
   private readonly API_URL_FOODINSTANCE = environment.foodInstanceUrl;
 
@@ -25,25 +25,25 @@ export class DiaryService {
     return this.alimentoSeleccionado;
   }
 
-  private mostrarBotonModal: boolean = false;
+  private habilitarEditar: boolean = true;
 
-  setMostrarBotonModal(value: boolean) {
-    this.mostrarBotonModal = value;
+  setHabilitarEditar(value: boolean) {
+    this.habilitarEditar = value;
   }
 
-  getMostrarBotonModal() {
-    return this.mostrarBotonModal;
+  getHabilitarEditar() {
+    return this.habilitarEditar;
   }
 
   /**
-   * Consultas a la base de datos. 
+   * Consultas a la base de datos.
    */
 
   /** Tabla Day */
   getDayByFechaAndUser(fecha: Date, id_user: number) {
     return this.http.get<Day>(`${this.API_URL_DAY}/${fecha}`);
   }
-  
+
   createDay(day: Day) {
     return this.http.post<Day>(this.API_URL_DAY, day);
   }
@@ -51,7 +51,7 @@ export class DiaryService {
   /** Tabla FoodInstance */
   getFoodInstanceByFechaAndUser(fecha: Date, id_user: number) {
     return this.http.get<FoodInstance>(`${this.API_URL_FOODINSTANCE}/${fecha}`);
-  }  
+  }
 
   createFoodInstance(foodInstance: FoodInstance) {
     return this.http.post<FoodInstance>(this.API_URL_FOODINSTANCE, foodInstance);

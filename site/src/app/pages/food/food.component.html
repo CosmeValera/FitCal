@@ -68,16 +68,7 @@
                 </app-food-image>
               </div>
             </div>
-            <div *ngIf="!mostrarBotonModal" class="example-button-row">
-              <div class="example-flex-container">
-                  <div class="example-button-container">
-                    <button (click)="openUpdateFood()" mat-mini-fab color="primary">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                  </div>
-              </div>
-            </div>
-            <div *ngIf="mostrarBotonModal" id="anadirAliment" class="example-button-row">
+            <div *ngIf="!habilitarEditar" id="anadirAliment" class="example-button-row">
               <div class="example-flex-container">
                   <div class="example-button-container">
                     <button (click)="anadirAlimento(food)" mat-mini-fab color="primary">
@@ -86,8 +77,17 @@
                   </div>
               </div>
             </div>
+            <div *ngIf="habilitarEditar" class="example-button-row">
+              <div class="example-flex-container">
+                  <div class="example-button-container">
+                    <button (click)="openUpdateFood()" mat-mini-fab color="primary">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                  </div>
+              </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>

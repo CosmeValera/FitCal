@@ -19,9 +19,9 @@ export class FoodComponent{
   filterFood = '';
   searchText = '';
 
-  // TODO: REFACTORIZAR; cambiar mostrarBotonModal por habilitarEditar
+  // TODO: REFACTORIZAR; cambiar !habilitarEditar por habilitarEditar
   // habilitarEditar = true;
-  mostrarBotonModal = false;
+  habilitarEditar = true;
   modoAgregar = false;
   datosEncontrados: boolean = true;
 
@@ -80,9 +80,9 @@ export class FoodComponent{
 
   ngOnInit() {
     // Para que salga el boton o editar o crear.
-    const mostrarBotonModal = this.diaryService.getMostrarBotonModal();
-    if (mostrarBotonModal != null) {
-      this.mostrarBotonModal = mostrarBotonModal;
+    const habilitarEditar = this.diaryService.getHabilitarEditar();
+    if (habilitarEditar != null) {
+      this.habilitarEditar = habilitarEditar;
     }
 
     this.foodService.getFood()
