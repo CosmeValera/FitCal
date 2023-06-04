@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FoodService } from '@shared/services/food.service';
 import { Food } from '@shared/interfaces/foodInterface';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,25 +10,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./dialog-update-food.component.scss']
 })
 export class DialogUpdateFoodComponent {
+  food: Food;
+
   constructor(
     public dialogRef: MatDialogRef<DialogUpdateFoodComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {food: Food},
     private foodService: FoodService,
     private router: Router
-  ) { }
+  ) {
+    this.food = data.food;
+    console.log(this.food);
+  }
 
-  // // No se está usando
-  // crearAlimento(food: Food){
-  //   this.foodService.createFood(food)
-  //   .subscribe(data => {
-  //     alert("Se Agrego con Exito...!!");
-  //     this.dialogRef.close();
-  //   })
-  // }
 
-  saveFood(): void {
+  updateFood(): void {
     console.log("save");
 
-    let food: Food = {
+    let foodEdited: Food = {
+      id: this.food.id,
       name: (document.getElementById('nameInput') as HTMLInputElement).value,
       image: (document.getElementById('imageInput') as HTMLInputElement).value,
       brand: (document.getElementById('brandInput') as HTMLInputElement).value,
@@ -39,9 +38,9 @@ export class DialogUpdateFoodComponent {
     }
 
 
-    this.foodService.createFood(food)
+    this.foodService.updateFood(foodEdited)
       .subscribe(data => {
-        console.log("Alimento dado de alta:", data);
+        console.log("Alimento editado:", data);
         this.dialogRef.close();
         window.location.reload();
       });

@@ -3,7 +3,7 @@
         <mat-icon> close </mat-icon>
     </button>
     <header class="justify-content-center">
-        <h1> Añadir un alimento </h1>
+        <h1> Editar alimento </h1>
     </header>
     <br>
     <app-food-image></app-food-image>
@@ -11,13 +11,13 @@
     <div class="row">
         <div class="col-6">
             <p><mat-form-field>
-                <input matInput placeholder="Nombre" id="nameInput">
+                <input matInput placeholder="Nombre" id="nameInput" [(ngModel)]="food.name">
                 <mat-icon matSuffix>restaurant_menu</mat-icon>
             </mat-form-field></p>
         </div>
         <div class="col-6">
             <p><mat-form-field>
-                <input matInput placeholder="Marca" id="brandInput">
+                <input matInput placeholder="Marca" id="brandInput" [(ngModel)]="food.brand">
                 <mat-icon matSuffix>loyalty</mat-icon>
             </mat-form-field></p>
         </div>
@@ -25,13 +25,13 @@
     <div class="row">
         <div class="col-6">
             <p><mat-form-field>
-                <input matInput placeholder="Calorias" id="kcalInput">
+                <input matInput placeholder="Calorias" id="kcalInput" [(ngModel)]="food.kcal">
                 <mat-icon matSuffix>local_fire_department</mat-icon>
             </mat-form-field></p>
         </div>
         <div class="col-6">
             <p><mat-form-field>
-                <input matInput placeholder="Proteinas" id="proteinsInput">
+                <input matInput placeholder="Proteinas" id="proteinsInput" [(ngModel)]="food.proteins">
                 <mat-icon matSuffix>fitness_center</mat-icon>
             </mat-form-field></p>
         </div>
@@ -39,19 +39,19 @@
     <div class="row">
         <div class="col-6">
             <p><mat-form-field>
-                <input matInput placeholder="Carbohidratos" id="carbsInput">
+                <input matInput placeholder="Carbohidratos" id="carbsInput" [(ngModel)]="food.carbs">
                 <mat-icon matSuffix>donut_large</mat-icon>
             </mat-form-field></p>
         </div>
         <div class="col-6">
             <p><mat-form-field>
-                <input matInput placeholder="Grasas" id="fatsInput">
+                <input matInput placeholder="Grasas" id="fatsInput" [(ngModel)]="food.fats">
                 <mat-icon matSuffix>fastfood</mat-icon>
             </mat-form-field></p>
         </div>
     </div>
     <mat-dialog-actions align="center">
-        <button mat-raised-button color="primary" (click)="saveFood()"> Guardar </button>
+        <button mat-raised-button color="primary" (click)="updateFood()"> Guardar </button>
         <button mat-raised-button color="warm" (click)="closeDialog()"> Cancelar </button>
     </mat-dialog-actions>
 </mat-dialog-content>

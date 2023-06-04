@@ -19,8 +19,6 @@ export class FoodComponent{
   filterFood = '';
   searchText = '';
 
-  // TODO: REFACTORIZAR; cambiar !habilitarEditar por habilitarEditar
-  // habilitarEditar = true;
   habilitarEditar = true;
   modoAgregar = false;
   datosEncontrados: boolean = true;
@@ -104,17 +102,18 @@ export class FoodComponent{
     this.matDialog.closeAll();
   }
 
-  openCreateFood(){
+  openCreateFood() {
     this.matDialog.open(DialogCreateFoodComponent,{
       width: '700px',
       height: '600px',
     })
   }
 
-  openUpdateFood(){
+  openUpdateFood(food: any) {
     this.matDialog.open(DialogUpdateFoodComponent,{
       width: '700px',
       height: '600px',
+      data: {food: food}
     })
   }
 }

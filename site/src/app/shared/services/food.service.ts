@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class FoodService {
   private readonly API_URL = environment.foodUrl;
-  
+
   private alimentoSeleccionadoSubject = new BehaviorSubject<any>(null);
   alimentoSeleccionado$ = this.alimentoSeleccionadoSubject.asObservable();
 
@@ -30,5 +30,9 @@ export class FoodService {
 
   createFood(food: Food) {
     return this.http.post<Food>(this.API_URL, food);
+  }
+
+  updateFood(food: Food) {
+    return this.http.put<Food>(`${this.API_URL}/${food.id}`, food);
   }
 }
