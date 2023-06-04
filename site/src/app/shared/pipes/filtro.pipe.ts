@@ -12,6 +12,7 @@ export class FiltroPipe implements PipeTransform {
     if (!searchText) {
       return items;
     }
+    
     searchText = searchText.toLowerCase();
     return items.filter(item => {
       const itemName = item.name.toLowerCase();

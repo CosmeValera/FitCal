@@ -10,17 +10,28 @@
         />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
-      <div class="input-group-append">
+      <div *ngIf="!datosEncontrados" class="input-group-append">
         <button class="btn btn-primary ms-2" (click)="openCreateFood()">
-          Añadir Alimento
+          Crear Alimento
         </button>
       </div>
     </div>
   </div>
 </div>
 
+<div *ngIf="!datosEncontrados" class="row">
+  <div class="message-container">
+      <p>No se encuentran alimentos en la base de datos. ¿Desea crear uno?</p>
+      <div class="input-group-append">
+        <button class="btn btn-primary ms-2" (click)="openCreateFood()">
+          Crear Alimento
+        </button>
+      </div>
+  </div>
+</div>
+
 <!-- food-> name, kcal, proteins, carbs, fats -->
-<section class="wrapper">
+<section *ngIf="datosEncontrados" class="wrapper">
   <div class="container">
     <div class="row">
       <div class="col-12 col-sm-6 col-lg-4 p-2" *ngFor="let food of foods | filtro: searchText; let i = index">
@@ -57,7 +68,7 @@
                 </app-food-image>
               </div>
             </div>
-            <div *ngIf="habilitarEditar" class="example-button-row">
+            <div *ngIf="!mostrarBotonModal" class="example-button-row">
               <div class="example-flex-container">
                   <div class="example-button-container">
                     <button (click)="openUpdateFood()" mat-mini-fab color="primary">
@@ -66,7 +77,7 @@
                   </div>
               </div>
             </div>
-            <div *ngIf="!habilitarEditar" id="anadirAliment" class="example-button-row">
+            <div *ngIf="mostrarBotonModal" id="anadirAliment" class="example-button-row">
               <div class="example-flex-container">
                   <div class="example-button-container">
                     <button (click)="anadirAlimento(food)" mat-mini-fab color="primary">

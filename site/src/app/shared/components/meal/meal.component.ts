@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FoodComponent } from 'src/app/pages/food/food.component';
 import { DialogCreateFoodComponent } from '../dialog-create-food/dialog-create-food.component';
 import { FoodService } from '@shared/services/food.service';
+import { DiaryService } from '@shared/services/diary.service';
 
 @Component({
   selector: 'app-meal',
@@ -13,25 +14,20 @@ import { FoodService } from '@shared/services/food.service';
 export class MealComponent {
   @Input() meal: string = '';
   foods: string[] = [];
-  habilitarEditar = true; //NO HACE NADA
-
-  desayuno: string[] = [];
-  comida: string[] = [];
+  mostrarBotonModal = true;
   idBoton = '';
+  modalAlimentoAbierto = false;
 
   constructor(
     private matDialog: MatDialog,
-    private foodService: FoodService
+    private foodService: FoodService,
+    private diaryService: DiaryService
   ) {}
 
   ngOnInit() {
-    console.log("Pulsamos... " + this.meal);
-    console.log("Cogemos.. " + this.idBoton);
 
     this.foodService.alimentoSeleccionado$.subscribe(alimento => {
       if (alimento && this.meal === this.idBoton) {
-        console.log(alimento);
-
         this.foods.push(alimento.name);
         this.idBoton = "";
       }
@@ -47,19 +43,15 @@ export class MealComponent {
    *  lo debemos añadir en el que corresponde.
    */
   anadirAlimentoModal(){
+    this.diaryService.setMostrarBotonModal(true);
+
     this.idBoton = document.getElementById(this.meal)!.id;
     console.log(this.idBoton);
 
     this.matDialog.open(FoodComponent,{
       width: '1300px',
       height: '600px',
-    })
-  }
-
-  crearAlimentoModal(){
-    this.matDialog.open(DialogCreateFoodComponent,{
-      width: '800px',
-      height: '670px',
+      data: { mostrarBotonModal: this.mostrarBotonModal}
     })
   }
 
