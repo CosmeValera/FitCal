@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import {
-  GoogleLoginProvider
+  SocialLoginModule,
+  SocialAuthServiceConfig,
 } from '@abacritt/angularx-social-login';
-
+import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,12 +19,12 @@ import { MealComponent } from './shared/components/meal/meal.component';
 import { FoodImageComponent } from '@shared/components/food-image/food-image.component';
 import { PersonalInformationComponent } from '@shared/components/personal-information/personal-information.component';
 import { GoalDialogComponent } from '@shared/components/goal-dialog/goal-dialog.component';
-import { MatButtonModule }from '@angular/material/button';
-import { MatIconModule }from '@angular/material/icon';
-import { MatFormFieldModule }from '@angular/material/form-field';
-import { MatInputModule }from '@angular/material/input';
-import { FormsModule }from '@angular/forms';
-import { MatDialogModule }from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 import { CaloriesDialogComponent } from './shared/components/calories-dialog/calories-dialog.component';
 import { FoodComponent } from './pages/food/food.component';
 import { DialogCreateFoodComponent } from './shared/components/dialog-create-food/dialog-create-food.component';
@@ -62,7 +62,7 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
     DialogUpdateFoodComponent,
     FiltroPipe,
     CaloriesProfileComponent,
-    FechaComponentComponent
+    FechaComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,15 +92,16 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
               '1075462838223-6r7k8rfofknaqert59tft0n2doirm1m1.apps.googleusercontent.com'
-            )
-          }
+              // '426540645158-nrmlsa10pio3pnhnt91tpjhf8jo7p25v.apps.googleusercontent.com' Client id angel
+            ),
+          },
         ],
         onError: (err) => {
           console.error(err);
-        }
+        },
       } as SocialAuthServiceConfig,
-    }
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
