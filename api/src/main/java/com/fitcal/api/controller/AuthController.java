@@ -3,7 +3,6 @@ package com.fitcal.api.controller;
 import com.fitcal.api.dto.GoogleAuthDTO;
 import com.fitcal.api.enums.GoogleAuthMessages;
 import com.fitcal.api.model.User;
-import com.fitcal.api.model.UserData;
 import com.fitcal.api.service.GoogleAuthService;
 import com.fitcal.api.service.UserService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
@@ -58,7 +57,7 @@ public class AuthController {
                 return ResponseEntity.ok().body(userPresent);
             }
 
-            User newUser = this.userService.createUser(new User(null, null, googleAuthDTO.getEmail(), googleAuthDTO.getIdToken(), googleAuthDTO.getName(), googleAuthDTO.getPhotoUrl()));
+            User newUser = this.userService.createUser(new User(null, googleAuthDTO.getEmail(), googleAuthDTO.getIdToken(), googleAuthDTO.getName(), googleAuthDTO.getPhotoUrl()));
             googleAuthDTO.setId(newUser.getId());
 
             return ResponseEntity.ok().body(googleAuthDTO);

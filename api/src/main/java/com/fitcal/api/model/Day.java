@@ -21,8 +21,8 @@ public class Day {
 
     // Un dia tiene un UserData
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userdata_id")
-    UserData userData;
+    @JoinColumn(name = "user_id")
+    User user;
 
 
     @Column(nullable = false)
