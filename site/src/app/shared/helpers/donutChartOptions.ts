@@ -15,6 +15,7 @@ export var donutChartOptions: Options = {
       borderColor: undefined,
       slicedOffset: 20,
       dataLabels: {
+        format: '<b>{point.name}</b>: {point.percentage:.1f}%',
         connectorWidth: 0,
       },
     },
@@ -23,6 +24,16 @@ export var donutChartOptions: Options = {
     verticalAlign: 'middle',
     floating: true,
     text: '$ 600,000.00',
+  },
+  subtitle: {
+    // verticalAlign: 'bottom',
+    y: 225,
+    floating: true,
+    text: 'Calorias Totales: X',
+    style: {
+      fontSize: '16px',
+      fontWeight: 'bold',
+    },
   },
   legend: {
     enabled: false,

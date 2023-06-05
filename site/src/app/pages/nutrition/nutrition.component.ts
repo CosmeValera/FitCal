@@ -9,6 +9,7 @@ import { donutChartOptions } from '@shared/helpers/donutChartOptions';
 })
 export class NutritionComponent {
   donutChart: Chart;
+  caloriasTotales: number = 120;
 
   constructor() {
     this.donutChart = new Chart(donutChartOptions);
@@ -17,14 +18,15 @@ export class NutritionComponent {
 
   private updateChartWithData() {
     const macros = [
-      { name: 'Carbohidratos', y: 80, color: '#00ffff' },
+      { name: 'Carbohidratos', y: 40, color: '#00ffff' },
       { name: 'Grasas', y: 30, color: '#ff00ff' },
-      { name: 'Proteínas', y: 10, color: '#ffa800' },
+      { name: 'Proteínas', y: 10, color: '#ffa800' }
     ];
 
     this.donutChart.ref$.subscribe(chartRef => {
-      chartRef.setTitle({ text: 'Macros' });
       chartRef.series[0].setData(macros);
+      chartRef.setTitle({ text: 'Macros' });
+      chartRef.setSubtitle({ text: 'Calorías totales: ' + this.caloriasTotales });
     });
   }
 }
