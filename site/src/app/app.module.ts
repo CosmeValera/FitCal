@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import {
-  GoogleLoginProvider
+  SocialLoginModule,
+  SocialAuthServiceConfig,
 } from '@abacritt/angularx-social-login';
-
+import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,12 +19,12 @@ import { MealComponent } from './shared/components/meal/meal.component';
 import { PersonalImageComponent } from '@shared/components/personal-image/personal-image.component';
 import { PersonalInformationComponent } from '@shared/components/personal-information/personal-information.component';
 import { GoalDialogComponent } from '@shared/components/goal-dialog/goal-dialog.component';
-import { MatButtonModule }from '@angular/material/button';
-import { MatIconModule }from '@angular/material/icon';
-import { MatFormFieldModule }from '@angular/material/form-field';
-import { MatInputModule }from '@angular/material/input';
-import { FormsModule }from '@angular/forms';
-import { MatDialogModule }from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 import { CaloriesDialogComponent } from './shared/components/calories-dialog/calories-dialog.component';
 import { FoodComponent } from './pages/food/food.component';
 import { DialogCreateFoodComponent } from './shared/components/dialog-create-food/dialog-create-food.component';
@@ -60,7 +60,7 @@ registerLocaleData(localeEs);
     DialogUpdateFoodComponent,
     FiltroPipe,
     CaloriesProfileComponent,
-    FechaComponentComponent
+    FechaComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +74,7 @@ registerLocaleData(localeEs);
     MatDialogModule,
     MatCardModule,
     HttpClientModule,
-    SocialLoginModule
+    SocialLoginModule,
   ],
   providers: [
     LoginGuardService,
@@ -89,15 +89,16 @@ registerLocaleData(localeEs);
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
               '1075462838223-6r7k8rfofknaqert59tft0n2doirm1m1.apps.googleusercontent.com'
-            )
-          }
+              // '426540645158-nrmlsa10pio3pnhnt91tpjhf8jo7p25v.apps.googleusercontent.com' Client id angel
+            ),
+          },
         ],
         onError: (err) => {
           console.error(err);
-        }
+        },
       } as SocialAuthServiceConfig,
-    }
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

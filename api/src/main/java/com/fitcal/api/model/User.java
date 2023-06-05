@@ -20,30 +20,16 @@ public class User {
     @OneToOne(mappedBy = "user")
     private UserData userData; // Relación 1 a 1 con UserData
 
-    @Column(length = 30, nullable = false)
-    private String username;
-
     @Column(length = 40, nullable = false)
     private String email;
 
-    @Column(length = 40, nullable = false)
-    private String password;
-
-    @Column(nullable = false)
+    @Lob
+    @Column(nullable = false, length = 1000)
     private String googleId;
 
     @Column(nullable = false)
-    private String fullName;
+    private String name;
 
     @Column(nullable = false)
-    private String pictureUrl;
-
-    public User(String username, String email, String password, String googleId, String fullName, String pictureUrl) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.googleId = googleId;
-        this.fullName = fullName;
-        this.pictureUrl = pictureUrl;
-    }
+    private String photoUrl;
 }

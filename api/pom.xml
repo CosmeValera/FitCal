@@ -62,7 +62,6 @@
             <artifactId>google-api-client-gson</artifactId>
             <version>1.31.0</version>
         </dependency>
-
     </dependencies>
 
     <build>

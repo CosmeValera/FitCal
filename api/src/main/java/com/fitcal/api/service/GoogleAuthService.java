@@ -1,5 +1,6 @@
 package com.fitcal.api.service;
 
+import com.fitcal.api.enums.GoogleAuthMessages;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.HttpTransport;
@@ -17,7 +18,7 @@ public class GoogleAuthService {
     private static final HttpTransport transport = new NetHttpTransport();
     private static final JsonFactory jsonFactory = new JacksonFactory();
 
-    public String authenticateWithGoogle(String idTokenString) {
+    public GoogleAuthMessages authenticateWithGoogle(String idTokenString) {
         try {
             GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
                     .setAudience(Collections.singletonList(CLIENT_ID))
@@ -26,14 +27,14 @@ public class GoogleAuthService {
             GoogleIdToken idToken = verifier.verify(idTokenString);
             if (idToken != null) {
                 // Autenticación exitosa
-                return "Authentication successful";
+                return GoogleAuthMessages.SUCCESS;
             } else {
                 // Token no válido
-                return "Invalid ID token.";
+                return GoogleAuthMessages.INVALID;
             }
         } catch (Exception e) {
             // Error en la verificación del token
-            return "Error verifying ID token.";
+            return GoogleAuthMessages.ERROR;
         }
     }
 }

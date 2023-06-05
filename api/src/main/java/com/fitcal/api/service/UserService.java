@@ -34,9 +34,7 @@ public class UserService {
         Optional<User> existingUser = userRepository.findById(id);
         if (existingUser.isPresent()) {
             User user = existingUser.get();
-            user.setUsername(updatedUser.getUsername());
             user.setEmail(updatedUser.getEmail());
-            user.setPassword(updatedUser.getPassword());
             return userRepository.save(user);
         }
         return null; // or throw an exception
@@ -50,4 +48,9 @@ public class UserService {
         }
         return false;
     }
+
+    public Optional<User> findByEmail(String email) {
+        return this.userRepository.findByEmail(email);
+    }
+
 }
