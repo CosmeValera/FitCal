@@ -40,6 +40,7 @@ import { FechaComponentComponent } from '@shared/components/fecha-component/fech
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { InjectionToken } from '@angular/core';
+import { ChartModule } from 'angular-highcharts';
 
 registerLocaleData(localeEs);
 export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
@@ -77,6 +78,7 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
     MatCardModule,
     HttpClientModule,
     SocialLoginModule,
+    ChartModule
   ],
   providers: [
     LoginGuardService,
