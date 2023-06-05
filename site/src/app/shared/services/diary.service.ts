@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { AlimentoSeleccionado } from '@shared/interfaces/AlimentoSeleccionado';
+import { AlimentoSeleccionado } from '@shared/interfaces/alimentoSeleccionado';
 import { Day } from '@shared/interfaces/dayInterface';
 import { FoodInstance } from '@shared/interfaces/foodInstanceInterface';
 import { BehaviorSubject, Observable } from 'rxjs';
