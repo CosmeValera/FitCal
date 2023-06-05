@@ -8,5 +8,23 @@ import { donutChartOptions } from '@shared/helpers/donutChartOptions';
   styleUrls: ['./nutrition.component.scss']
 })
 export class NutritionComponent {
-  donutChart = new Chart(donutChartOptions);
+  donutChart: Chart;
+
+  constructor() {
+    this.donutChart = new Chart(donutChartOptions);
+    this.updateChartWithData();
+  }
+
+  private updateChartWithData() {
+    const macros = [
+      { name: 'Carbohidratos', y: 80, color: '#00ffff' },
+      { name: 'Grasas', y: 30, color: '#ff00ff' },
+      { name: 'Proteínas', y: 10, color: '#ffa800' },
+    ];
+
+    this.donutChart.ref$.subscribe(chartRef => {
+      chartRef.setTitle({ text: 'Macros' });
+      chartRef.series[0].setData(macros);
+    });
+  }
 }
