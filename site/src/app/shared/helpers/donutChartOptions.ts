@@ -4,6 +4,7 @@ export var donutChartOptions: Options = {
   chart: {
     type: 'pie',
     plotShadow: false,
+    backgroundColor: '#fff0f0',
   },
   credits: {
     enabled: false,
