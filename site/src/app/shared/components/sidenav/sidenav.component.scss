@@ -15,15 +15,12 @@
     width: 100%;
 
     .logo {
-      background: #fff;
-      text-align: center;
       width: 3rem;
       min-width: 3rem;
-      border-radius: 0.313rem;
-      font-size: 24px;
-      font-weight: 900;
       cursor: pointer;
-      border: none;
+      border-radius: 25%;
+      // -webkit-mask-image: radial-gradient(circle at center, black 50%, transparent 95%);
+      // mask-image: radial-gradient(circle at center, black 50%, transparent 95%);
     }
 
     .logo-text {
@@ -31,6 +28,7 @@
       font-size: 24px;
       font-weight: 700;
       color: #fff;
+      cursor: default;
     }
 
     .btn-close {
