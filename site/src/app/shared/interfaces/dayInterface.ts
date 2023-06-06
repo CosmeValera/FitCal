@@ -1,5 +1,8 @@
+import { FoodInstance } from "./foodInstanceInterface";
+
 export interface Day {
-    id?: number;
-    date: Date;
-    userdata_id: number;
+  id?: number;
+  user_id: number;
+  date: Date;
+  foodInstances?: FoodInstance[];
 }
