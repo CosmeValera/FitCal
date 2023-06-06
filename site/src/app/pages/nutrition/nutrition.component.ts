@@ -18,6 +18,7 @@ export class NutritionComponent {
 
   private updateChartWithData() {
     // SACAR los macros y las calorias de un usuario o dia mock.
+
     const macros = [
       { name: 'Carbohidratos', y: 40, color: '#00ffff' },
       { name: 'Grasas', y: 30, color: '#ff00ff' },

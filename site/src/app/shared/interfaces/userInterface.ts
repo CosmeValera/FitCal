@@ -1,3 +1,5 @@
+import { Day } from "./dayInterface";
+
 export interface User {
     id?: number;
     email: string;
@@ -10,4 +12,5 @@ export interface User {
     birth_date: Date;
     goal: Goals;
     activityLevel: ActivityLevel;
+    days: Day[];
 }
