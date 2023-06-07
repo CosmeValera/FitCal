@@ -10,7 +10,8 @@ export interface User {
     height: number;
     gender: string;
     birth_date: Date;
-    goal: Goals;
-    activityLevel: ActivityLevel;
+    goal: string;
+    activityLevel: string;
+    calories: number;
     days: Day[];
 }

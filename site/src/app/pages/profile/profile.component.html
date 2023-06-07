@@ -31,17 +31,15 @@
         <main>
             <div class="row mb-2">
                 <div class="col-12 col-md-6 p-0">
-                   <div class="beautiful-card mb-4 mb-md-0 me-md-2">
+                    <div class="beautiful-card mb-4 mb-md-0 me-md-2">
 
                     <h4 class="d-flex justify-content-center mb-4">
-                      Datos personales
+                        Datos personales
                     </h4>
-                    <app-personal-information class="d-flex justify-content-center"
-                        [dato]="'Edad:'"
-                        [datoPrincipal]="'0'"
-                        [tipo]="'años'"
-                    >
-                    </app-personal-information>
+                    <div class="d-flex justify-content-center">
+                        <label> Fecha de nacimiento: </label>
+                        <input type="date" id="fecha" name="fecha" [(ngModel)]="fechaUsu"> años
+                    </div>
                     <app-personal-information class="d-flex justify-content-center"
                         [dato]="'Altura:'"
                         [datoPrincipal]="'0'"
@@ -54,12 +52,15 @@
                         [tipo]="'kg'"
                     >
                     </app-personal-information>
-                    <app-personal-information class="d-flex justify-content-center"
-                        [dato]="'Genero:'"
-                        [datoPrincipal]="'0'"
-                        [tipo]="'cal'"
-                    >
-                    </app-personal-information>
+                    <div class="d-flex align-items-center">
+                        <h5 class="me-3"> Genero </h5>
+                        <div class="flex-grow-1">
+                            <select class="form-select" [(ngModel)]="selectedGender">
+                                <option value="masculino">Masculino</option>
+                                <option value="femenino">Femenino</option>
+                            </select>
+                        </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-12 col-md-6 p-0">
@@ -83,7 +84,7 @@
             </div>
             <br>
             <div class="row">
-                <button type="button" data-toggle="modal" data-target="#exampleModal" (click)="abrirModal()" class="d-flex justify-content-center btn btn-success"> Guardar </button>
+                <button type="button" data-toggle="modal" data-target="#exampleModal" (click)="guardarDatos()" class="d-flex justify-content-center btn btn-success"> Guardar </button>
             </div>
             <br>
 

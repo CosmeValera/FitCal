@@ -1,3 +1,6 @@
 enum ActivityLevel {
-  ANY, LOW, MEDIUM, HIGH
+  ANY = 'ANY',
+  LOW = 'LOW',
+  MEDIUM = 'MEDIUM',
+  HIGH = 'HIGH'
 }

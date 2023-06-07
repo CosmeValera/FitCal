@@ -33,6 +33,8 @@ export class FoodService {
   }
 
   updateFood(food: Food) {
+    console.log("Alimento para actualizar: " + food);
+    console.log(food.id);
     return this.http.put<Food>(`${this.API_URL}/${food.id}`, food);
   }
 }
