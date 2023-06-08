@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { AlimentoSeleccionado } from '@shared/interfaces/alimentoSeleccionado';
+import { AlimentoSeleccionado } from '@shared/interfaces/AlimentoSeleccionado';
 import { Day } from '@shared/interfaces/dayInterface';
 import { FoodInstance } from '@shared/interfaces/foodInstanceInterface';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -40,8 +40,8 @@ export class DiaryService {
    */
 
   /** Tabla Day */
-  getDayByFechaAndUser(fecha: Date, id_user: number) {
-    return this.http.get<Day>(`${this.API_URL_DAY}/${fecha}`);
+  getDayByFechaAndUser(fecha: string, id_user: number) {
+    return this.http.get<Day>(`${this.API_URL_DAY}/${id_user}`);
   }
 
   createDay(day: Day) {

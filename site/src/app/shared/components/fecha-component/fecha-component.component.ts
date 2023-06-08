@@ -1,4 +1,5 @@
-import { Component, LOCALE_ID } from '@angular/core';
+import { Component, EventEmitter, LOCALE_ID, Output } from '@angular/core';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-fecha',
@@ -9,6 +10,8 @@ import { Component, LOCALE_ID } from '@angular/core';
 export class FechaComponentComponent {
   fecha: Date = new Date();
 
+  ngOnInit() {
+  }
   incrementarDia() {
     this.fecha = new Date(this.fecha.getTime() + 24 * 60 * 60 * 1000);
   }
