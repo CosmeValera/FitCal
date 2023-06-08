@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ChartModule, Chart } from 'angular-highcharts';
 import { donutChartOptions } from '@shared/helpers/donutChartOptions';
 import { AuthService } from '@shared/services/auth.service';
@@ -13,6 +13,8 @@ import { Food } from '@shared/interfaces/foodInterface';
   styleUrls: ['./nutrition.component.scss'],
 })
 export class NutritionComponent {
+  @ViewChild('appFecha', { static: false }) appFecha: any;
+
   donutChart: Chart;
   caloriasTotales: number = 120;
   user: any;
@@ -24,6 +26,43 @@ export class NutritionComponent {
     this.donutChart = new Chart(donutChartOptions);
     this.user = fitcalAuthService.getUser();
     this.updateChartWithData();
+  }
+
+  private updateChartWithData() {
+    // REAL
+    // console.log("user localstorage", this.user);
+
+    //Mock
+    this.mockUser = this.mockInfo();
+    console.log("mockUser", this.mockUser);
+
+    const day = this.mockUser.days[0]; // Assuming there is only one day in the user's days array
+
+    // Calculate the total macros from food instances
+    let totalProteins = 0;
+    let totalCarbs = 0;
+    let totalFats = 0;
+
+    day.foodInstances?.forEach((foodInstance: FoodInstance) => {
+      const food: Food = this.getFoodById(foodInstance.food_id);
+      totalProteins += (food.proteins / 100) * foodInstance.grams;
+      totalCarbs += (food.carbs / 100) * foodInstance.grams;
+      totalFats += (food.fats / 100) * foodInstance.grams;
+    });
+
+    const totalCalories = totalProteins * 4 + totalCarbs * 4 + totalFats * 9;
+
+    const macros = [
+      { name: 'Carbohidratos', y: totalCarbs, color: '#00ffff' },
+      { name: 'Grasas', y: totalFats, color: '#ff00ff' },
+      { name: 'Proteínas', y: totalProteins, color: '#ffa800' },
+    ];
+
+    this.donutChart.ref$.subscribe((chartRef) => {
+      chartRef.series[0].setData(macros);
+      chartRef.setTitle({ text: 'Macros' });
+      chartRef.setSubtitle({ text: 'Calorías totales: ' + totalCalories });
+    });
   }
 
   private mockInfo() {
@@ -99,42 +138,6 @@ export class NutritionComponent {
     return user;
   }
 
-  private updateChartWithData() {
-    // REAL
-    // console.log("user localstorage", this.user);
-
-    this.mockUser = this.mockInfo();
-    console.log("mockUser", this.mockUser);
-
-    const day = this.mockUser.days[0]; // Assuming there is only one day in the user's days array
-
-    // Calculate the total macros from food instances
-    let totalProteins = 0;
-    let totalCarbs = 0;
-    let totalFats = 0;
-
-    day.foodInstances?.forEach((foodInstance: FoodInstance) => {
-      const food: Food = this.getFoodById(foodInstance.food_id);
-      totalProteins += (food.proteins / 100) * foodInstance.grams;
-      totalCarbs += (food.carbs / 100) * foodInstance.grams;
-      totalFats += (food.fats / 100) * foodInstance.grams;
-    });
-
-    const totalCalories = totalProteins * 4 + totalCarbs * 4 + totalFats * 9;
-
-    const macros = [
-      { name: 'Carbohidratos', y: totalCarbs, color: '#00ffff' },
-      { name: 'Grasas', y: totalFats, color: '#ff00ff' },
-      { name: 'Proteínas', y: totalProteins, color: '#ffa800' },
-    ];
-
-    this.donutChart.ref$.subscribe((chartRef) => {
-      chartRef.series[0].setData(macros);
-      chartRef.setTitle({ text: 'Macros' });
-      chartRef.setSubtitle({ text: 'Calorías totales: ' + totalCalories });
-    });
-  }
-
   // TODO: en vez de esto llamar al servicio
   private getFoodById(foodId: number): Food {
     const food1: Food = {
@@ -168,31 +171,53 @@ export class NutritionComponent {
     }
   }
 
+  // FECHA
+  onDiaIncrementado(fecha: Date) {
+    let selectedDate = this.transformarDia(fecha);
+    console.log('Selected date:', selectedDate);
+    console.log('Dia incrementado:', fecha);
+  }
+
+  onDiaDecrementado(fecha: Date) {
+    let selectedDate = this.transformarDia(fecha);
+    console.log('Selected date:', selectedDate);
+    console.log('Dia decrementado:', fecha);
+  }
+
+  transformarDia(fecha: Date): string {
+    const date = new Date(fecha);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    let selectedDate = `${year}-${month}-${day}`;
+    return selectedDate;
+  }
+
+  // HELPERS métodos
   getFoodName(foodId: number): string {
     const food: Food = this.getFoodById(foodId);
     return food ? food.name : '';
   }
-
   getFoodCarbs(foodId: number): number {
     const food: Food = this.getFoodById(foodId);
     return food ? food.carbs : 0;
   }
-
   getFoodProteins(foodId: number): number {
     const food: Food = this.getFoodById(foodId);
     return food ? food.proteins : 0;
   }
-
   getFoodFats(foodId: number): number {
     const food: Food = this.getFoodById(foodId);
     return food ? food.fats : 0;
   }
-
   getFoodCalories(foodId: number, grams: number): number {
     const food: Food = this.getFoodById(foodId);
     return food ? (food.kcal / 100) * grams : 0;
   }
 
+  // Ordenar filas
   getSortedFoodInstances(foodInstances: FoodInstance[]): FoodInstance[] {
     const mealTypeOrder: { [key: string]: number } = {
       breakfast: 1,
@@ -221,8 +246,7 @@ export class NutritionComponent {
     });
   }
 
-
-
+  // Añadir linea gruesa
   shouldAddThickRow(foodInstances: FoodInstance[], currentIndex: number): boolean {
     if (currentIndex === 0) {
       return true; // Add thick row for the first row
