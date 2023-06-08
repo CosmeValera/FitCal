@@ -7,11 +7,20 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { LoginService } from '@shared/services/login/login.service';
 import { IGoogleAuth } from './model/GoogleAuth.model';
 import { PersonalInformationComponent } from '@shared/components/personal-information/personal-information.component';
-import { CaloriesDialogComponent } from '@shared/components/calories-dialog/calories-dialog.component';
 import { User } from '@shared/interfaces/userInterface';
 import { CaloriesProfileComponent } from '@shared/components/calories-profile/calories-profile.component';
 import { UserService } from '@shared/services/user.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { ConfirmationDialogComponent } from 'src/app/confirmation-dialog/confirmation-dialog.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
+@NgModule({
+  imports: [CommonModule, MatDialogModule, MatButtonModule],
+})
+export class ProfileModule {}
 
 @Component({
   selector: 'app-profile',
@@ -34,53 +43,68 @@ export class ProfileComponent {
   autenticacion: IGoogleAuth | undefined;
 
   constructor(
-    private matDialog: MatDialog,
+    private dialog: MatDialog,
     private fitcalAuthService: AuthService,
     private socialAuthService: SocialAuthService,
-    private httpClient: HttpClient,
     private loginService: LoginService,
-    private userService: UserService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
     this.user = this.fitcalAuthService.getUser();
     this.socialAuthService.authState.subscribe((user) => {
-
-      this.userService.checkUserExists(user.email).subscribe((userParam?) => {
-        if (userParam) {
-          console.log('El usuario existe en la base de datos', userParam);
-          this.user = userParam;
-          this.fitcalAuthService.login(this.user);
-        } else {
-          console.log('El usuario no existe en la base de datos, lo creamos');
+      this.userService.checkUserExists(user.email).subscribe(
+        (userParam?) => {
+          if (userParam) {
+            console.log('El usuario existe en la base de datos', userParam);
+            this.user = userParam;
+            this.fitcalAuthService.login(this.user);
+          } else {
+            console.log('El usuario no existe en la base de datos, lo creamos');
+            this.crearUsuario(user);
+            this.fitcalAuthService.login(this.user);
+          }
+        },
+        (error) => {
+          console.error('Error al verificar la existencia del usuario:', error);
           this.crearUsuario(user);
           this.fitcalAuthService.login(this.user);
         }
-      }, (error) => {
-        console.error('Error al verificar la existencia del usuario:', error);
-        this.crearUsuario(user);
-        this.fitcalAuthService.login(this.user);
-      });
+      );
     });
   }
 
-  crearUsuario(user: any):void {
-    this.loginService.createUser({
-      idToken: user.idToken,
-      name: user.name,
-      email: user.email,
-      photoUrl: user.photoUrl,
-    })
-    .subscribe({
-      next: (res: HttpResponse<IGoogleAuth>) => {
-        console.log(res.body);
-        this.user = res.body;
-        this.user.googleId = user.idToken;
-      },
-      error: (err: any) => {
-        console.error(err)
-      },
+  openConfirmationDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: '¿Seguro de que quieres guardar los datos?',
     });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.guardarDatos();
+      }
+    });
+  }
+
+  crearUsuario(user: any): void {
+    this.loginService
+      .createUser({
+        idToken: user.idToken,
+        name: user.name,
+        email: user.email,
+        photoUrl: user.photoUrl,
+      })
+      .subscribe({
+        next: (res: HttpResponse<IGoogleAuth>) => {
+          console.log(res.body);
+          this.user = res.body;
+          this.user.googleId = user.idToken;
+        },
+        error: (err: any) => {
+          console.error(err);
+        },
+      });
   }
 
   dateChanged(event: MatDatepickerInputEvent<Date>) {
@@ -93,7 +117,6 @@ export class ProfileComponent {
 
     this.selectedDate = `${year}-${month}-${day}`;
     console.log('Selected date:', this.selectedDate);
-
   }
 
   guardarDatos(): void {
@@ -111,82 +134,84 @@ export class ProfileComponent {
       activityLevel: this.user.activityLevel,
       calories: this.user.calories,
       days: this.user.days,
-    }
+    };
 
-    if(this.user.gender === "F") {
-      userEdited.gender = "F"
+    if (this.user.gender === 'F') {
+      userEdited.gender = 'F';
     } else {
-      userEdited.gender = "M"
+      userEdited.gender = 'M';
     }
 
-    this.informacionPersonal.forEach((component: PersonalInformationComponent) => {
-      if(component.dato === "Altura:"){
-        userEdited.height = parseInt(component.datoPrincipal.toString());
-      } else if(component.dato === "Peso:"){
-        userEdited.weight = parseInt(component.datoPrincipal.toString());
+    this.informacionPersonal.forEach(
+      (component: PersonalInformationComponent) => {
+        if (component.dato === 'Altura:') {
+          userEdited.height = parseInt(component.datoPrincipal.toString());
+        } else if (component.dato === 'Peso:') {
+          userEdited.weight = parseInt(component.datoPrincipal.toString());
+        }
       }
-    });
+    );
 
     this.metasPersonales.forEach((component: GoalDialogComponent) => {
-      if(component.selectTipo === "Meta Semanal:"){
+      if (component.selectTipo === 'Meta Semanal:') {
         console.log(component.selectedOption);
 
-        switch(component.selectedOption){
-          case "GAIN1000":
-            userEdited.goal = "GAIN1000"
+        switch (component.selectedOption) {
+          case 'GAIN1000':
+            userEdited.goal = 'GAIN1000';
             break;
-          case "GAIN750":
-            userEdited.goal = "GAIN750"
+          case 'GAIN750':
+            userEdited.goal = 'GAIN750';
             break;
-          case "GAIN500":
-            userEdited.goal = "GAIN500"
+          case 'GAIN500':
+            userEdited.goal = 'GAIN500';
             break;
-          case "GAIN250":
-            userEdited.goal = "GAIN250"
+          case 'GAIN250':
+            userEdited.goal = 'GAIN250';
             break;
-          case "MAINTENANCE":
-            userEdited.goal = "MAINTENANCE"
+          case 'MAINTENANCE':
+            userEdited.goal = 'MAINTENANCE';
             break;
-          case "LOSE1000":
-            userEdited.goal = "LOSE1000"
+          case 'LOSE1000':
+            userEdited.goal = 'LOSE1000';
             break;
-          case "LOSE750":
-            userEdited.goal = "LOSE750"
+          case 'LOSE750':
+            userEdited.goal = 'LOSE750';
             break;
-          case "LOSE500":
-            userEdited.goal = "LOSE500"
+          case 'LOSE500':
+            userEdited.goal = 'LOSE500';
             break;
-          case "LOSE250":
-          userEdited.goal = "LOSE250"
-          break;
+          case 'LOSE250':
+            userEdited.goal = 'LOSE250';
+            break;
         }
-      }else if(component.selectTipo === "Nivel de Actividad:"){
+      } else if (component.selectTipo === 'Nivel de Actividad:') {
         console.log(component.selectedOption);
-        switch(component.selectedOption){
-          case "ANY":
-            userEdited.activityLevel = "ANY"
+        switch (component.selectedOption) {
+          case 'ANY':
+            userEdited.activityLevel = 'ANY';
             break;
-          case "LOW":
-            userEdited.activityLevel = "LOW"
+          case 'LOW':
+            userEdited.activityLevel = 'LOW';
             break;
-          case "MEDIUM":
-            userEdited.activityLevel = "MEDIUM"
+          case 'MEDIUM':
+            userEdited.activityLevel = 'MEDIUM';
             break;
-          case "HIGH":
-            userEdited.activityLevel = "HIGH"
+          case 'HIGH':
+            userEdited.activityLevel = 'HIGH';
             break;
-        }}
+        }
+      }
     });
 
     userEdited.calories = parseInt(this.caloriasPerfil.datoPrincipal);
 
-    console.log(userEdited)
+    console.log(userEdited);
     this.fitcalAuthService.saveUser(userEdited);
-    this.userService.updateUser(userEdited)
-      .subscribe((data: any) => {
-        console.log("Perfil actualizado:", data);
-        window.location.reload();
-      });
+    this.userService.updateUser(userEdited).subscribe((data: any) => {
+      console.log('Perfil actualizado:', data);
+      window.location.reload();
+    });
   }
 
   logout() {
