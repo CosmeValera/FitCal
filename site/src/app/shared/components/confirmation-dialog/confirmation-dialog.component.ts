@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-confirmation-dialog',
   template: `
-    <h1 mat-dialog-title>Confirmación</h1>
+    <h1 mat-dialog-title>¡Ojo!</h1>
     <div mat-dialog-content>
       <p>{{ data }}</p>
     </div>

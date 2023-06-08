@@ -11,7 +11,7 @@ import { User } from '@shared/interfaces/userInterface';
 import { CaloriesProfileComponent } from '@shared/components/calories-profile/calories-profile.component';
 import { UserService } from '@shared/services/user.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { ConfirmationDialogComponent } from 'src/app/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from '@shared/components/confirmation-dialog/confirmation-dialog.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -77,7 +77,7 @@ export class ProfileComponent {
   openConfirmationDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '400px',
-      data: '¿Seguro de que quieres guardar los datos?',
+      data: '¿Seguro que quieres actualizar los datos?',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
