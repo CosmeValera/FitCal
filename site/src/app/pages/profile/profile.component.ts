@@ -57,17 +57,17 @@ export class ProfileComponent {
       this.fitcalAuthService.login();
       console.log(this.user);
 
-      this.userService.checkUserExists(user.id).subscribe((exists?) => {
+      this.userService.checkUserExists(user.email).subscribe((exists?) => {
         if (exists) {
           console.log('El usuario existe en la base de datos', exists);
-          // Realizar acciones adicionales si el usuario existe
+          // getUserByID not working
           this.userService.getUserById(parseInt(user.id))
           .subscribe(data => {
             this.user = data;
             console.log(this.user)
           });
         } else {
-          console.log('El usuario no existe en la base de datos');
+          console.log('El usuario no existe en la base de datos, lo creamos');
 
           this.loginService.createUser({
             idToken: user.idToken,
@@ -79,6 +79,7 @@ export class ProfileComponent {
             next: (res: HttpResponse<IGoogleAuth>) => console.log(res.body),
             error: (err: any) => console.error(err),
           });
+
         }
       }, (error) => {
         console.error('Error al verificar la existencia del usuario:', error);

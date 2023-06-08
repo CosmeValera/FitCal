@@ -22,8 +22,12 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    // public Optional<User> getUserById(Long id) {
+    //     return userRepository.findById(id);
+    // }
+
+    public Optional<User> getUserByIdToken(String idToken) {
+        return userRepository.findByGoogleId(idToken);
     }
 
     public Optional<User> getUserByEmail(String email) {

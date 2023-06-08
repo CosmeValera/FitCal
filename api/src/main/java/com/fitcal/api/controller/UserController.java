@@ -28,9 +28,17 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> checkUserExists(@PathVariable("id") Long id) {
-        Optional<User> user = userService.getUserById(id);
+    // @GetMapping("/{idToken}")
+    // public ResponseEntity<User> checkUserExists(@PathVariable("idToken") String idToken) {
+    //     Optional<User> user = userService.getUserByIdToken(idToken);
+    //     return user.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+    //             .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    // }
+
+
+    @GetMapping("/{email}")
+    public ResponseEntity<User> checkUserExists2(@PathVariable("email") String email) {
+        Optional<User> user = userService.getUserByEmail(email);
         return user.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

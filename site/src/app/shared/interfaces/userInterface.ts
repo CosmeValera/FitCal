@@ -1,6 +1,4 @@
 import { Day } from "./dayInterface";
-import { ActivityLevel } from "./activityLevelInterface";
-import { Goals } from "./goalsInterface";
 
 export interface User {
     id?: number;
