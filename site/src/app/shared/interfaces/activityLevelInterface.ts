@@ -1,4 +1,4 @@
-enum ActivityLevel {
+export enum ActivityLevel {
   ANY = 'ANY',
   LOW = 'LOW',
   MEDIUM = 'MEDIUM',

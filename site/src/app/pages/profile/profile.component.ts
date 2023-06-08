@@ -11,6 +11,7 @@ import { CaloriesDialogComponent } from '@shared/components/calories-dialog/calo
 import { User } from '@shared/interfaces/userInterface';
 import { CaloriesProfileComponent } from '@shared/components/calories-profile/calories-profile.component';
 import { UserService } from '@shared/services/user.service';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-profile',
@@ -34,7 +35,8 @@ export class ProfileComponent {
   photoUrl: string = "";
   selectedGender: string = "";
 
-  fechaUsu?: Date;
+  // fechaUsu?: Date;
+  selectedDate: string = '';
   user: any;
   modalOpen = false;
   autenticacion: IGoogleAuth | undefined;
@@ -96,6 +98,18 @@ export class ProfileComponent {
     });
   }
 
+  dateChanged(event: MatDatepickerInputEvent<Date>) {
+    let fechaPrevia = event.value;
+    const date = new Date(fechaPrevia!);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    this.selectedDate = `${year}/${month}/${day}`;
+    console.log('Selected date:', this.selectedDate);
+  }
+
   guardarDatos(): void {
     let userEdited: User = {
       id: this.id,
@@ -103,23 +117,27 @@ export class ProfileComponent {
       googleId: this.idToken,
       name: this.name,
       photoUrl: this.photoUrl,
-      weight: 0, height: 0, gender: this.selectedGender,
-      birth_date: '2023-01-01',
-      goal: "", activityLevel: "",
+      weight: 0,
+      height: 0,
+      gender: this.selectedGender,
+      birth_date: this.selectedDate,
+      goal: "",
+      activityLevel: "",
+      calories: 0,
       days: [],
-      calories: 0
     }
 
     console.log(this.selectedGender)
-    if(this.selectedGender === "femenino")
+    if(this.selectedGender === "f") {
       userEdited.gender = "F"
-    else
+    } else {
       userEdited.gender = "M"
+    }
 
     this.informacionPersonal.forEach((component: PersonalInformationComponent) => {
       if(component.dato === "Altura:"){
         userEdited.height = parseInt(component.datoPrincipal.toString());
-      }else if(component.dato === "Peso:"){
+      } else if(component.dato === "Peso:"){
         userEdited.weight = parseInt(component.datoPrincipal.toString());
       }
     });
@@ -170,7 +188,7 @@ export class ProfileComponent {
             userEdited.activityLevel = "MEDIUM"
             break;
           case "muyActivo":
-          userEdited.activityLevel = "HIGH"
+            userEdited.activityLevel = "HIGH"
             break;
         }}
     });

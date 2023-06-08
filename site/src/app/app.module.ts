@@ -41,6 +41,8 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { InjectionToken } from '@angular/core';
 import { ChartModule } from 'angular-highcharts';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 registerLocaleData(localeEs);
 export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
@@ -78,7 +80,9 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
     MatCardModule,
     HttpClientModule,
     SocialLoginModule,
-    ChartModule
+    ChartModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     LoginGuardService,

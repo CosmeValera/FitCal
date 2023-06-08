@@ -36,10 +36,7 @@
                     <h4 class="d-flex justify-content-center mb-4">
                         Datos personales
                     </h4>
-                    <div class="d-flex justify-content-center">
-                        <label> Fecha de nacimiento: </label>
-                        <input type="date" id="fecha" name="fecha" [(ngModel)]="fechaUsu"> años
-                    </div>
+
                     <app-personal-information class="d-flex justify-content-center"
                         [dato]="'Altura:'"
                         [datoPrincipal]="'0'"
@@ -52,16 +49,26 @@
                         [tipo]="'kg'"
                     >
                     </app-personal-information>
-                    <div class="d-flex align-items-center">
-                        <h5 class="me-3"> Genero </h5>
-                        <div class="flex-grow-1">
-                            <select class="form-select" [(ngModel)]="selectedGender">
-                                <option value="masculino">Masculino</option>
-                                <option value="femenino">Femenino</option>
-                            </select>
-                        </div>
-                    </div>
+
+                  <div class="d-flex justify-content-center fake-component">
+                      <h4> Fecha de nacimiento: </h4>
+                      <mat-form-field>
+                        <input matInput [matDatepicker]="picker" placeholder="Select a date" [(ngModel)]="selectedDate" (dateChange)="dateChanged($event)">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
                   </div>
+                  <div class="d-flex align-items-center fake-component">
+                      <h4 class="me-3"> Genero </h4>
+                      <div class="flex-grow-1">
+                          <select class="form-select" [(ngModel)]="selectedGender">
+                              <option value="m">Masculino</option>
+                              <option value="f">Femenino</option>
+                          </select>
+                      </div>
+                  </div>
+                </div>
+
                 </div>
                 <div class="col-12 col-md-6 p-0">
                   <div class="beautiful-card ms-md-2 h-100">

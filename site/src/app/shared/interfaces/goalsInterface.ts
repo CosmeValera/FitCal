@@ -1,4 +1,4 @@
-enum Goals {
+export enum Goals {
   GAIN1000 = 'GAIN1000',
   GAIN750 = 'GAIN750',
   GAIN500 = 'GAIN500',
