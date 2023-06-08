@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-goal-dialog',
   templateUrl: './goal-dialog.component.html',
-  styleUrls: ['./goal-dialog.component.scss']
+  styleUrls: ['./goal-dialog.component.scss'],
 })
 export class GoalDialogComponent {
   @Input() selectTipo: string = '';
@@ -19,13 +19,13 @@ export class GoalDialogComponent {
     { value: 'LOSE250', label: 'Perder 0.25kg a la semana' },
     { value: 'LOSE500', label: 'Perder 0.5kg a la semana' },
     { value: 'LOSE750', label: 'Perder 0.75kg a la semana' },
-    { value: 'LOSE1000', label: 'Perder 1kg a la semana' }
+    { value: 'LOSE1000', label: 'Perder 1kg a la semana' },
   ];
 
   nivelActivo: any[] = [
     { value: 'ANY', label: 'Poco Activo' },
     { value: 'LOW', label: 'Algo Activo' },
     { value: 'MEDIUM', label: 'Activo' },
-    { value: 'HIGH', label: 'Muy Activo' }
+    { value: 'HIGH', label: 'Muy Activo' },
   ];
 }

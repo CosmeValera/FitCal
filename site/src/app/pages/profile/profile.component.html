@@ -103,10 +103,10 @@
       <div class="row beautiful-card">
         <app-calories-profile
           [dato]="'Calorías:'"
-          [datoPrincipal]="user.calories || 0"
+          [datoPrincipal]="user.calories || '0'"
           [tipo]="'cal'"
-        >
-        </app-calories-profile>
+          [user]="user"
+        ></app-calories-profile>
       </div>
       <br />
       <div class="row">
