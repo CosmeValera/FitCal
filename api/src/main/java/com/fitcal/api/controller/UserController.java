@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(value = "*")
 @RequestMapping("/users")
 public class UserController {
 
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
+    public ResponseEntity<User> checkUserExists(@PathVariable("id") Long id) {
         Optional<User> user = userService.getUserById(id);
         return user.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -40,11 +41,22 @@ public class UserController {
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
+    // @PutMapping("/{id}")
+    // public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody User updatedUser) {
+    //     User user = userService.updateUser(id, updatedUser);
+    //     return user != null ? new ResponseEntity<>(user, HttpStatus.OK)
+    //             : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    // }
+
+    // Actualizar un perfil existente
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody User updatedUser) {
-        User user = userService.updateUser(id, updatedUser);
-        return user != null ? new ResponseEntity<>(user, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+        User updatedUser = userService.updateUserProfile(id, user);
+        if (updatedUser != null) {
+            return ResponseEntity.ok(updatedUser);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

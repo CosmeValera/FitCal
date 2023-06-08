@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(value = "*")
 @RequestMapping("/food-instances")
 public class FoodInstanceController {
 

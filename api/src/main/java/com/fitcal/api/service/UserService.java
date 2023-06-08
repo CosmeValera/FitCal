@@ -26,6 +26,10 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     public User createUser(User user) {
         return userRepository.save(user);
     }
@@ -38,6 +42,15 @@ public class UserService {
             return userRepository.save(user);
         }
         return null; // or throw an exception
+    }
+
+    public User updateUserProfile(Long id, User updatedUser) {
+        if (userRepository.existsById(id)) {
+            updatedUser.setId(id);
+            return userRepository.save(updatedUser);
+        } else {
+            return null;
+        }
     }
 
     public boolean deleteUser(Long id) {

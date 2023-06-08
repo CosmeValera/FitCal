@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(value = "*")
 public class AuthController {
 
     private static final String CLIENT_ID = "1075462838223-6r7k8rfofknaqert59tft0n2doirm1m1.apps.googleusercontent.com"; // Reemplaza con tu propio CLIENT_ID

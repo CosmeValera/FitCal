@@ -46,6 +46,9 @@ public class User {
     private int height;
 
     @Column
+    private int calories;
+
+    @Column
     private char gender;
 
     @Column
@@ -60,6 +63,8 @@ public class User {
     // Un UserData tiene muchos dias
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Day> days = new ArrayList<>();
+
+
 
     public User(Long id, String email, String googleId, String name, String photoUrl) {
         this.id = id;
