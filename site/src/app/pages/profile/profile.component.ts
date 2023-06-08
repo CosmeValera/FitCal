@@ -28,18 +28,10 @@ export class ProfileComponent {
   @ViewChild(CaloriesProfileComponent)
   caloriasPerfil!: CaloriesProfileComponent;
 
-  // selectedGender: string = "";
   selectedDate: string = '2001-01-01';
   user: any;
   modalOpen = false;
   autenticacion: IGoogleAuth | undefined;
-
-  // id: number = 0;
-  // idToken: string = "";
-  // name: string = "";
-  // email: string = "";
-  // photoUrl: string = "";
-
 
   constructor(
     private matDialog: MatDialog,
@@ -50,13 +42,9 @@ export class ProfileComponent {
     private userService: UserService,
   ) {}
 
-  userExists: boolean | undefined;
-
   ngOnInit() {
     this.socialAuthService.authState.subscribe((user) => {
-      this.user = user;
       this.fitcalAuthService.login();
-      console.log(this.user);
 
       this.userService.checkUserExists(user.email).subscribe((userParam?) => {
         if (userParam) {
@@ -64,36 +52,34 @@ export class ProfileComponent {
           this.user = userParam;
         } else {
           console.log('El usuario no existe en la base de datos, lo creamos');
-
-          this.loginService.createUser({
-            idToken: user.idToken,
-            name: user.name,
-            email: user.email,
-            photoUrl: user.photoUrl,
-          })
-          .subscribe({
-            next: (res: HttpResponse<IGoogleAuth>) => console.log(res.body),
-            error: (err: any) => console.error(err),
-          });
-
+          this.crearUsuario(user);
         }
       }, (error) => {
         console.error('Error al verificar la existencia del usuario:', error);
-        // Manejar el error si ocurre alguna falla en la verificación
-
-        this.loginService.createUser({
-          idToken: user.idToken,
-          name: user.name,
-          email: user.email,
-          photoUrl: user.photoUrl,
-        })
-        .subscribe({
-          next: (res: HttpResponse<IGoogleAuth>) => console.log(res.body),
-          error: (err: any) => console.error(err),
-        });
-
+        this.crearUsuario(user);
       });
 
+      console.log(this.user);
+
+    });
+  }
+
+  crearUsuario(user: any):void {
+    this.loginService.createUser({
+      idToken: user.idToken,
+      name: user.name,
+      email: user.email,
+      photoUrl: user.photoUrl,
+    })
+    .subscribe({
+      next: (res: HttpResponse<IGoogleAuth>) => {
+        console.log(res.body);
+        this.user = res.body;
+        this.user.googleId = user.idToken;
+      },
+      error: (err: any) => {
+        console.error(err)
+      },
     });
   }
 
@@ -126,8 +112,6 @@ export class ProfileComponent {
       calories: this.user.calories,
       days: this.user.days,
     }
-
-    // console.log(this.selectedGender);
 
     if(this.user.gender === "F") {
       userEdited.gender = "F"
