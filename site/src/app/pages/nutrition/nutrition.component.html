@@ -11,22 +11,22 @@
 
 <div class="card m-5">
   <div class="card-body">
-    <h5 class="card-title">Foods Consumed</h5>
+    <h5 class="card-title">Alimentos consumidos</h5>
     <table class="table">
       <thead>
         <tr>
-          <th>Meal Type</th>
-          <th>Food</th>
-          <th>Carbs</th>
-          <th>Proteins</th>
-          <th>Fats</th>
-          <th>Calories</th>
+          <th>Tipo</th>
+          <th>Alimento</th>
+          <th>Carbos</th>
+          <th>Proteínas</th>
+          <th>Grasas</th>
+          <th>Calorías</th>
         </tr>
       </thead>
       <tbody>
         <ng-container *ngFor="let day of mockUser.days">
-          <ng-container *ngFor="let foodInstance of getSortedFoodInstances(day.foodInstances)">
-            <tr>
+          <ng-container *ngFor="let foodInstance of getSortedFoodInstances(day.foodInstances); let i = index">
+            <tr [ngClass]="{ 'thick-row': shouldAddThickRow(day.foodInstances, i) }">
               <td>{{ foodInstance.meal_type }}</td>
               <td>{{ getFoodName(foodInstance.food_id) }}</td>
               <td>{{ getFoodCarbs(foodInstance.food_id) }}</td>

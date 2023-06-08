@@ -51,6 +51,13 @@ export class NutritionComponent {
     };
 
     // Example food instances
+    const foodInstance4: FoodInstance = {
+      food_id: 2,
+      day_id: 1,
+      meal_type: 'Snacks',
+      grams: 200,
+    };
+
     const foodInstance1: FoodInstance = {
       food_id: 1,
       day_id: 1,
@@ -72,7 +79,21 @@ export class NutritionComponent {
       grams: 200,
     };
 
-    day.foodInstances!.push(foodInstance1, foodInstance2, foodInstance3);
+    const foodInstance5: FoodInstance = {
+      food_id: 2,
+      day_id: 1,
+      meal_type: 'Dinner',
+      grams: 200,
+    };
+
+    const foodInstance6: FoodInstance = {
+      food_id: 1,
+      day_id: 1,
+      meal_type: 'Snacks',
+      grams: 200,
+    };
+
+    day.foodInstances!.push(foodInstance1, foodInstance2, foodInstance3, foodInstance4, foodInstance5, foodInstance6);
     user.days.push(day);
 
     return user;
@@ -173,19 +194,43 @@ export class NutritionComponent {
   }
 
   getSortedFoodInstances(foodInstances: FoodInstance[]): FoodInstance[] {
-    return foodInstances.sort((a, b) => {
-      const mealTypeA = a.meal_type.toUpperCase();
-      const mealTypeB = b.meal_type.toUpperCase();
+    const mealTypeOrder: { [key: string]: number } = {
+      breakfast: 1,
+      lunch: 2,
+      dinner: 3,
+      snacks: 4,
+    };
 
-      if (mealTypeA < mealTypeB) {
-        return -1;
+    return foodInstances.sort((a, b) => {
+      const mealTypeA = a.meal_type.toLowerCase();
+      const mealTypeB = b.meal_type.toLowerCase();
+
+      const orderA = mealTypeOrder[mealTypeA];
+      const orderB = mealTypeOrder[mealTypeB];
+
+      if (orderA && orderB) {
+        if (orderA < orderB) {
+          return -1;
+        }
+        if (orderA > orderB) {
+          return 1;
+        }
       }
-      if (mealTypeA > mealTypeB) {
-        return 1;
-      }
-      return 0;
+
+      return a!.id! - b!.id!;
     });
   }
 
 
+
+  shouldAddThickRow(foodInstances: FoodInstance[], currentIndex: number): boolean {
+    if (currentIndex === 0) {
+      return true; // Add thick row for the first row
+    }
+
+    const currentMealType = foodInstances[currentIndex].meal_type;
+    const previousMealType = foodInstances[currentIndex - 1].meal_type;
+
+    return currentMealType !== previousMealType;
+  }
 }
