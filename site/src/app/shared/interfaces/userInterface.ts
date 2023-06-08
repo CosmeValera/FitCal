@@ -9,7 +9,7 @@ export interface User {
     weight: number;
     height: number;
     gender: string;
-    birth_date: Date;
+    birth_date: string;
     goal: string;
     activityLevel: string;
     calories: number;

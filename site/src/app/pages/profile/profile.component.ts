@@ -26,13 +26,13 @@ export class ProfileComponent {
 
   @ViewChild(CaloriesProfileComponent)
   caloriasPerfil!: CaloriesProfileComponent;
-  
+
   id: number = 0;
   idToken: string = "";
   name: string = "";
   email: string = "";
   photoUrl: string = "";
-  selectedGender: string = ""; 
+  selectedGender: string = "";
 
   fechaUsu?: Date;
   user: any;
@@ -49,7 +49,7 @@ export class ProfileComponent {
   ) {}
 
   userExists: boolean | undefined;
-  
+
   ngOnInit() {
     this.socialAuthService.authState.subscribe((user) => {
       this.user = user;
@@ -99,12 +99,12 @@ export class ProfileComponent {
   guardarDatos(): void {
     let userEdited: User = {
       id: this.id,
-      email: this.email, 
-      googleId: this.idToken, 
-      name: this.name, 
+      email: this.email,
+      googleId: this.idToken,
+      name: this.name,
       photoUrl: this.photoUrl,
       weight: 0, height: 0, gender: this.selectedGender,
-      birth_date: this.fechaUsu !== undefined ? this.fechaUsu : new Date(), 
+      birth_date: '2023-01-01',
       goal: "", activityLevel: "",
       days: [],
       calories: 0
@@ -123,11 +123,11 @@ export class ProfileComponent {
         userEdited.weight = parseInt(component.datoPrincipal.toString());
       }
     });
-    
+
     this.metasPersonales.forEach((component: GoalDialogComponent) => {
       if(component.selectTipo === "Meta Semanal:"){
         console.log(component.selectedOption);
-        
+
         switch(component.selectedOption){
           case "ganar1000":
             userEdited.goal = "GAIN1000"
@@ -138,10 +138,10 @@ export class ProfileComponent {
           case "ganar500":
             userEdited.goal = "GAIN500"
             break;
-          case "ganar250":            
+          case "ganar250":
             userEdited.goal = "GAIN250"
             break;
-          case "mantener":            
+          case "mantener":
             userEdited.goal = "MAINTENANCE"
             break;
           case "perder1000":
@@ -153,7 +153,7 @@ export class ProfileComponent {
           case "perder500":
             userEdited.goal = "LOSE500"
             break;
-          case "perder250":            
+          case "perder250":
           userEdited.goal = "LOSE250"
           break;
         }
@@ -169,19 +169,18 @@ export class ProfileComponent {
           case "activo":
             userEdited.activityLevel = "MEDIUM"
             break;
-          case "muyActivo":            
+          case "muyActivo":
           userEdited.activityLevel = "HIGH"
             break;
         }}
     });
-    
+
     userEdited.calories = parseInt(this.caloriasPerfil.datoPrincipal);
 
     console.log(userEdited)
-
     this.userService.updateUser(userEdited)
       .subscribe((data: any) => {
-        console.log("Perfil dado de alta:", data);
+        console.log("Perfil actualizado:", data);
         window.location.reload();
       });
   }
