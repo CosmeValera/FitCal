@@ -29,7 +29,7 @@ export class ProfileComponent {
   caloriasPerfil!: CaloriesProfileComponent;
 
   selectedDate: string = '2001-01-01';
-  user: any;
+  user: User | any;
   modalOpen = false;
   autenticacion: IGoogleAuth | undefined;
 
@@ -43,24 +43,24 @@ export class ProfileComponent {
   ) {}
 
   ngOnInit() {
+    this.user = this.fitcalAuthService.getUser();
     this.socialAuthService.authState.subscribe((user) => {
-      this.fitcalAuthService.login();
 
       this.userService.checkUserExists(user.email).subscribe((userParam?) => {
         if (userParam) {
           console.log('El usuario existe en la base de datos', userParam);
           this.user = userParam;
+          this.fitcalAuthService.login(this.user);
         } else {
           console.log('El usuario no existe en la base de datos, lo creamos');
           this.crearUsuario(user);
+          this.fitcalAuthService.login(this.user);
         }
       }, (error) => {
         console.error('Error al verificar la existencia del usuario:', error);
         this.crearUsuario(user);
+        this.fitcalAuthService.login(this.user);
       });
-
-      console.log(this.user);
-
     });
   }
 
@@ -181,6 +181,7 @@ export class ProfileComponent {
     userEdited.calories = parseInt(this.caloriasPerfil.datoPrincipal);
 
     console.log(userEdited)
+    this.fitcalAuthService.saveUser(userEdited);
     this.userService.updateUser(userEdited)
       .subscribe((data: any) => {
         console.log("Perfil actualizado:", data);
