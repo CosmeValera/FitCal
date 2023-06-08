@@ -17,6 +17,9 @@ export class NutritionComponent {
   caloriasTotales: number = 120;
   user: any;
 
+  // BOrrar
+  mockUser: any;
+
   constructor(private fitcalAuthService: AuthService) {
     this.donutChart = new Chart(donutChartOptions);
     this.user = fitcalAuthService.getUser();
@@ -62,7 +65,14 @@ export class NutritionComponent {
       grams: 300,
     };
 
-    day.foodInstances!.push(foodInstance1, foodInstance2);
+    const foodInstance3: FoodInstance = {
+      food_id: 1,
+      day_id: 1,
+      meal_type: 'Breakfast',
+      grams: 200,
+    };
+
+    day.foodInstances!.push(foodInstance1, foodInstance2, foodInstance3);
     user.days.push(day);
 
     return user;
@@ -72,10 +82,10 @@ export class NutritionComponent {
     // REAL
     // console.log("user localstorage", this.user);
 
-    let mockUser = this.mockInfo();
-    console.log("mockUser", mockUser);
+    this.mockUser = this.mockInfo();
+    console.log("mockUser", this.mockUser);
 
-    const day = mockUser.days[0]; // Assuming there is only one day in the user's days array
+    const day = this.mockUser.days[0]; // Assuming there is only one day in the user's days array
 
     // Calculate the total macros from food instances
     let totalProteins = 0;
@@ -136,4 +146,46 @@ export class NutritionComponent {
       return {} as Food; // Return an empty object if the food item is not found
     }
   }
+
+  getFoodName(foodId: number): string {
+    const food: Food = this.getFoodById(foodId);
+    return food ? food.name : '';
+  }
+
+  getFoodCarbs(foodId: number): number {
+    const food: Food = this.getFoodById(foodId);
+    return food ? food.carbs : 0;
+  }
+
+  getFoodProteins(foodId: number): number {
+    const food: Food = this.getFoodById(foodId);
+    return food ? food.proteins : 0;
+  }
+
+  getFoodFats(foodId: number): number {
+    const food: Food = this.getFoodById(foodId);
+    return food ? food.fats : 0;
+  }
+
+  getFoodCalories(foodId: number, grams: number): number {
+    const food: Food = this.getFoodById(foodId);
+    return food ? (food.kcal / 100) * grams : 0;
+  }
+
+  getSortedFoodInstances(foodInstances: FoodInstance[]): FoodInstance[] {
+    return foodInstances.sort((a, b) => {
+      const mealTypeA = a.meal_type.toUpperCase();
+      const mealTypeB = b.meal_type.toUpperCase();
+
+      if (mealTypeA < mealTypeB) {
+        return -1;
+      }
+      if (mealTypeA > mealTypeB) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+
+
 }
