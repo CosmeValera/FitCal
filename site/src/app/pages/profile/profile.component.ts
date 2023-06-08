@@ -28,17 +28,18 @@ export class ProfileComponent {
   @ViewChild(CaloriesProfileComponent)
   caloriasPerfil!: CaloriesProfileComponent;
 
-  id: number = 0;
-  idToken: string = "";
-  name: string = "";
-  email: string = "";
-  photoUrl: string = "";
-  selectedGender: string = "";
-
+  // selectedGender: string = "";
   selectedDate: string = '2001-01-01';
   user: any;
   modalOpen = false;
   autenticacion: IGoogleAuth | undefined;
+
+  // id: number = 0;
+  // idToken: string = "";
+  // name: string = "";
+  // email: string = "";
+  // photoUrl: string = "";
+
 
   constructor(
     private matDialog: MatDialog,
@@ -57,15 +58,10 @@ export class ProfileComponent {
       this.fitcalAuthService.login();
       console.log(this.user);
 
-      this.userService.checkUserExists(user.email).subscribe((exists?) => {
-        if (exists) {
-          console.log('El usuario existe en la base de datos', exists);
-          // getUserByID not working
-          this.userService.getUserById(parseInt(user.id))
-          .subscribe(data => {
-            this.user = data;
-            console.log(this.user)
-          });
+      this.userService.checkUserExists(user.email).subscribe((userParam?) => {
+        if (userParam) {
+          console.log('El usuario existe en la base de datos', userParam);
+          this.user = userParam;
         } else {
           console.log('El usuario no existe en la base de datos, lo creamos');
 
@@ -84,13 +80,20 @@ export class ProfileComponent {
       }, (error) => {
         console.error('Error al verificar la existencia del usuario:', error);
         // Manejar el error si ocurre alguna falla en la verificación
+
+        this.loginService.createUser({
+          idToken: user.idToken,
+          name: user.name,
+          email: user.email,
+          photoUrl: user.photoUrl,
+        })
+        .subscribe({
+          next: (res: HttpResponse<IGoogleAuth>) => console.log(res.body),
+          error: (err: any) => console.error(err),
+        });
+
       });
 
-      this.id = 1;
-      this.idToken = user.idToken;
-      this.name = user.name;
-      this.email = user.email;
-      this.photoUrl = user.photoUrl;
     });
   }
 
@@ -109,23 +112,24 @@ export class ProfileComponent {
 
   guardarDatos(): void {
     let userEdited: User = {
-      id: this.id,
-      email: this.email,
-      googleId: this.idToken,
-      name: this.name,
-      photoUrl: this.photoUrl,
-      weight: 0,
-      height: 0,
-      gender: this.selectedGender,
+      id: this.user.id,
+      email: this.user.email,
+      googleId: this.user.googleId,
+      name: this.user.name,
+      photoUrl: this.user.photoUrl,
+      weight: this.user.weight,
+      height: this.user.height,
+      gender: this.user.gender,
       birth_date: this.selectedDate,
-      goal: "",
-      activityLevel: "",
-      calories: 0,
-      days: [],
+      goal: this.user.goal,
+      activityLevel: this.user.activityLevel,
+      calories: this.user.calories,
+      days: this.user.days,
     }
 
-    console.log(this.selectedGender)
-    if(this.selectedGender === "f") {
+    // console.log(this.selectedGender);
+
+    if(this.user.gender === "F") {
       userEdited.gender = "F"
     } else {
       userEdited.gender = "M"
@@ -144,47 +148,47 @@ export class ProfileComponent {
         console.log(component.selectedOption);
 
         switch(component.selectedOption){
-          case "ganar1000":
+          case "GAIN1000":
             userEdited.goal = "GAIN1000"
             break;
-          case "ganar750":
+          case "GAIN750":
             userEdited.goal = "GAIN750"
             break;
-          case "ganar500":
+          case "GAIN500":
             userEdited.goal = "GAIN500"
             break;
-          case "ganar250":
+          case "GAIN250":
             userEdited.goal = "GAIN250"
             break;
-          case "mantener":
+          case "MAINTENANCE":
             userEdited.goal = "MAINTENANCE"
             break;
-          case "perder1000":
+          case "LOSE1000":
             userEdited.goal = "LOSE1000"
             break;
-          case "perder750":
+          case "LOSE750":
             userEdited.goal = "LOSE750"
             break;
-          case "perder500":
+          case "LOSE500":
             userEdited.goal = "LOSE500"
             break;
-          case "perder250":
+          case "LOSE250":
           userEdited.goal = "LOSE250"
           break;
         }
       }else if(component.selectTipo === "Nivel de Actividad:"){
         console.log(component.selectedOption);
         switch(component.selectedOption){
-          case "pocoActivo":
+          case "ANY":
             userEdited.activityLevel = "ANY"
             break;
-          case "algoActivo":
+          case "LOW":
             userEdited.activityLevel = "LOW"
             break;
-          case "activo":
+          case "MEDIUM":
             userEdited.activityLevel = "MEDIUM"
             break;
-          case "muyActivo":
+          case "HIGH":
             userEdited.activityLevel = "HIGH"
             break;
         }}

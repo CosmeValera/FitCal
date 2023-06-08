@@ -39,13 +39,13 @@
 
                     <app-personal-information class="d-flex justify-content-center"
                         [dato]="'Altura:'"
-                        [datoPrincipal]="'0'"
+                        [datoPrincipal]="user.height || 0"
                         [tipo]="'cm'"
                     >
                     </app-personal-information>
                     <app-personal-information class="d-flex justify-content-center"
                         [dato]="'Peso:'"
-                        [datoPrincipal]="'0'"
+                        [datoPrincipal]="user.weight || 0"
                         [tipo]="'kg'"
                     >
                     </app-personal-information>
@@ -53,7 +53,7 @@
                   <div class="d-flex justify-content-center fake-component">
                       <h4> Fecha de nacimiento: </h4>
                       <mat-form-field>
-                        <input matInput [matDatepicker]="picker" placeholder="Select a date" [(ngModel)]="selectedDate" (dateChange)="dateChanged($event)">
+                        <input matInput [matDatepicker]="picker" placeholder="Select a date" [(ngModel)]="user.birth_date || selectedDate" (dateChange)="dateChanged($event)">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                       </mat-form-field>
@@ -62,9 +62,9 @@
                   <div class="d-flex align-items-center fake-component">
                       <h4 class="me-3"> Genero </h4>
                       <div class="flex-grow-1">
-                          <select class="form-select" [(ngModel)]="selectedGender">
-                              <option value="m">Masculino</option>
-                              <option value="f">Femenino</option>
+                          <select class="form-select" [(ngModel)]="user.gender">
+                              <option value="M">Masculino</option>
+                              <option value="F">Femenino</option>
                           </select>
                       </div>
                   </div>
@@ -76,9 +76,9 @@
                     <h4 class="d-flex justify-content-center mb-4">
                       Metas
                     </h4>
-                    <app-goal-dialog [selectTipo]="'Meta Semanal:'"></app-goal-dialog>
+                    <app-goal-dialog [selectTipo]="'Meta Semanal:'" [selectedOption]="user.goal"></app-goal-dialog>
                     <br>
-                    <app-goal-dialog [selectTipo]="'Nivel de Actividad:'"></app-goal-dialog>
+                    <app-goal-dialog [selectTipo]="'Nivel de Actividad:'" [selectedOption]="user.activityLevel"></app-goal-dialog>
                   </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
             <div class="row beautiful-card">
                 <app-calories-profile
                     [dato]="'Calorías:'"
-                    [datoPrincipal]="'0'"
+                    [datoPrincipal]="user.calories || 0"
                     [tipo]="'cal'">
                 </app-calories-profile>
             </div>

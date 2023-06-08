@@ -62,10 +62,10 @@ public class User {
     private LocalDate birth_date;
 
     @Column
-    private Goals goal;
+    private String goal;
 
     @Column
-    private ActivityLevel activityLevel;
+    private String activityLevel;
 
     // Un UserData tiene muchos dias
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

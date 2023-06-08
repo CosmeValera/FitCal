@@ -3,10 +3,10 @@
     <div class="flex-grow-1">
       <select class="form-select" [(ngModel)]="selectedOption">
         <ng-container *ngIf="selectTipo === 'Meta Semanal:'">
-          <option *ngFor="let option of metasSemanal" [value]="option.value">{{ option.label }}</option>
+          <option *ngFor="let option of metasSemanal" [value]="option.value" [selected]="option.value === selectedOption">{{ option.label }}</option>
         </ng-container>
         <ng-container *ngIf="selectTipo === 'Nivel de Actividad:'">
-          <option *ngFor="let option of nivelActivo" [value]="option.value">{{ option.label }}</option>
+          <option *ngFor="let option of nivelActivo" [value]="option.value" [selected]="option.value === selectedOption">{{ option.label }}</option>
         </ng-container>
       </select>
     </div>

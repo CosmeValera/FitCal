@@ -7,25 +7,25 @@ import { Component, Input } from '@angular/core';
 })
 export class GoalDialogComponent {
   @Input() selectTipo: string = '';
-  
-  selectedOption: string = '';
+
+  @Input() selectedOption: string = '';
 
   metasSemanal: any[] = [
-    { value: 'ganar1000', label: 'Ganar 1kg a la semana' },
-    { value: 'ganar750', label: 'Ganar 0.75kg a la semana' },
-    { value: 'ganar500', label: 'Ganar 0.5kg a la semana' },
-    { value: 'ganar250', label: 'Ganar 0.25kg a la semana' },
-    { value: 'mantener', label: 'Mantenimiento' },
-    { value: 'perder250', label: 'Perder 0.25kg a la semana' },
-    { value: 'perder500', label: 'Perder 0.5kg a la semana' },
-    { value: 'perder750', label: 'Perder 0.75kg a la semana' },
-    { value: 'perder1000', label: 'Perder 1kg a la semana' }
+    { value: 'GAIN1000', label: 'Ganar 1kg a la semana' },
+    { value: 'GAIN750', label: 'Ganar 0.75kg a la semana' },
+    { value: 'GAIN500', label: 'Ganar 0.5kg a la semana' },
+    { value: 'GAIN250', label: 'Ganar 0.25kg a la semana' },
+    { value: 'MAINTENANCE', label: 'Mantenimiento' },
+    { value: 'LOSE250', label: 'Perder 0.25kg a la semana' },
+    { value: 'LOSE500', label: 'Perder 0.5kg a la semana' },
+    { value: 'LOSE750', label: 'Perder 0.75kg a la semana' },
+    { value: 'LOSE1000', label: 'Perder 1kg a la semana' }
   ];
-  
+
   nivelActivo: any[] = [
-    { value: 'pocoActivo', label: 'Poco Activo' },
-    { value: 'algoActivo', label: 'Algo Activo' },
-    { value: 'activo', label: 'Activo' },
-    { value: 'muyActivo', label: 'Muy Activo' }
+    { value: 'ANY', label: 'Poco Activo' },
+    { value: 'LOW', label: 'Algo Activo' },
+    { value: 'MEDIUM', label: 'Activo' },
+    { value: 'HIGH', label: 'Muy Activo' }
   ];
 }
