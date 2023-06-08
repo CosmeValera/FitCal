@@ -35,8 +35,7 @@ export class ProfileComponent {
   photoUrl: string = "";
   selectedGender: string = "";
 
-  // fechaUsu?: Date;
-  selectedDate: string = '';
+  selectedDate: string = '2001-01-01';
   user: any;
   modalOpen = false;
   autenticacion: IGoogleAuth | undefined;
@@ -60,7 +59,7 @@ export class ProfileComponent {
 
       this.userService.checkUserExists(user.id).subscribe((exists?) => {
         if (exists) {
-          console.log('El usuario existe en la base de datos');
+          console.log('El usuario existe en la base de datos', exists);
           // Realizar acciones adicionales si el usuario existe
           this.userService.getUserById(parseInt(user.id))
           .subscribe(data => {
@@ -69,26 +68,22 @@ export class ProfileComponent {
           });
         } else {
           console.log('El usuario no existe en la base de datos');
-          // Realizar acciones adicionales si el usuario no existe
+
+          this.loginService.createUser({
+            idToken: user.idToken,
+            name: user.name,
+            email: user.email,
+            photoUrl: user.photoUrl,
+          })
+          .subscribe({
+            next: (res: HttpResponse<IGoogleAuth>) => console.log(res.body),
+            error: (err: any) => console.error(err),
+          });
         }
       }, (error) => {
         console.error('Error al verificar la existencia del usuario:', error);
         // Manejar el error si ocurre alguna falla en la verificación
       });
-
-
-
-      this.loginService
-        .createUser({
-          idToken: user.idToken,
-          name: user.name,
-          email: user.email,
-          photoUrl: user.photoUrl,
-        })
-        .subscribe({
-          next: (res: HttpResponse<IGoogleAuth>) => console.log(res.body),
-          error: (err: any) => console.error(err),
-        });
 
       this.id = 1;
       this.idToken = user.idToken;
@@ -106,8 +101,9 @@ export class ProfileComponent {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
 
-    this.selectedDate = `${year}/${month}/${day}`;
+    this.selectedDate = `${year}-${month}-${day}`;
     console.log('Selected date:', this.selectedDate);
+
   }
 
   guardarDatos(): void {

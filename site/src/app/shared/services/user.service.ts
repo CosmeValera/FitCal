@@ -31,7 +31,7 @@ export class UserService {
     return this.http.put<User>(`${this.API_URL}/${user.id}`, user);
   }
 
-  checkUserExists(email: string) {
-    return this.http.get<User>(`${this.API_URL}/${email}`);
+  checkUserExists(id: string) {
+    return this.http.get<User>(`${this.API_URL}/${id}`);
   }
 }

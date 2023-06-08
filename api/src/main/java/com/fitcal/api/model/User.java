@@ -17,6 +17,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+    public User(Long id, String email, String googleId, String name, String photoUrl) {
+        this.id = id;
+        this.email = email;
+        this.googleId = googleId;
+        this.name = name;
+        this.photoUrl = photoUrl;
+    }
 
     // Login
     @Id
@@ -63,15 +70,5 @@ public class User {
     // Un UserData tiene muchos dias
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Day> days = new ArrayList<>();
-
-
-
-    public User(Long id, String email, String googleId, String name, String photoUrl) {
-        this.id = id;
-        this.email = email;
-        this.googleId = googleId;
-        this.name = name;
-        this.photoUrl = photoUrl;
-    }
 
 }
