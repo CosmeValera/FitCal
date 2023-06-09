@@ -40,7 +40,6 @@ export class DiaryComponent {
 
   ngOnInit() {
     this.comprobarDay();
-    console.log(this.user)
   }
 
   // FECHA
@@ -79,35 +78,29 @@ export class DiaryComponent {
     console.log("Fecha: " + this.fechaFormateda)
     console.log("User: " + this.user.id)
 
-    //TODO: NO FUNCIONA
-    // this.dayService.searchByDateAndUser("2023-06-09", 1).subscribe((dayParam?) => {
-    // //   console.log("Fecha: " + this.fechaDiario.selectedDate);
-    // //   console.log(dayParam);
-      // console.log(dayParam)
-      
+    // 
+    this.dayService.searchByDateAndUser(this.fechaFormateda, this.user.id).subscribe((dayParam) => {
+      if (Array.isArray(dayParam) && dayParam.length === 0) {
+        console.log('dayParam es un array vacío');
         // FUNCIONA CREAR CORRECTAMENTE
-        // let dayCrear: Day = {
-        //   date: this.fecha,
-        //   user: this.user
-        // }   
+        let dayCrear: Day = {
+          date: this.fecha,
+          user: this.user
+        }   
 
-        // console.log("Day: " + dayCrear)
-        // //Creamos el dia
-        // this.dayService.createDay(dayCrear)
-        // .subscribe(data => {
-        //   alert("Se Agrego con Exito el dia...!!");
-        // }) 
-
-    //    if (dayParam) {
-    //      console.log('El dia existe en la base de datos', dayParam);
-    // //     //Entonces creamos el alimento
-    //    } else {
-    // //     console.log('El usuario no existe en la base de datos, lo creamos');   
-    //   }
-    // }, (error) => {
-    //   console.error('Error al verificar la existencia del dia en diario:', error);
-    // //   // Manejar el error si ocurre alguna falla en la verificación
-    // });
+        console.log("Day: " + dayCrear)
+        //Creamos el dia
+        this.dayService.createDay(dayCrear)
+        .subscribe(data => {
+          alert("Se Agrego con Exito el dia...!!");
+        }) 
+      } else {
+        console.log('dayParam no es un array vacío');
+      }
+    }, (error) => {
+      console.error('Error al verificar la existencia del dia en diario:', error);
+      // Manejar el error si ocurre alguna falla en la verificación
+    });
 
     
 

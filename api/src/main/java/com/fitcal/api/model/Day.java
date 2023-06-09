@@ -22,7 +22,7 @@ public class Day {
     private Long id;
 
     // Un dia tiene un UserData
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
 
@@ -32,7 +32,7 @@ public class Day {
 
     // Un dia puede tener muchos FoodInstances
     @JsonIgnore
-    @OneToMany(mappedBy = "day", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "day", orphanRemoval = true)
     private List<FoodInstance> foodInstances = new ArrayList<>();
 
 }
