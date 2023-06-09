@@ -1,12 +1,21 @@
 package com.fitcal.api.controller;
 
 import com.fitcal.api.model.Day;
+import com.fitcal.api.model.User;
 import com.fitcal.api.service.DayService;
+
+import jakarta.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import lombok.extern.slf4j.Slf4j;
 
+import java.io.Console;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +42,13 @@ public class DayController {
         Optional<Day> day = dayService.getDayById(id);
         return day.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/search")
+    public List<Day> searchByDateAndUser(@RequestParam @NotNull LocalDate date,
+                                         @RequestParam @NotNull Long userId) {
+        System.out.println("ID: " + userId + " Fecha " + date);
+        return dayService.findByDateAndUserId(date, userId);
     }
 
     @PostMapping
