@@ -22,11 +22,10 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        run: |
-          cd site
-          npm ci
+        run: npm ci
+        working-directory: ./site
 
       - name: Run linting
-        run: |
-          cd site
-          npm run lint
+        run: npm run lint
+        working-directory: ./site
+
