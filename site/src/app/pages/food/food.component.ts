@@ -23,50 +23,8 @@ export class FoodComponent{
   modoAgregar = false;
   datosEncontrados: boolean = true;
 
-
   foods: Food[] = [];
-  // foods: Food[] = [
-  //   {
-  //     id: 2,
-  //     brand: "Marca A",
-  //     image: "https://source.unsplash.com/600x900/?food",
-  //     name: "Mandarina",
-  //     kcal: 52,
-  //     proteins: 14,
-  //     fats: 0.2,
-  //     carbs: 0.3
-  //   },
-  //   {
-  //     id: 2,
-  //     brand: "Marca A",
-  //     image: "https://source.unsplash.com/600x900/?food,gym",
-  //     name: "Pera",
-  //     kcal: 52,
-  //     proteins: 14,
-  //     fats: 0.2,
-  //     carbs: 0.3
-  //   },
-  //   {
-  //     id: 2,
-  //     brand: "Marca A",
-  //     image: "https://source.unsplash.com/600x900/?food,healthy",
-  //     name: "Mandazo",
-  //     kcal: 52,
-  //     proteins: 14,
-  //     fats: 0.2,
-  //     carbs: 0.3
-  //   },
-  //   {
-  //     id: 2,
-  //     brand: "Marca A",
-  //     image: "https://source.unsplash.com/600x900/?food,wellness",
-  //     name: "Mandarina",
-  //     kcal: 52,
-  //     proteins: 14,
-  //     fats: 0.2,
-  //     carbs: 0.3
-  //   }
-  // ];
+  socialAuthService: any;
 
   constructor(
     private foodService: FoodService,
@@ -94,11 +52,7 @@ export class FoodComponent{
   }
 
   anadirAlimento(alimento: any) {
-    this.foodService.seleccionarAlimento(alimento);
-
-    //Aqui debemos añadirlo a la base de datos:
-
-
+    console.log("Alimento: " + alimento);
     this.matDialog.closeAll();
   }
 

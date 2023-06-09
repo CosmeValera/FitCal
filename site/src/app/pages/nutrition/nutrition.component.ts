@@ -84,8 +84,8 @@ export class NutritionComponent {
 
     // Example day
     const day: Day = {
-      user_id: 1,
       date: new Date(),
+      user: this.user,
       foodInstances: [],
     };
 
