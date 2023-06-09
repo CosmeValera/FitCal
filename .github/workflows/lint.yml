@@ -22,7 +22,11 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          cd site
+          npm ci
 
       - name: Run linting
-        run: npm run lint
+        run: |
+          cd site
+          npm run lint
