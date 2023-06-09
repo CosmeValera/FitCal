@@ -26,7 +26,7 @@ export class DialogUpdateFoodComponent {
   updateFood(): void {
     console.log("save");
 
-    let foodEdited: Food = {
+    const foodEdited: Food = {
       id: this.food.id,
       name: (document.getElementById('nameInput') as HTMLInputElement).value,
       image: (document.getElementById('imageInput') as HTMLInputElement).value,
