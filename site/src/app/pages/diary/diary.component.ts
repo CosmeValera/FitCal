@@ -83,7 +83,7 @@ export class DiaryComponent {
       if (Array.isArray(dayParam) && dayParam.length === 0) {
         console.log('dayParam es un array vacío');
         // FUNCIONA CREAR CORRECTAMENTE
-        let dayCrear: Day = {
+        const dayCrear: Day = {
           date: this.fecha,
           user: this.user
         }   
