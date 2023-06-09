@@ -39,7 +39,6 @@ export class DiaryComponent {
   }
 
   ngOnInit() {
-    this.comprobarDay();
   }
 
   // FECHA
@@ -64,61 +63,6 @@ export class DiaryComponent {
 
     this.selectedDate = `${year}-${month}-${day}`;
     return this.selectedDate;
-  }
-
-  comprobarDay(){  
-    const date = new Date(this.fecha);
-
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-
-    this.fechaFormateda = `${year}-${month}-${day}`;
-
-    console.log("Fecha: " + this.fechaFormateda)
-    console.log("User: " + this.user.id)
-
-    // 
-    this.dayService.searchByDateAndUser(this.fechaFormateda, this.user.id).subscribe((dayParam) => {
-      if (Array.isArray(dayParam) && dayParam.length === 0) {
-        console.log('dayParam es un array vacío');
-        // FUNCIONA CREAR CORRECTAMENTE
-        let dayCrear: Day = {
-          date: this.fecha,
-          user: this.user
-        }   
-
-        console.log("Day: " + dayCrear)
-        //Creamos el dia
-        this.dayService.createDay(dayCrear)
-        .subscribe(data => {
-          alert("Se Agrego con Exito el dia...!!");
-        }) 
-      } else {
-        console.log('dayParam no es un array vacío');
-      }
-    }, (error) => {
-      console.error('Error al verificar la existencia del dia en diario:', error);
-      // Manejar el error si ocurre alguna falla en la verificación
-    });
-
-    
-
-      // let dayCrear: Day = {
-      //     user_id: this.user.id,
-      //     date: this.selectedDate,
-      //     foodInstances: []
-      // }   
-
-      // console.log(dayCrear)
-      // //Creamos el dia
-      // this.dayService.createDay(dayCrear)
-      // .subscribe(data => {
-      //   alert("Se Agrego con Exito el dia...!!");
-      // })  
-
-    // --- ¿Existe? Si, entonces añade el alimento a food instance
-    // --- ¿Existe? No, crea la fila dia con usuario y fecha y añade el alimento
   }
 
   openDialog(): void {

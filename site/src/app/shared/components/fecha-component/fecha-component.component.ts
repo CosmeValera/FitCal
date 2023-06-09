@@ -19,7 +19,7 @@ export class FechaComponentComponent {
   constructor(private dayService: DiaryService,
     private fitcalAuthService: AuthService,){
       this.user = fitcalAuthService.getUser();
-
+      this.dayService.fecha = new Date();
   }
   ngOnInit() {
   }
