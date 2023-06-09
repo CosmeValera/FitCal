@@ -7,7 +7,7 @@ import {
   SocialAuthServiceConfig,
 } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidenavComponent } from '@shared/components/sidenav/sidenav.component';
@@ -70,6 +70,7 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
     ConfirmationDialogComponent,
   ],
   imports: [
+    MatSnackBarModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,

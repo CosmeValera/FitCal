@@ -1,12 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700);
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 
-body, html {
+body,
+html {
   height: 100%;
 }
 
 body {
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   font-weight: 100;
   display: flex;
   overflow: hidden;
@@ -93,24 +94,24 @@ img {
 
 input {
   ::-webkit-input-placeholder {
-     color: rgba(255,255,255,0.7);
+    color: rgba(255, 255, 255, 0.7);
   }
   ::-moz-placeholder {
-     color: rgba(255,255,255,0.7);
+    color: rgba(255, 255, 255, 0.7);
   }
   :-ms-input-placeholder {
-     color: rgba(255,255,255,0.7);
+    color: rgba(255, 255, 255, 0.7);
   }
   &:focus {
     outline: 0 transparent solid;
     ::-webkit-input-placeholder {
-     color: rgba(0,0,0,0.7);
+      color: rgba(0, 0, 0, 0.7);
     }
     ::-moz-placeholder {
-       color: rgba(0,0,0,0.7);
+      color: rgba(0, 0, 0, 0.7);
     }
     :-ms-input-placeholder {
-       color: rgba(0,0,0,0.7);
+      color: rgba(0, 0, 0, 0.7);
     }
   }
 }
@@ -125,7 +126,7 @@ input {
   min-height: 10rem;
   margin: auto;
   max-width: 50%;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 .login-text {
   //background: hsl(40,30,60);
@@ -134,7 +135,7 @@ input {
   font-size: 1.5rem;
   margin: 0 auto;
   max-width: 50%;
-  padding: .5rem;
+  padding: 0.5rem;
   text-align: center;
   //text-shadow: 1px -1px 0 rgba(0,0,0,0.3);
   .fa-stack-1x {
@@ -142,14 +143,15 @@ input {
   }
 }
 
-.login-username, .login-password {
+.login-username,
+.login-password {
   background: transparent;
   border: 0 solid;
-  border-bottom: 1px solid rgba(white, .5);
+  border-bottom: 1px solid rgba(white, 0.5);
   color: white;
   display: block;
   margin: 1rem;
-  padding: .5rem;
+  padding: 0.5rem;
   transition: 250ms background ease-in;
   width: calc(100% - 3rem);
   &:focus {
@@ -168,7 +170,7 @@ input {
   font-size: 75%;
   left: 0;
   opacity: 0.6;
-  padding: .5rem;
+  padding: 0.5rem;
   position: absolute;
   text-align: center;
   //text-decoration: none;
@@ -184,9 +186,10 @@ input {
   display: block;
   margin: 1rem auto;
   min-width: 1px;
-  padding: .25rem;
+  padding: 0.25rem;
   transition: 250ms background ease-in;
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     background: white;
     color: black;
     transition: 250ms background ease-in;
@@ -194,7 +197,7 @@ input {
 }
 
 /* CSS en inicio de sesión */
-[class*=underlay] {
+[class*="underlay"] {
   left: 0;
   min-height: 100%;
   min-width: 100%;
@@ -203,7 +206,7 @@ input {
 }
 .underlay-photo {
   animation: hue-rotate 6s infinite;
-  background: url('../../../assets/FitCal.png');
+  background: url("../../../assets/FitCal.png");
   background-size: 10%;
   -webkit-filter: grayscale(70%);
   z-index: -1;
@@ -211,11 +214,16 @@ input {
 }
 
 .underlay-black {
-  background: linear-gradient(to bottom right, rgba(80, 80, 80, 0.75), rgba(5, 5, 5, 0.75));
+  background: linear-gradient(
+    to bottom right,
+    rgba(80, 80, 80, 0.75),
+    rgba(5, 5, 5, 0.75)
+  );
   z-index: -1;
 }
 
-h3, h5 {
+h3,
+h5 {
   color: white;
   align-items: center;
   text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.45);

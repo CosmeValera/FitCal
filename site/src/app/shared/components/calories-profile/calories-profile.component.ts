@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-calories-profile',
@@ -14,6 +15,8 @@ export class CaloriesProfileComponent {
 
   nuevoDato: number = 0;
   editarDato = false;
+
+  constructor(private snackBar: MatSnackBar) {}
 
   guardarDato() {
     console.log('Guardar dato');
@@ -102,7 +105,20 @@ export class CaloriesProfileComponent {
         break;
     }
 
-    this.datoPrincipal = Math.round(calorias).toString();
+    calorias = Math.round(calorias);
+
+    this.datoPrincipal = calorias.toString();
+
+    const aviso =
+      '¡Se han recalculado las calorias correctamente según tus necesidades!';
+    const recordatorio = '¡No olvides guardar los cambios!.';
+    const snackBarRef = this.snackBar.open(aviso, recordatorio, {
+      duration: 5000, // Duración de la notificación en milisegundos
+      panelClass: 'custom-snackbar', // Clase CSS para personalizar el estilo de la notificación
+    });
+
+    // Opcional: Agregar acciones a la notificación
+    snackBarRef.onAction().subscribe(() => {});
   }
 
   // Metodo para calcular edad para la formula
