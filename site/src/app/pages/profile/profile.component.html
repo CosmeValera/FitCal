@@ -1,122 +1,126 @@
 <!-- No hay usuario -->
-<div *ngIf="!user" class="no-user" >
-    <div class="main-content d-flex justify-content-center">
-        <img [ngClass]="'img-logo'" src="../../../../assets/FitCal.png" alt="Logo" class="logo"/>
-    </div>
-    <h3 class="display-4 text-center">
-        ¡Bienvenido a FitCal!
-    </h3>
-    <h5 class="text-center justify-content-center">
-        Sabemos que una buena salud comienza con una buena alimentación.
-        Con nuestra aplicación, podrás prestar la atención necesaria a tus
-        hábitos alimenticios. Controla tus comidas, conoce tus patrones y
-        alcanza tus objetivos de una manera fácil y efectiva.
-    </h5>
-    <br>
-    <div class="main-content d-flex justify-content-center">
-        <asl-google-signin-button type="standard" size="large"></asl-google-signin-button>
-    </div>
-    <div class="underlay-photo"></div>
-    <div class="underlay-black"></div>
+<div *ngIf="!user" class="no-user">
+  <div class="main-content d-flex justify-content-center">
+    <img
+      [ngClass]="'img-logo'"
+      src="../../../../assets/FitCal.png"
+      alt="Logo"
+      class="logo"
+    />
+  </div>
+  <h3 class="display-4 text-center">¡Bienvenido a FitCal!</h3>
+  <h5 class="text-center justify-content-center">
+    Sabemos que una buena salud comienza con una buena alimentación. Con nuestra
+    aplicación, podrás prestar la atención necesaria a tus hábitos alimenticios.
+    Controla tus comidas, conoce tus patrones y alcanza tus objetivos de una
+    manera fácil y efectiva.
+  </h5>
+  <br />
+  <div class="main-content d-flex justify-content-center">
+    <asl-google-signin-button
+      type="standard"
+      size="large"
+    ></asl-google-signin-button>
+  </div>
+  <div class="underlay-photo"></div>
+  <div class="underlay-black"></div>
 </div>
 
 <!-- Hay usuario -->
 <div *ngIf="user">
-    <button class="logout-button" (click)="logout()">Logout</button>
-    <div class="imagenYTexto">
-        <h4>{{ user.name }}</h4>
-        <img [ngClass]="'img-user'" src="{{user.photoUrl}}">
-    </div>
-    <div class="main-content d-flex justify-content-center">
-        <main>
-            <div class="row mb-2">
-                <div class="col-12 col-md-6 p-0">
-                    <div class="beautiful-card mb-4 mb-md-0 me-md-2">
+  <button class="logout-button" (click)="logout()">Logout</button>
+  <div class="imagenYTexto">
+    <h4>{{ user.name }}</h4>
+    <img [ngClass]="'img-user'" src="{{ user.photoUrl }}" />
+  </div>
+  <div class="main-content d-flex justify-content-center">
+    <main>
+      <div class="row mb-2">
+        <div class="col-12 col-md-6 p-0">
+          <div class="beautiful-card mb-4 mb-md-0 me-md-2">
+            <h4 class="d-flex justify-content-center mb-4">Datos personales</h4>
 
-                    <h4 class="d-flex justify-content-center mb-4">
-                        Datos personales
-                    </h4>
+            <app-personal-information
+              class="d-flex justify-content-center"
+              [dato]="'Altura:'"
+              [datoPrincipal]="user.height || 0"
+              [tipo]="'cm'"
+            >
+            </app-personal-information>
+            <app-personal-information
+              class="d-flex justify-content-center"
+              [dato]="'Peso:'"
+              [datoPrincipal]="user.weight || 0"
+              [tipo]="'kg'"
+            >
+            </app-personal-information>
 
-                    <app-personal-information class="d-flex justify-content-center"
-                        [dato]="'Altura:'"
-                        [datoPrincipal]="user.height || 0"
-                        [tipo]="'cm'"
-                    >
-                    </app-personal-information>
-                    <app-personal-information class="d-flex justify-content-center"
-                        [dato]="'Peso:'"
-                        [datoPrincipal]="user.weight || 0"
-                        [tipo]="'kg'"
-                    >
-                    </app-personal-information>
-
-                  <div class="d-flex justify-content-center fake-component">
-                      <h4> Fecha de nacimiento: </h4>
-                      <mat-form-field>
-                        <input matInput [matDatepicker]="picker" placeholder="Select a date" [(ngModel)]="user.birth_date || selectedDate" (dateChange)="dateChanged($event)">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                      </mat-form-field>
-                  </div>
-
-                  <div class="d-flex align-items-center fake-component">
-                      <h4 class="me-3"> Género: </h4>
-                      <div class="flex-grow-1">
-                          <select class="form-select" [(ngModel)]="user.gender">
-                              <option value="M">Masculino</option>
-                              <option value="F">Femenino</option>
-                          </select>
-                      </div>
-                  </div>
-                </div>
-
-                </div>
-                <div class="col-12 col-md-6 p-0">
-                  <div class="beautiful-card ms-md-2 h-100">
-                    <h4 class="d-flex justify-content-center mb-4">
-                      Metas
-                    </h4>
-                    <app-goal-dialog [selectTipo]="'Meta Semanal:'" [selectedOption]="user.goal"></app-goal-dialog>
-                    <br>
-                    <app-goal-dialog [selectTipo]="'Nivel de Actividad:'" [selectedOption]="user.activityLevel"></app-goal-dialog>
-                  </div>
-                </div>
+            <div class="d-flex justify-content-center fake-component">
+              <h4>Fecha de nacimiento:</h4>
+              <mat-form-field>
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  placeholder="Select a date"
+                  [(ngModel)]="user.birth_date || selectedDate"
+                  (dateChange)="dateChanged($event)"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
             </div>
+
+            <div class="d-flex align-items-center fake-component">
+              <h4 class="me-3">Género:</h4>
+              <div class="flex-grow-1">
+                <select class="form-select" [(ngModel)]="user.gender">
+                  <option value="M">Masculino</option>
+                  <option value="F">Femenino</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 p-0">
+          <div class="beautiful-card ms-md-2 h-100">
+            <h4 class="d-flex justify-content-center mb-4">Metas</h4>
+            <app-goal-dialog
+              [selectTipo]="'Meta Semanal:'"
+              [selectedOption]="user.goal"
+            ></app-goal-dialog>
             <br />
-            <div class="row beautiful-card">
-                <app-calories-profile
-                    [dato]="'Calorías:'"
-                    [datoPrincipal]="user.calories || 0"
-                    [tipo]="'cal'">
-                </app-calories-profile>
-            </div>
-            <br>
-            <div class="row">
-                <button type="button" data-toggle="modal" data-target="#exampleModal" (click)="guardarDatos()" class="d-flex justify-content-center btn btn-success"> Guardar </button>
-            </div>
-            <br>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> ¿Deseas guardar los cambios?</h5>
-                    <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-                </div>
-            </div>
-
-        </main>
-    </div>
+            <app-goal-dialog
+              [selectTipo]="'Nivel de Actividad:'"
+              [selectedOption]="user.activityLevel"
+            ></app-goal-dialog>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="row beautiful-card">
+        <app-calories-profile
+          [dato]="'Calorías:'"
+          [datoPrincipal]="user.calories || '0'"
+          [tipo]="'cal'"
+          [user]="user"
+        ></app-calories-profile>
+      </div>
+      <br />
+      <div class="row">
+        <button
+          type="button"
+          data-toggle="modal"
+          data-target="#exampleModal"
+          (click)="openConfirmationDialog()"
+          class="d-flex justify-content-center btn btn-success"
+        >
+          Guardar
+        </button>
+      </div>
+      <br />
+    </main>
+  </div>
 </div>
