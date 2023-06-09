@@ -44,10 +44,10 @@ export class NutritionComponent {
     let totalFats = 0;
 
     day.foodInstances?.forEach((foodInstance: FoodInstance) => {
-      const food: Food = this.getFoodById(foodInstance.food_id);
-      totalProteins += (food.proteins / 100) * foodInstance.grams;
-      totalCarbs += (food.carbs / 100) * foodInstance.grams;
-      totalFats += (food.fats / 100) * foodInstance.grams;
+      // const food: Food = this.getFoodById(foodInstance.food_id);
+      // totalProteins += (food.proteins / 100) * foodInstance.grams;
+      // totalCarbs += (food.carbs / 100) * foodInstance.grams;
+      // totalFats += (food.fats / 100) * foodInstance.grams;
     });
 
     const totalCalories = totalProteins * 4 + totalCarbs * 4 + totalFats * 9;
@@ -90,49 +90,49 @@ export class NutritionComponent {
     };
 
     // Example food instances
-    const foodInstance4: FoodInstance = {
-      food_id: 2,
-      day_id: 1,
-      meal_type: 'Snacks',
-      grams: 200,
-    };
+    // const foodInstance4: FoodInstance = {
+    //   food_id: 2,
+    //   day_id: 1,
+    //   meal_type: 'Snacks',
+    //   grams: 200,
+    // };
 
-    const foodInstance1: FoodInstance = {
-      food_id: 1,
-      day_id: 1,
-      meal_type: 'Breakfast',
-      grams: 200,
-    };
+    // const foodInstance1: FoodInstance = {
+    //   food_id: 1,
+    //   day_id: 1,
+    //   meal_type: 'Breakfast',
+    //   grams: 200,
+    // };
 
-    const foodInstance2: FoodInstance = {
-      food_id: 2,
-      day_id: 1,
-      meal_type: 'Lunch',
-      grams: 300,
-    };
+    // const foodInstance2: FoodInstance = {
+    //   food_id: 2,
+    //   day_id: 1,
+    //   meal_type: 'Lunch',
+    //   grams: 300,
+    // };
 
-    const foodInstance3: FoodInstance = {
-      food_id: 1,
-      day_id: 1,
-      meal_type: 'Breakfast',
-      grams: 200,
-    };
+    // const foodInstance3: FoodInstance = {
+    //   food_id: 1,
+    //   day_id: 1,
+    //   meal_type: 'Breakfast',
+    //   grams: 200,
+    // };
 
-    const foodInstance5: FoodInstance = {
-      food_id: 2,
-      day_id: 1,
-      meal_type: 'Dinner',
-      grams: 200,
-    };
+    // const foodInstance5: FoodInstance = {
+    //   food_id: 2,
+    //   day_id: 1,
+    //   meal_type: 'Dinner',
+    //   grams: 200,
+    // };
 
-    const foodInstance6: FoodInstance = {
-      food_id: 1,
-      day_id: 1,
-      meal_type: 'Snacks',
-      grams: 200,
-    };
+    // const foodInstance6: FoodInstance = {
+    //   food_id: 1,
+    //   day_id: 1,
+    //   meal_type: 'Snacks',
+    //   grams: 200,
+    // };
 
-    day.foodInstances!.push(foodInstance1, foodInstance2, foodInstance3, foodInstance4, foodInstance5, foodInstance6);
+    // day.foodInstances!.push(foodInstance1, foodInstance2, foodInstance3, foodInstance4, foodInstance5, foodInstance6);
     user.days.push(day);
 
     return user;
@@ -227,8 +227,8 @@ export class NutritionComponent {
     };
 
     return foodInstances.sort((a, b) => {
-      const mealTypeA = a.meal_type.toLowerCase();
-      const mealTypeB = b.meal_type.toLowerCase();
+      const mealTypeA = a.mealType.toLowerCase();
+      const mealTypeB = b.mealType.toLowerCase();
 
       const orderA = mealTypeOrder[mealTypeA];
       const orderB = mealTypeOrder[mealTypeB];
@@ -252,8 +252,8 @@ export class NutritionComponent {
       return true; // Add thick row for the first row
     }
 
-    const currentMealType = foodInstances[currentIndex].meal_type;
-    const previousMealType = foodInstances[currentIndex - 1].meal_type;
+    const currentMealType = foodInstances[currentIndex].mealType;
+    const previousMealType = foodInstances[currentIndex - 1].mealType;
 
     return currentMealType !== previousMealType;
   }

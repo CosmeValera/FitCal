@@ -6,6 +6,11 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { DialogCreateFoodComponent } from '@shared/components/dialog-create-food/dialog-create-food.component';
 import { DialogUpdateFoodComponent } from '@shared/components/dialog-update-food/dialog-update-food.component';
 import { DiaryService } from '@shared/services/diary.service';
+import { FoodInstance } from '@shared/interfaces/foodInstanceInterface';
+import { Day } from '@shared/interfaces/dayInterface';
+import { AuthService } from '@shared/services/auth.service';
+import { User } from '@shared/interfaces/userInterface';
+import { GramosDialogComponent } from '@shared/components/gramos-dialog/gramos-dialog.component';
 
 @Component({
   selector: 'app-list-food',
@@ -20,11 +25,15 @@ export class FoodComponent{
   searchText = '';
 
   habilitarEditar = true;
+  mealtype = "";
   modoAgregar = false;
   datosEncontrados: boolean = true;
 
   foods: Food[] = [];
   socialAuthService: any;
+  user: any;
+  fecha!: Date;
+  fechaFormateda!: string;
 
   constructor(
     private foodService: FoodService,
@@ -32,11 +41,18 @@ export class FoodComponent{
     private matDialog: MatDialog,
     private diaryService: DiaryService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-  ) { }
+    private fitcalAuthService: AuthService
+  ) {     
+    this.user = fitcalAuthService.getUser();
+    this.fecha = diaryService.fecha;
+  }
 
   ngOnInit() {
-    // Para que salga el boton o editar o crear.
+    const mealtype = this.diaryService.getMealType();
     const habilitarEditar = this.diaryService.getHabilitarEditar();
+
+    this.mealtype = mealtype;
+
     if (habilitarEditar != null) {
       this.habilitarEditar = habilitarEditar;
     }
@@ -51,8 +67,76 @@ export class FoodComponent{
       });
   }
 
-  anadirAlimento(alimento: any) {
-    console.log("Alimento: " + alimento);
+  crearDia(): void{
+    this.fechaFormateada();
+
+    console.log("FECHA: " + this.fecha)
+    const dayCrear: Day = {
+      date: this.fecha,
+      user: this.user
+    }   
+
+    this.diaryService.createDay(dayCrear)
+    .subscribe(data => {
+      console.log(data + "Se Agrego con Exito el dia...!!");
+    }) 
+  }
+
+  creamosInstanciaAlimento(alimento: Food): void{
+    const foodInstanceCrear: FoodInstance = {
+      food: alimento,
+      mealType: this.mealtype,
+      grams: 200,
+      day: {
+        date: new Date(this.fecha),
+        user: this.user,
+        foodInstances: [],
+      }
+    }   
+
+    console.log("FoodInstance: " + foodInstanceCrear)
+    //Creamos el dia
+    this.diaryService.createFoodInstance(foodInstanceCrear)
+    .subscribe(data => {
+      console.log("Alimento añadido en FoodInstance correctamente.")
+    }) 
+  }
+
+  fechaFormateada(): void{
+    const date = new Date(this.fecha);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    this.fechaFormateda = `${year}-${month}-${day}`;
+  }
+
+  anadirAlimento(alimento: Food) {
+    this.fechaFormateada();
+
+    // const dialogRef = this.matDialog.open(GramosDialogComponent, {
+    //   data: '¿Cuantos gramos?',
+    // });
+
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result) {
+    //     console.log(result)
+    //     // this.guardarDatos();
+    //   }
+    // });
+
+    this.diaryService.searchByDateAndUser(this.fechaFormateda, this.user.id).subscribe((dayParam) => {
+      if (Array.isArray(dayParam) && dayParam.length === 0) {
+        this.crearDia();
+      } else {
+        // this.creamosInstanciaAlimento(alimento);
+      }
+    }, (error) => {
+      console.error('Error al verificar la existencia del dia en diario:', error);
+      // Manejar el error si ocurre alguna falla en la verificación
+    });
+
     this.matDialog.closeAll();
   }
 

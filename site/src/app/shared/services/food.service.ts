@@ -14,8 +14,8 @@ export class FoodService {
   alimentoSeleccionado$ = this.alimentoSeleccionadoSubject.asObservable();
 
   seleccionarAlimento(alimento: any) {
-    this.alimentoSeleccionadoSubject.next(alimento);
     console.log(alimento)
+    this.alimentoSeleccionadoSubject.next(alimento);
   }
 
   constructor(private http: HttpClient) { }

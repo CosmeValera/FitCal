@@ -1,7 +1,10 @@
+import { Day } from "./dayInterface";
+import { Food } from "./foodInterface";
+
 export interface FoodInstance {
     id?: number;
-    food_id: number;
-    day_id: number;
-    meal_type: string;
+    food: Food;
+    mealType: string;
     grams: number;
+    day: Day;
 }
