@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table
 @Data
@@ -29,6 +31,7 @@ public class Day {
     private LocalDate date;
 
     // Un dia puede tener muchos FoodInstances
+    @JsonIgnore
     @OneToMany(mappedBy = "day", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FoodInstance> foodInstances = new ArrayList<>();
 
