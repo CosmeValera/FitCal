@@ -1,6 +1,6 @@
 import { Options } from 'highcharts';
 
-export var donutChartOptions: Options = {
+export const donutChartOptions: Options = {
   chart: {
     type: 'pie',
     plotShadow: false,

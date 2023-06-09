@@ -173,13 +173,13 @@ export class NutritionComponent {
 
   // FECHA
   onDiaIncrementado(fecha: Date) {
-    let selectedDate = this.transformarDia(fecha);
+    const selectedDate = this.transformarDia(fecha);
     console.log('Selected date:', selectedDate);
     console.log('Dia incrementado:', fecha);
   }
 
   onDiaDecrementado(fecha: Date) {
-    let selectedDate = this.transformarDia(fecha);
+    const selectedDate = this.transformarDia(fecha);
     console.log('Selected date:', selectedDate);
     console.log('Dia decrementado:', fecha);
   }
@@ -191,7 +191,7 @@ export class NutritionComponent {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
 
-    let selectedDate = `${year}-${month}-${day}`;
+    const selectedDate = `${year}-${month}-${day}`;
     return selectedDate;
   }
 

@@ -28,7 +28,7 @@ export class DialogCreateFoodComponent {
   saveFood(): void {
     console.log("save");
 
-    let food: Food = {
+    const food: Food = {
       name: (document.getElementById('nameInput') as HTMLInputElement).value,
       image: (document.getElementById('imageInput') as HTMLInputElement).value,
       brand: (document.getElementById('brandInput') as HTMLInputElement).value,

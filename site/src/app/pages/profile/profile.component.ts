@@ -84,7 +84,7 @@ export class ProfileComponent {
   }
 
   dateChanged(event: MatDatepickerInputEvent<Date>) {
-    let fechaPrevia = event.value;
+    const fechaPrevia = event.value;
     const date = new Date(fechaPrevia!);
 
     const year = date.getFullYear();
@@ -97,7 +97,7 @@ export class ProfileComponent {
   }
 
   guardarDatos(): void {
-    let userEdited: User = {
+    const userEdited: User = {
       id: this.user.id,
       email: this.user.email,
       googleId: this.user.googleId,
