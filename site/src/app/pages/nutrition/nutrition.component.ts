@@ -107,15 +107,15 @@ export class NutritionComponent {
       const totalCalories = totalProteins * 4 + totalCarbs * 4 + totalFats * 9;
 
       const macros = [
-        { name: 'Carbohidratos', y: totalCarbs, color: '#00ffff' },
-        { name: 'Grasas', y: totalFats, color: '#ff00ff' },
-        { name: 'Proteínas', y: totalProteins, color: '#ffa800' },
+        { name: 'Carbohidratos', y: parseFloat(totalCarbs.toFixed(2)), color: '#00ffff' },
+        { name: 'Grasas', y: parseFloat(totalFats.toFixed(2)), color: '#ff00ff' },
+        { name: 'Proteínas', y: parseFloat(totalProteins.toFixed(2)), color: '#ffa800' },
       ];
 
       this.donutChart.ref$.subscribe((chartRef) => {
         chartRef.series[0].setData(macros);
         chartRef.setTitle({ text: 'Macros' });
-        chartRef.setSubtitle({ text: 'Calorías totales: ' + totalCalories });
+        chartRef.setSubtitle({ text: 'Calorías totales: ' + totalCalories.toFixed(2) });
       });
     });
   }
