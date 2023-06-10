@@ -2,8 +2,9 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-confirmation-dialog',
-  template: '',
+  selector: 'app-goal-dialog',
+  templateUrl: './gramos-dialog.component.html',
+  styleUrls: ['./gramos-dialog.component.scss'],
 })
 export class GramosDialogComponent {
   constructor(
