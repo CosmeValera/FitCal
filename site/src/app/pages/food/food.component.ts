@@ -71,8 +71,6 @@ export class FoodComponent {
   }
 
   crearDia(): void {
-    this.fechaFormateada();
-
     const fechaGlobal: Date = this.dateService.getFecha();
     const dayCrear: Day = {
       date: fechaGlobal,
@@ -107,8 +105,7 @@ export class FoodComponent {
       });
   }
 
-  fechaFormateada(): void {
-    const date = new Date(this.fecha);
+  formatearFecha(date: Date): void {
 
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -118,7 +115,8 @@ export class FoodComponent {
   }
 
   anadirAlimento(alimento: Food) {
-    this.fechaFormateada();
+    const fechaGlobal: Date = this.dateService.getFecha();
+    this.formatearFecha(fechaGlobal);
 
     // const dialogRef = this.matDialog.open(GramosDialogComponent, {
     //   data: '¿Cuantos gramos?',
