@@ -52,7 +52,7 @@ export class MealComponent {
     const dialogRef = this.matDialog.open(FoodComponent,{
       width: '1300px',
       height: '600px',
-      data: { 
+      data: {
         habilitarEditar: this.habilitarEditar,
         mealType: this.idBoton
       }

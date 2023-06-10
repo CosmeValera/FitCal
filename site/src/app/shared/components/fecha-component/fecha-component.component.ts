@@ -1,6 +1,7 @@
 import { Component, EventEmitter, LOCALE_ID, Output } from '@angular/core';
 import { Day } from '@shared/interfaces/dayInterface';
 import { AuthService } from '@shared/services/auth.service';
+import { DateService } from '@shared/services/date.service';
 import { DiaryService } from '@shared/services/diary.service';
 
 @Component({
@@ -17,20 +18,23 @@ export class FechaComponentComponent {
   user: any;
 
   constructor(private dayService: DiaryService,
-    private fitcalAuthService: AuthService,){
+    private fitcalAuthService: AuthService,
+    private dateService: DateService){
       this.user = fitcalAuthService.getUser();
       this.dayService.fecha = new Date();
   }
   ngOnInit() {
   }
-  
+
   incrementarDia() {
     this.fecha = new Date(this.fecha.getTime() + 24 * 60 * 60 * 1000);
+    this.dateService.setFecha(this.fecha);
     this.diaIncrementado.emit(this.fecha); // Emit the event with the updated date
   }
 
   decrementarDia() {
     this.fecha = new Date(this.fecha.getTime() - 24 * 60 * 60 * 1000);
+    this.dateService.setFecha(this.fecha);
     this.diaDecrementado.emit(this.fecha); // Emit the event with the updated date
   }
 }

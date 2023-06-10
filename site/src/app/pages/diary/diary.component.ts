@@ -7,6 +7,7 @@ import { Day } from '@shared/interfaces/dayInterface';
 import { FoodInstance } from '@shared/interfaces/foodInstanceInterface';
 import { Food } from '@shared/interfaces/foodInterface';
 import { AuthService } from '@shared/services/auth.service';
+import { DateService } from '@shared/services/date.service';
 import { DiaryService } from '@shared/services/diary.service';
 import { FoodService } from '@shared/services/food.service';
 
@@ -29,11 +30,12 @@ export class DiaryComponent {
   fechaFormateda: any;
 
   constructor(
-    private alimentoService: FoodService, 
+    private alimentoService: FoodService,
     public dialog: MatDialog,
     private dayService: DiaryService,
     private fitcalAuthService: AuthService,
-    ) 
+    private dateService: DateService
+    )
     {
       this.user = fitcalAuthService.getUser();
   }

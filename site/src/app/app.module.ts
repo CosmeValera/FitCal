@@ -45,6 +45,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
 import { GramosDialogComponent } from '@shared/components/gramos-dialog/gramos-dialog.component';
+import { DateService } from '@shared/services/date.service';
 
 registerLocaleData(localeEs);
 export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
@@ -87,12 +88,13 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
     SocialLoginModule,
     ChartModule,
     MatDatepickerModule,
-    MatNativeDateModule,    
+    MatNativeDateModule,
   ],
   providers: [
     LoginGuardService,
     AuthService,
     FoodService,
+    DateService,
     { provide: MAT_MDC_DIALOG_DATA, useValue: {} },
     {
       provide: 'SocialAuthServiceConfig',

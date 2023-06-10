@@ -27,7 +27,7 @@ public class DayService {
         return dayRepository.findById(id);
     }
     
-    /* Creamos la tabla DAY */
+    /* Creamos el objeto DAY */
     public Day createDay(Day day) {
         return dayRepository.save(day);
     }

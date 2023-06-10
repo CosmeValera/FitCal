@@ -15,6 +15,7 @@ import { Day } from '@shared/interfaces/dayInterface';
 import { AuthService } from '@shared/services/auth.service';
 import { User } from '@shared/interfaces/userInterface';
 import { GramosDialogComponent } from '@shared/components/gramos-dialog/gramos-dialog.component';
+import { DateService } from '@shared/services/date.service';
 
 @Component({
   selector: 'app-list-food',
@@ -43,7 +44,8 @@ export class FoodComponent {
     private matDialog: MatDialog,
     private diaryService: DiaryService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fitcalAuthService: AuthService
+    private fitcalAuthService: AuthService,
+    private dateService: DateService
   ) {
     this.user = fitcalAuthService.getUser();
     this.fecha = diaryService.fecha;
@@ -71,14 +73,16 @@ export class FoodComponent {
   crearDia(): void {
     this.fechaFormateada();
 
-    console.log('FECHA: ' + this.fecha);
+    const fechaGlobal: Date = this.dateService.getFecha();
     const dayCrear: Day = {
-      date: this.fecha,
+      date: fechaGlobal,
       user: this.user,
     };
 
     this.diaryService.createDay(dayCrear).subscribe((data) => {
-      console.log(data + 'Se Agrego con Exito el dia!!' + this.fecha);
+      console.log('fecha Frontend: ', this.fecha);
+
+      console.log('fecha Backend añadida: ', data);
     });
   }
 
