@@ -57,7 +57,6 @@ export class DiaryService {
     return this.http.get<Day>(`${this.API_URL_DAY}/${id_user}?fecha=${fecha}`);
   }
 
-  //TODO: NO FUNCIONA
   searchByDateAndUser(date: string, id_user: number): Observable<Day[]> {
     const url = `${this.API_URL_DAY}/search?date=${date}&userId=${id_user}`;
     return this.http.get<Day[]>(url);
@@ -72,18 +71,8 @@ export class DiaryService {
   getFoodInstanceByFechaAndUser(fecha: Date, id_user: number) {
     return this.http.get<FoodInstance>(`${this.API_URL_FOODINSTANCE}/${fecha}`);
   }
-  
+
   createFoodInstance(foodInstance: FoodInstance) {
-    console.log("¿Que obtengo? " + foodInstance)
-    
     return this.http.post<FoodInstance>(this.API_URL_FOODINSTANCE, foodInstance);
   }
-  
-
-  //Al pulsar añadir alimento, se comprueba si existe en day (primera consulta)
-  //y entonces añadimos el dato en day (Usa lo anterior)
-
-
-
-
 }

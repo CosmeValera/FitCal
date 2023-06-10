@@ -35,8 +35,7 @@ export class FoodComponent {
   foods: Food[] = [];
   socialAuthService: any;
   user: any;
-  fecha!: Date;
-  fechaFormateda!: string;
+  // fecha!: Date;
 
   constructor(
     private foodService: FoodService,
@@ -48,7 +47,7 @@ export class FoodComponent {
     private dateService: DateService
   ) {
     this.user = fitcalAuthService.getUser();
-    this.fecha = diaryService.fecha;
+    // this.fecha = diaryService.fecha;
   }
 
   ngOnInit() {
@@ -70,88 +69,82 @@ export class FoodComponent {
     });
   }
 
-  crearDia(): void {
+
+  /** 1. ABRIMOS MODAL DE GRAMOS*/
+  /** 2. DAMOS DE ALTA UN DÍA */
+  /** 3. Creamos instancia de alimento */
+  // WHEN: Al clickar en el '+' en el alimento.
+  anadirAlimento(food: Food) {
+    const fechaGlobal: Date = this.dateService.getFecha();
+    const fechaFormateada = this.formatearFecha(fechaGlobal);
+
+    /** 1. ABRIMOS MODAL DE GRAMOS*/
+    const gramosDialogRef = this.matDialog.open(GramosDialogComponent);
+    gramosDialogRef.afterClosed().subscribe((grams) => {
+      if (grams === undefined || grams === null) {
+        return;
+      }
+
+      /** 2. DAMOS DE ALTA UN DÍA */
+      this.diaryService.searchByDateAndUser(fechaFormateada, this.user.id).subscribe(
+        (daysParam: Day[]) => {
+          const day = daysParam[0];
+          if (Array.isArray(daysParam) && daysParam.length === 0) {
+            console.log(`No hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
+
+            /** 3.a. Si no hay dia primero lo creamos y despues llamamos al crearFoodInstance dentro */
+            this.crearDia(food, grams);
+          } else {
+            console.log(`Ya hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
+
+            /** 3.b. Creamos instancia de alimento */
+            this.crearFoodInstance(day, food, grams);
+          }
+        }, (error) => {
+          console.error('Error al verificar la existencia del dia en diario:', error);
+        }
+      );
+    });
+  }
+
+  formatearFecha(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+
+  crearDia(food: Food, grams: number): void {
     const fechaGlobal: Date = this.dateService.getFecha();
     const dayCrear: Day = {
       date: fechaGlobal,
       user: this.user,
     };
 
-    this.diaryService.createDay(dayCrear).subscribe((data) => {
-      console.log('fecha Frontend: ', this.fecha);
-
-      console.log('fecha Backend añadida: ', data);
+    this.diaryService.createDay(dayCrear).subscribe((day) => {
+      console.log('fecha Frontend: ', fechaGlobal);
+      console.log('fecha Backend añadida: ', day);
+      this.crearFoodInstance(day, food, grams);
     });
   }
 
-  creamosInstanciaAlimento(alimento: Food): void {
-    const foodInstanceCrear: FoodInstance = {
-      food: alimento,
-      mealType: this.mealtype,
-      grams: 200,
-      day: {
-        date: new Date(this.fecha),
-        user: this.user,
-        foodInstances: [],
-      },
-    };
 
-    console.log('FoodInstance: ' + foodInstanceCrear);
-    //Creamos el dia
-    this.diaryService
-      .createFoodInstance(foodInstanceCrear)
-      .subscribe((data) => {
-        console.log('Alimento añadido en FoodInstance correctamente.');
-      });
-  }
+  crearFoodInstance(day: Day, food: Food, grams: number) {
+    const foodInstance: FoodInstance = {
+      day: day,
+      food: food,
+      grams: grams,
+      mealType: this.mealtype.toUpperCase()
+    }
+    this.diaryService.createFoodInstance(foodInstance).subscribe(()=> {
+      console.log(`FoodInstance dado de alta :)`, foodInstance);
+      window.location.reload();
+    }, (error) =>{
+      console.error('Error al dar de alta el foodInstance:', error);
+    });
 
-  formatearFecha(date: Date): void {
-
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-
-    this.fechaFormateda = `${year}-${month}-${day}`;
-  }
-
-  anadirAlimento(alimento: Food) {
-    const fechaGlobal: Date = this.dateService.getFecha();
-    this.formatearFecha(fechaGlobal);
-
-    // const dialogRef = this.matDialog.open(GramosDialogComponent, {
-    //   data: '¿Cuantos gramos?',
-    // });
-
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result) {
-    //     console.log(result)
-    //     // this.guardarDatos();
-    //   }
-    // });
-
-    this.diaryService
-      .searchByDateAndUser(this.fechaFormateda, this.user.id)
-      .subscribe(
-        (dayParam) => {
-          if (Array.isArray(dayParam) && dayParam.length === 0) {
-            this.crearDia();
-          } else {
-            console.log(
-              `Ya hay un registro para ${this.fechaFormateda} y el usuario ${this.user.id}.`
-            );
-            // this.creamosInstanciaAlimento(alimento);
-          }
-        },
-        (error) => {
-          console.error(
-            'Error al verificar la existencia del dia en diario:',
-            error
-          );
-          // Manejar el error si ocurre alguna falla en la verificación
-        }
-      );
-
-    this.matDialog.closeAll();
   }
 
   openCreateFood() {

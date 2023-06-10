@@ -17,11 +17,11 @@ export class FechaComponentComponent {
   fecha: Date = new Date();
   user: any;
 
-  constructor(private dayService: DiaryService,
-    private fitcalAuthService: AuthService,
-    private dateService: DateService){
+  constructor(private fitcalAuthService: AuthService,
+    private dateService: DateService) {
       this.user = fitcalAuthService.getUser();
-      this.dayService.fecha = new Date();
+      this.fecha = this.dateService.getFecha();
+      console.log('fecha', this.fecha);
   }
   ngOnInit() {
   }

@@ -4,12 +4,21 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DateService {
-  private fecha: Date = new Date();
+  private fechaKey = 'fecha';
+  private fecha: Date;
 
-  constructor() { }
+  constructor() {
+    const fechaString = localStorage.getItem(this.fechaKey);
+    if (fechaString) {
+      this.fecha = new Date(fechaString);
+    } else {
+      this.fecha = new Date();
+    }
+  }
 
   setFecha(newFecha: Date): void {
     this.fecha = newFecha;
+    localStorage.setItem(this.fechaKey, this.fecha.toISOString());
   }
 
   getFecha(): Date {
