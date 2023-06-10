@@ -67,7 +67,7 @@ export class DiaryComponent {
     return this.selectedDate;
   }
 
-  openDialog(): void {
+  openCaloriesDialog(): void {
     const dialogRef = this.dialog.open(CaloriesDialogComponent, {
       width: '250px',
       data: {
