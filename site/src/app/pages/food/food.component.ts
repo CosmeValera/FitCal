@@ -28,7 +28,6 @@ export class FoodComponent {
   searchText = '';
 
   habilitarEditar = true;
-  mealtype = '';
   modoAgregar = false;
   datosEncontrados: boolean = true;
 
@@ -51,10 +50,7 @@ export class FoodComponent {
   }
 
   ngOnInit() {
-    const mealtype = this.diaryService.getMealType();
     const habilitarEditar = this.diaryService.getHabilitarEditar();
-
-    this.mealtype = mealtype;
 
     if (habilitarEditar != null) {
       this.habilitarEditar = habilitarEditar;
@@ -130,13 +126,31 @@ export class FoodComponent {
     });
   }
 
+  transformMealType(mealtype: string): string {
+    switch (mealtype) {
+      case "DESAYUNO":
+        return "BREAKFAST";
+      case "COMIDA":
+        return "LUNCH";
+      case "CENA":
+        return "DINNER";
+      case "SNACKS":
+        return "SNACKS";
+      default:
+        return mealtype;
+    }
+  }
+
 
   crearFoodInstance(day: Day, food: Food, grams: number) {
+    const mealTypeUpper = this.diaryService.getMealType().toUpperCase();
+    const mealTypeEspañolUpper = this.transformMealType(mealTypeUpper);
+
     const foodInstance: FoodInstance = {
       day: day,
       food: food,
       grams: grams,
-      mealType: this.mealtype.toUpperCase()
+      mealType: mealTypeEspañolUpper
     }
     this.diaryService.createFoodInstance(foodInstance).subscribe(()=> {
       console.log(`FoodInstance dado de alta :)`, foodInstance);

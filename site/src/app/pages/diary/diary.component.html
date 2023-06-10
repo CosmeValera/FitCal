@@ -1,9 +1,9 @@
 <app-fecha (diaIncrementado)="onDiaIncrementado($event)" (diaDecrementado)="onDiaDecrementado($event)"></app-fecha>
 <div class="main-content">
   <main class="beautiful-card m-5 p-5">
-    <app-meal [meal]="'Desayuno'" [foods]="getMealFoods('DESAYUNO')"></app-meal>
-    <app-meal [meal]="'Comida'" [foods]="getMealFoods('COMIDA')"></app-meal>
-    <app-meal [meal]="'Cena'" [foods]="getMealFoods('CENA')"></app-meal>
+    <app-meal [meal]="'Desayuno'" [foods]="getMealFoods('BREAKFAST')"></app-meal>
+    <app-meal [meal]="'Comida'" [foods]="getMealFoods('LUNCH')"></app-meal>
+    <app-meal [meal]="'Cena'" [foods]="getMealFoods('DINNER')"></app-meal>
     <app-meal [meal]="'Snacks'" [foods]="getMealFoods('SNACKS')"></app-meal>
   </main>
 </div>

@@ -25,7 +25,7 @@ public class FoodInstance {
     private Food food;
         
     @Column(nullable = false)
-    private String mealType;// Desayuno, comida, cena, snacks
+    private String mealType;// BREAKFAST, LUNCH, DINNER, SNACKS
 
     @Column
     private int grams;

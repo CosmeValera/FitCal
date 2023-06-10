@@ -1,4 +1,4 @@
-<app-fecha></app-fecha>
+<app-fecha (diaIncrementado)="onDiaIncrementado($event)" (diaDecrementado)="onDiaDecrementado($event)"></app-fecha>
 
 
 <div class="card m-5 py-1 px-3">
@@ -28,7 +28,7 @@
         <ng-container *ngFor="let foodInstance of getSortedFoodInstances(foodInstances); let i = index">
           <tr [ngClass]="{ 'thick-row': shouldAddThickRow(foodInstances, i) }">
             <td>{{ foodInstance.mealType }}</td>
-              <td>{{ getFoodName(foodInstances[i].id!) }}</td>
+            <td>{{ getFoodName(foodInstances[i].id!) }}</td>
             <td>{{ getFoodCarbs(foodInstances[i].id!) }}</td>
             <td>{{ getFoodProteins(foodInstances[i].id!) }}</td>
             <td>{{ getFoodFats(foodInstances[i].id!) }}</td>

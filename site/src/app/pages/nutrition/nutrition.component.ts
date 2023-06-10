@@ -39,7 +39,7 @@ export class NutritionComponent {
   }
 
   ngOnInit() {
-    this.updateChartWithData();
+    this.traerAlimentos();
   }
 
   // FECHA
@@ -68,6 +68,8 @@ export class NutritionComponent {
 
           // 2. Sacamos FoodInstances
           this.diaryService.getFoodInstancesByDayAndUser(day.id!).subscribe((foodInstances: FoodInstance[])=> {
+            console.log(foodInstances);
+
             this.foodInstances = foodInstances;
             this.updateChartWithData();
           });
@@ -143,7 +145,7 @@ export class NutritionComponent {
     return food ? food.name : '';
   }
   getFoodCarbs(foodId: number): number {
-    console.log(foodId);
+    // console.log(foodId);
     const food: Food = this.getFoodById(foodId);
     return food ? food.carbs : 0;
   }
