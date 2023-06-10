@@ -80,28 +80,28 @@ export class CaloriesProfileComponent {
     // Sumamos/Restamos segun el objetivo y si es mantenimiento mantenemos las calorias
     switch (metaSemanal) {
       case 'GAIN1000':
-        calorias += 1000;
+        calorias += 1100;
         break;
       case 'GAIN750':
-        calorias += 750;
+        calorias += 825;
         break;
       case 'GAIN500':
-        calorias += 500;
+        calorias += 550;
         break;
       case 'GAIN250':
-        calorias += 250;
+        calorias += 275;
         break;
       case 'LOSE1000':
-        calorias -= 1000;
+        calorias -= 1100;
         break;
       case 'LOSE750':
-        calorias -= 750;
+        calorias -= 825;
         break;
       case 'LOSE500':
-        calorias -= 500;
+        calorias -= 550;
         break;
       case 'LOSE250':
-        calorias -= 250;
+        calorias -= 275;
         break;
     }
 
