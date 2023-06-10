@@ -19,6 +19,7 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "noImplicitAny": false,
     // Paths to clean code and reduce imports lanes
     "paths": {
       "@core/*": ["src/app/core/*"],
