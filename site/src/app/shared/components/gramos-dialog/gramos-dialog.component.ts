@@ -9,9 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class GramosDialogComponent {
   grams: number = 0;
 
-  constructor(public dialogRef: MatDialogRef<GramosDialogComponent>) {
-    console.log("HOlasd", this.grams);
-  }
+  constructor(public dialogRef: MatDialogRef<GramosDialogComponent>) { }
 
   onAcceptClick(): void {
     this.dialogRef.close(this.grams);

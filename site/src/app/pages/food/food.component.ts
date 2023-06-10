@@ -116,40 +116,44 @@ export class FoodComponent {
     /** 3. Creamos instancia de alimento */
   // WHEN: Al clickar en el '+' en el alimento.
   anadirAlimento(food: Food) {
-    console.log(food);
-
     const fechaGlobal: Date = this.dateService.getFecha();
     const fechaFormateada = this.formatearFecha(fechaGlobal);
 
     /** 1. ABRIMOS MODAL DE GRAMOS*/
     const gramosDialogRef = this.matDialog.open(GramosDialogComponent);
     gramosDialogRef.afterClosed().subscribe((grams) => {
-        console.log(grams);
+      if (grams === undefined || grams === null) {
+        return;
+      }
 
+      /** 2. DAMOS DE ALTA UN DÍA */
+      this.diaryService.searchByDateAndUser(fechaFormateada, this.user.id).subscribe(
+        (daysParam: Day[]) => {
+          const day = daysParam[0];
+          if (Array.isArray(daysParam) && daysParam.length === 0) {
+            console.log(`No hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
+            this.crearDia();
+          } else {
+            console.log(`Ya hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
+          }
+          /** 3. Creamos instancia de alimento */
+          const foodInstance: FoodInstance = {
+            day: day,
+            food: food,
+            grams: grams,
+            mealType: this.mealtype
+          }
+          this.diaryService.createFoodInstance(foodInstance).subscribe(()=> {
+            console.log(`FoodInstance dado de alta :)`, foodInstance);
+            window.location.reload();
+          }, (error) =>{
+            console.error('Error al dar de alta el foodInstance:', error);
+          });
 
-    // /** 2. DAMOS DE ALTA UN DÍA */
-    // this.diaryService.searchByDateAndUser(fechaFormateada, this.user.id).subscribe(
-    //   (dayParam) => {
-    //     if (Array.isArray(dayParam) && dayParam.length === 0) {
-    //       console.log(`No hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
-    //       this.crearDia();
-    //     } else {
-    //       console.log(`Ya hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
-    //     }
-
-    //     /** 3. Creamos instancia de alimento */
-    //     // this.creamosInstanciaAlimento(alimento);
-    //   },
-    //   (error) => {
-    //     console.error(
-    //       'Error al verificar la existencia del dia en diario:',
-    //       error
-    //     );
-    //   }
-    // );
-
-
-        this.matDialog.closeAll();
+        }, (error) => {
+          console.error('Error al verificar la existencia del dia en diario:', error);
+        }
+      );
     });
   }
 
