@@ -136,7 +136,7 @@ export class FoodComponent {
       day: day,
       food: food,
       grams: grams,
-      mealType: this.mealtype
+      mealType: this.mealtype.toUpperCase()
     }
     this.diaryService.createFoodInstance(foodInstance).subscribe(()=> {
       console.log(`FoodInstance dado de alta :)`, foodInstance);

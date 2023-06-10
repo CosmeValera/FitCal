@@ -18,16 +18,13 @@ import { FoodService } from '@shared/services/food.service';
   styleUrls: ['./diary.component.scss']
 })
 export class DiaryComponent {
-  @ViewChild('appFecha', { static: false })
-  appFecha!: FechaComponentComponent;
+  @ViewChild('appFecha', { static: false }) appFecha!: FechaComponentComponent;
 
   selectedDate: any;
   calories: number = 2500;
   day: any;
-  fecha: Date = new Date();
   user: any;
   foodInstance: FoodInstance | any;
-  fechaFormateda: any;
 
   constructor(
     private alimentoService: FoodService,
@@ -38,9 +35,6 @@ export class DiaryComponent {
     )
     {
       this.user = fitcalAuthService.getUser();
-  }
-
-  ngOnInit() {
   }
 
   // FECHA
