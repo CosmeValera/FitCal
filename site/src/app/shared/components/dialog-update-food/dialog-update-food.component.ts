@@ -11,8 +11,7 @@ import { FoodImageComponent } from '../food-image/food-image.component';
   styleUrls: ['./dialog-update-food.component.scss'],
 })
 export class DialogUpdateFoodComponent {
-  @ViewChild('foodImage', { static: false })
-  foodImage!: FoodImageComponent;
+  @ViewChild('foodImage', { static: false }) foodImage!: FoodImageComponent;
 
   food: Food;
 

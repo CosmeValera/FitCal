@@ -28,6 +28,7 @@ export class FoodImageComponent implements AfterViewInit {
 
   constructor(storage: Storage) {
     this.storage = storage;
+    console.log('pr', this.imageUrl);
   }
 
   ngAfterViewInit() {
