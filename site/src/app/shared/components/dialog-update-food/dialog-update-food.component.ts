@@ -1,20 +1,23 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild, ElementRef } from '@angular/core';
 import { FoodService } from '@shared/services/food.service';
 import { Food } from '@shared/interfaces/foodInterface';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { FoodImageComponent } from '../food-image/food-image.component';
 
 @Component({
   selector: 'app-dialog-update-food',
   templateUrl: './dialog-update-food.component.html',
-  styleUrls: ['./dialog-update-food.component.scss']
+  styleUrls: ['./dialog-update-food.component.scss'],
 })
 export class DialogUpdateFoodComponent {
+  @ViewChild('foodImage', { static: false }) foodImage!: FoodImageComponent;
+
   food: Food;
 
   constructor(
     public dialogRef: MatDialogRef<DialogUpdateFoodComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {food: Food},
+    @Inject(MAT_DIALOG_DATA) public data: { food: Food },
     private foodService: FoodService,
     private router: Router
   ) {
@@ -22,29 +25,33 @@ export class DialogUpdateFoodComponent {
     console.log(this.food);
   }
 
-
   updateFood(): void {
-    console.log("save");
+    console.log('save');
 
     const foodEdited: Food = {
       id: this.food.id,
       name: (document.getElementById('nameInput') as HTMLInputElement).value,
-      image: (document.getElementById('imageInput') as HTMLInputElement).value,
+      image: this.foodImage.imageUrl!,
       brand: (document.getElementById('brandInput') as HTMLInputElement).value,
-      kcal: Number((document.getElementById('kcalInput') as HTMLInputElement).value),
-      proteins: Number((document.getElementById('proteinsInput') as HTMLInputElement).value),
-      carbs: Number((document.getElementById('carbsInput') as HTMLInputElement).value),
-      fats: Number((document.getElementById('fatsInput') as HTMLInputElement).value),
-    }
+      kcal: Number(
+        (document.getElementById('kcalInput') as HTMLInputElement).value
+      ),
+      proteins: Number(
+        (document.getElementById('proteinsInput') as HTMLInputElement).value
+      ),
+      carbs: Number(
+        (document.getElementById('carbsInput') as HTMLInputElement).value
+      ),
+      fats: Number(
+        (document.getElementById('fatsInput') as HTMLInputElement).value
+      ),
+    };
 
-
-    this.foodService.updateFood(foodEdited)
-      .subscribe(data => {
-        console.log("Alimento editado:", data);
-        this.dialogRef.close();
-        window.location.reload();
-      });
-
+    this.foodService.updateFood(foodEdited).subscribe((data) => {
+      console.log('Alimento editado:', data);
+      this.dialogRef.close();
+      window.location.reload();
+    });
   }
 
   closeDialog(): void {

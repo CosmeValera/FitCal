@@ -1,6 +1,9 @@
 <div class="profile-picture justify-content-center">
-  <input #imageInput id="imageInput" type="file" accept="image/*">
+  <input #imageInput id="imageInput" type="file" accept="image/*" />
   <label for="imageInput">
-    <img [src]="imageUrl || 'https://via.placeholder.com/150'" (click)="openFileExplorer($event)">
+    <img
+      [src]="imageUrl || 'https://via.placeholder.com/150'"
+      (click)="openFileExplorer($event)"
+    />
   </label>
 </div>
