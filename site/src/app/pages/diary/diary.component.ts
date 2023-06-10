@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { CaloriesDialogComponent } from '@shared/components/calories-dialog/calories-dialog.component';
@@ -17,7 +17,7 @@ import { FoodService } from '@shared/services/food.service';
   templateUrl: './diary.component.html',
   styleUrls: ['./diary.component.scss']
 })
-export class DiaryComponent {
+export class DiaryComponent implements OnInit {
   @ViewChild('appFecha', { static: false }) appFecha!: FechaComponentComponent;
 
   selectedDate: any;
@@ -38,7 +38,9 @@ export class DiaryComponent {
   }
 
   ngOnInit() {
-    const fechaFormateada = this.transformarDia(this.appFecha.fecha);
+    const fecha = this.dateService.getFecha();
+    const fechaFormateada = this.transformarDia(fecha);
+
     // 1. Sacamos dia
     this.diaryService.searchByDateAndUser(fechaFormateada, this.user.id)
       .subscribe((daysParam: Day[]) => {
@@ -50,7 +52,7 @@ export class DiaryComponent {
           console.log(day);
 
           // 2. Sacamos FoodInstances
-          this.diaryService.getFoodInstancesByDayAndUser(day.id!, this.user.id).subscribe((foodInstances: FoodInstance[])=> {
+          this.diaryService.getFoodInstancesByDayAndUser(day.id!).subscribe((foodInstances: FoodInstance[])=> {
             console.log(foodInstances);
           });
         }

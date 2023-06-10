@@ -38,10 +38,11 @@ public class FoodInstanceController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/search")
-    public List<FoodInstance> searchByIdDay(@RequestParam @NotNull Long dayId) {
+    @GetMapping("/search/{dayId}")
+    public List<FoodInstance> searchByIdDay(@PathVariable("dayId") @NotNull Long dayId) {
         return foodInstanceService.findByIdDay(dayId);
     }
+    
 
     // @GetMapping("/day/{dayId}/{userId}")
     // public List<FoodInstance> getFoodInstancesByDayAndUser(@PathVariable("dayId") Long dayId,
