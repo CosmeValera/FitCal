@@ -69,51 +69,10 @@ export class FoodComponent {
     });
   }
 
-  crearDia(): void {
-    const fechaGlobal: Date = this.dateService.getFecha();
-    const dayCrear: Day = {
-      date: fechaGlobal,
-      user: this.user,
-    };
 
-    this.diaryService.createDay(dayCrear).subscribe((data) => {
-      console.log('fecha Frontend: ', fechaGlobal);
-      console.log('fecha Backend añadida: ', data);
-    });
-  }
-
-  // creamosInstanciaAlimento(alimento: Food): void {
-  //   const foodInstanceCrear: FoodInstance = {
-  //     food: alimento,
-  //     mealType: this.mealtype,
-  //     grams: 200,
-  //     day: {
-  //       date: new Date(this.fecha),
-  //       user: this.user,
-  //       foodInstances: [],
-  //     },
-  //   };
-
-  //   console.log('FoodInstance: ' + foodInstanceCrear);
-  //   //Creamos el dia
-  //   this.diaryService
-  //     .createFoodInstance(foodInstanceCrear)
-  //     .subscribe((data) => {
-  //       console.log('Alimento añadido en FoodInstance correctamente.');
-  //     });
-  // }
-
-  formatearFecha(date: Date): string {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-
-    return `${year}-${month}-${day}`;
-  }
-
-    /** 1. ABRIMOS MODAL DE GRAMOS*/
-    /** 2. DAMOS DE ALTA UN DÍA */
-    /** 3. Creamos instancia de alimento */
+  /** 1. ABRIMOS MODAL DE GRAMOS*/
+  /** 2. DAMOS DE ALTA UN DÍA */
+  /** 3. Creamos instancia de alimento */
   // WHEN: Al clickar en el '+' en el alimento.
   anadirAlimento(food: Food) {
     const fechaGlobal: Date = this.dateService.getFecha();
@@ -132,29 +91,60 @@ export class FoodComponent {
           const day = daysParam[0];
           if (Array.isArray(daysParam) && daysParam.length === 0) {
             console.log(`No hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
-            this.crearDia();
+
+            /** 3.a. Si no hay dia primero lo creamos y despues llamamos al crearFoodInstance dentro */
+            this.crearDia(food, grams);
           } else {
             console.log(`Ya hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
-          }
-          /** 3. Creamos instancia de alimento */
-          const foodInstance: FoodInstance = {
-            day: day,
-            food: food,
-            grams: grams,
-            mealType: this.mealtype
-          }
-          this.diaryService.createFoodInstance(foodInstance).subscribe(()=> {
-            console.log(`FoodInstance dado de alta :)`, foodInstance);
-            window.location.reload();
-          }, (error) =>{
-            console.error('Error al dar de alta el foodInstance:', error);
-          });
 
+            /** 3.b. Creamos instancia de alimento */
+            this.crearFoodInstance(day, food, grams);
+          }
         }, (error) => {
           console.error('Error al verificar la existencia del dia en diario:', error);
         }
       );
     });
+  }
+
+  formatearFecha(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+
+  crearDia(food: Food, grams: number): void {
+    const fechaGlobal: Date = this.dateService.getFecha();
+    const dayCrear: Day = {
+      date: fechaGlobal,
+      user: this.user,
+    };
+
+    this.diaryService.createDay(dayCrear).subscribe((day) => {
+      console.log('fecha Frontend: ', fechaGlobal);
+      console.log('fecha Backend añadida: ', day);
+      this.crearFoodInstance(day, food, grams);
+    });
+  }
+
+
+  crearFoodInstance(day: Day, food: Food, grams: number) {
+    const foodInstance: FoodInstance = {
+      day: day,
+      food: food,
+      grams: grams,
+      mealType: this.mealtype
+    }
+    this.diaryService.createFoodInstance(foodInstance).subscribe(()=> {
+      console.log(`FoodInstance dado de alta :)`, foodInstance);
+      window.location.reload();
+    }, (error) =>{
+      console.error('Error al dar de alta el foodInstance:', error);
+    });
+
   }
 
   openCreateFood() {
