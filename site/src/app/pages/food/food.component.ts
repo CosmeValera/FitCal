@@ -122,18 +122,9 @@ export class FoodComponent {
     const fechaFormateada = this.formatearFecha(fechaGlobal);
 
     /** 1. ABRIMOS MODAL DE GRAMOS*/
-    const dialogRef = this.matDialog.open(GramosDialogComponent, {
-      data: '¿Cuantos gramos?',
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        console.log(result)
-        // this.guardarDatos();
-      }
-    });
-
-    // this.matDialog.closeAll();
+    const gramosDialogRef = this.matDialog.open(GramosDialogComponent);
+    gramosDialogRef.afterClosed().subscribe((grams) => {
+        console.log(grams);
 
 
     // /** 2. DAMOS DE ALTA UN DÍA */
@@ -157,6 +148,9 @@ export class FoodComponent {
     //   }
     // );
 
+
+        this.matDialog.closeAll();
+    });
   }
 
   openCreateFood() {
