@@ -39,9 +39,9 @@ export class NutritionComponent {
     const day = this.mockUser.days[0]; // Assuming there is only one day in the user's days array
 
     // Calculate the total macros from food instances
-    let totalProteins = 0;
-    let totalCarbs = 0;
-    let totalFats = 0;
+    const totalProteins = 0;
+    const totalCarbs = 0;
+    const totalFats = 0;
 
     day.foodInstances?.forEach((foodInstance: FoodInstance) => {
       // const food: Food = this.getFoodById(foodInstance.food_id);
