@@ -25,17 +25,15 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let day of datosDiaArray">
-          <ng-container *ngFor="let foodInstance of getSortedFoodInstances(datosFoodInstance); let i = index">
-            <tr [ngClass]="{ 'thick-row': shouldAddThickRow(datosFoodInstance, i) }">
-              <td>{{ foodInstance.mealType }}</td>
-               <!-- <td>{{ getFoodName(datosFoodInstance[i].id!) }}</td>
-              <td>{{ getFoodCarbs(datosFoodInstance[i].id!) }}</td>
-              <td>{{ getFoodProteins(datosFoodInstance[i].id!) }}</td>
-              <td>{{ getFoodFats(datosFoodInstance[i].id!) }}</td>
-              <td>{{ getFoodCalories(datosFoodInstance[i].id!, datosFoodInstance[i].id!) }}</td> -->
-            </tr>
-          </ng-container>
+        <ng-container *ngFor="let foodInstance of getSortedFoodInstances(foodInstances); let i = index">
+          <tr [ngClass]="{ 'thick-row': shouldAddThickRow(foodInstances, i) }">
+            <td>{{ foodInstance.mealType }}</td>
+              <td>{{ getFoodName(foodInstances[i].id!) }}</td>
+            <td>{{ getFoodCarbs(foodInstances[i].id!) }}</td>
+            <td>{{ getFoodProteins(foodInstances[i].id!) }}</td>
+            <td>{{ getFoodFats(foodInstances[i].id!) }}</td>
+            <td>{{ getFoodCalories(foodInstances[i].id!, foodInstances[i].id!) }}</td>
+          </tr>
         </ng-container>
       </tbody>
     </table>

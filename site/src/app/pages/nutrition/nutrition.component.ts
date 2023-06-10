@@ -10,6 +10,7 @@ import { DateService } from '@shared/services/date.service';
 import { DiaryService } from '@shared/services/diary.service';
 import { FoodService } from '@shared/services/food.service';
 import { NutricionService } from '@shared/services/nutricion.service';
+import { FechaComponentComponent } from '@shared/components/fecha-component/fecha-component.component';
 
 @Component({
   selector: 'app-nutrition',
@@ -17,96 +18,103 @@ import { NutricionService } from '@shared/services/nutricion.service';
   styleUrls: ['./nutrition.component.scss'],
 })
 export class NutritionComponent {
+  @ViewChild('appFecha', { static: false }) appFecha!: FechaComponentComponent;
+
   donutChart: Chart;
   caloriasTotales: number = 120;
   user: any;
-  fecha!: Date;
-  fechaFormateda!: string;
-  datosDia!: Day;
-  datosDiaArray!: Day[];
-  datosFoodInstance!: FoodInstance[];
-  idDia!: number;
+  fecha: Date;
+  foodInstances: FoodInstance[] = [];
 
   constructor(
     private fitcalAuthService: AuthService,
     private dateService: DateService,
     private diaryService: DiaryService,
     private foodService: FoodService,
-    private nutricionService: NutricionService) {
+    private nutricionService: NutricionService
+  ) {
     this.donutChart = new Chart(donutChartOptions);
     this.user = fitcalAuthService.getUser();
     this.fecha = diaryService.fecha;
-
-    this.getDayByIdAndDate();
   }
 
-  formatearFecha(date: Date): void {
+  ngOnInit() {
+    this.updateChartWithData();
+  }
+
+  // FECHA
+  onDiaIncrementado(fecha: Date) {
+    this.traerAlimentos();
+  }
+
+  onDiaDecrementado(fecha: Date) {
+    this.traerAlimentos();
+  }
+
+  traerAlimentos() {
+    const fecha = this.dateService.getFecha();
+    const fechaFormateada = this.transformarDia(fecha);
+
+    // 1. Sacamos dia
+    this.diaryService.searchByDateAndUser(fechaFormateada, this.user.id)
+      .subscribe((daysParam: Day[]) => {
+        const day = daysParam[0];
+        if (Array.isArray(daysParam) && daysParam.length === 0) {
+          console.log(`No hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
+          this.foodInstances = [];
+        } else {
+          console.log(`Ya hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
+          console.log(day);
+
+          // 2. Sacamos FoodInstances
+          this.diaryService.getFoodInstancesByDayAndUser(day.id!).subscribe((foodInstances: FoodInstance[])=> {
+            this.foodInstances = foodInstances;
+            this.updateChartWithData();
+          });
+        }
+    });
+  }
+
+  transformarDia(fecha: Date): string {
+    const date = new Date(fecha);
+
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
 
-    this.fechaFormateda = `${year}-${month}-${day}`;
+    const selectedDate = `${year}-${month}-${day}`;
+    return selectedDate;
   }
 
-  //Buscamos el dia mediante el id de usuario y fecha
-  private getDayByIdAndDate(){
-    const fechaGlobal: Date = this.dateService.getFecha();
-    this.formatearFecha(fechaGlobal);
-    
-    this.diaryService
-      .searchByDateAndUser(this.fechaFormateda, this.user.id)
-      .subscribe(
-        (dayParam) => {
-          if (Array.isArray(dayParam) && dayParam.length === 0) {
-            console.log("El dia no existe");
-          } else {
-            this.datosDia = dayParam[0];
-            this.datosDiaArray = dayParam;
-            this.idDia = this.datosDia.id!;
-            console.log("Id de DAY: ", this.datosDia.id) //NECESITAMOS EL ID
-            console.log("Id de DAY: ", this.idDia) //NECESITAMOS EL ID
-            
-            this.updateChartWithData();
-          }
-        },
-        (error) => {
-          console.error(
-            'Error al verificar la existencia del dia en diario:',
-            error
-          );
-          // Manejar el error si ocurre alguna falla en la verificación
-        }
-      );
-  }
-  
+  // //Buscamos el dia mediante el id de usuario y fecha
+  // private getDayByIdAndDate(){
+  //   const fechaGlobal: Date = this.dateService.getFecha();
+  //   const fechaFormateda = this.formatearFecha(fechaGlobal);
+
+  //   this.diaryService.searchByDateAndUser(fechaFormateda, this.user.id)
+  //     .subscribe((daysParam) => {
+  //         if (Array.isArray(daysParam) && daysParam.length === 0) {
+  //           console.log("El dia no existe");
+  //         } else {
+  //           this.datosDia = daysParam[0];
+  //           const idDia = this.datosDia.id!;
+  //           console.log("Id de DAY: ", idDia) //NECESITAMOS EL ID
+
+  //           this.updateChartWithData();
+  //         }
+  //       }, (error) => {
+  //         console.error('Error al verificar la existencia del dia en diario:', error);
+  //       }
+  //     );
+  // }
+
   private updateChartWithData() {
-    console.log("Datos devueltos: ", this.idDia) 
-
     // Calculate the total macros from food instances
     let totalProteins = 0;
     let totalCarbs = 0;
     let totalFats = 0;
 
-    this.nutricionService.searchByIdDay(this.datosDia.id!)
-    .subscribe(
-      (foodInstanceParam) => {
-        if (Array.isArray(foodInstanceParam) && foodInstanceParam.length === 0) {
-          console.log("No existen datos");
-        } else {
-          this.datosFoodInstance = foodInstanceParam;
-          console.log("Datos devueltos: ", foodInstanceParam)
-        }
-      },
-      (error) => {
-        console.error(
-          'Error al verificar la existencia de datos foodInstance:',
-          error
-        );
-        // Manejar el error si ocurre alguna falla en la verificación
-      }
-    );
-
-    this.datosFoodInstance?.forEach((foodInstance: FoodInstance) => {
+    this.foodInstances.forEach((foodInstance: FoodInstance) => {
       const food: Food = this.getFoodById(foodInstance.food.id!);
       totalProteins += (food.proteins / 100) * foodInstance.grams;
       totalCarbs += (food.carbs / 100) * foodInstance.grams;
@@ -127,6 +135,77 @@ export class NutritionComponent {
       chartRef.setSubtitle({ text: 'Calorías totales: ' + totalCalories });
     });
   }
+
+
+  // HELPERS métodos
+  getFoodName(foodId: number): string {
+    const food: Food = this.getFoodById(foodId);
+    return food ? food.name : '';
+  }
+  getFoodCarbs(foodId: number): number {
+    console.log(foodId);
+    const food: Food = this.getFoodById(foodId);
+    return food ? food.carbs : 0;
+  }
+  getFoodProteins(foodId: number): number {
+    const food: Food = this.getFoodById(foodId);
+    return food ? food.proteins : 0;
+  }
+  getFoodFats(foodId: number): number {
+    const food: Food = this.getFoodById(foodId);
+    return food ? food.fats : 0;
+  }
+  getFoodCalories(foodId: number, grams: number): number {
+    const food: Food = this.getFoodById(foodId);
+    return food ? (food.kcal / 100) * grams : 0;
+  }
+
+  // BORRAR
+  getFoodById(foodId: number) {
+    return {} as Food;
+  }
+
+  // Ordenar filas
+  getSortedFoodInstances(foodInstances: FoodInstance[]): FoodInstance[] {
+    const mealTypeOrder: { [key: string]: number } = {
+      BREAKFAST: 1,
+      LUNCH: 2,
+      DINNER: 3,
+      SNACKS: 4,
+    };
+
+    return foodInstances.sort((a, b) => {
+      const mealTypeA = a.mealType.toLowerCase();
+      const mealTypeB = b.mealType.toLowerCase();
+
+      const orderA = mealTypeOrder[mealTypeA];
+      const orderB = mealTypeOrder[mealTypeB];
+
+      if (orderA && orderB) {
+        if (orderA < orderB) {
+          return -1;
+        }
+        if (orderA > orderB) {
+          return 1;
+        }
+      }
+
+      return a!.id! - b!.id!;
+    });
+  }
+
+  // Añadir linea gruesa
+  shouldAddThickRow(foodInstances: FoodInstance[], currentIndex: number): boolean {
+    if (currentIndex === 0) {
+      return true; // Add thick row for the first row
+    }
+
+    const currentMealType = foodInstances[currentIndex].mealType;
+    const previousMealType = foodInstances[currentIndex - 1].mealType;
+
+    return currentMealType !== previousMealType;
+  }
+
 
   // private mockInfo() {
   //   const fechaGlobal: Date = this.dateService.getFecha();
@@ -205,114 +284,51 @@ export class NutritionComponent {
   // }
 
   // TODO: en vez de esto llamar al servicio
-  
-  private getFoodById(foodId: number): Food {
-    
-    this.foodService
-      .getFoodById(foodId)
-      .subscribe(
-        (foodParam) => {   
-          console.log(foodParam)       
-        },
-        (error) => {
-          console.error(
-            'Error', error
-          );
-        }
-      );
-    
-    const food1: Food = {
-      id: 1,
-      name: "Brown Rice",
-      image: "https://example.com/rice.jpg",
-      brand: "Example Brand",
-      kcal: 150,
-      proteins: 3,
-      carbs: 30,
-      fats: 1
-    };
 
-    const food2: Food = {
-      id: 2,
-      name: "Avocado",
-      image: "https://example.com/avocado.jpg",
-      brand: "Example Brand",
-      kcal: 160,
-      proteins: 2,
-      carbs: 9,
-      fats: 15
-    };
+  // private getFoodById(foodId: number): Food {
 
-    if (foodId === 1) {
-      return food1;
-    } else if (foodId === 2) {
-      return food2;
-    } else {
-      return {} as Food; // Return an empty object if the food item is not found
-    }
-  }
+  //   this.foodService
+  //     .getFoodById(foodId)
+  //     .subscribe(
+  //       (foodParam) => {
+  //         console.log(foodParam)
+  //       },
+  //       (error) => {
+  //         console.error(
+  //           'Error', error
+  //         );
+  //       }
+  //     );
 
-  // HELPERS métodos
-  getFoodName(foodId: number): string {
-    const food: Food = this.getFoodById(foodId);
-    return food ? food.name : '';
-  }
-  getFoodCarbs(foodId: number): number {
-    console.log(foodId);
-    const food: Food = this.getFoodById(foodId);
-    return food ? food.carbs : 0;
-  }
-  getFoodProteins(foodId: number): number {
-    const food: Food = this.getFoodById(foodId);
-    return food ? food.proteins : 0;
-  }
-  getFoodFats(foodId: number): number {
-    const food: Food = this.getFoodById(foodId);
-    return food ? food.fats : 0;
-  }
-  getFoodCalories(foodId: number, grams: number): number {
-    const food: Food = this.getFoodById(foodId);
-    return food ? (food.kcal / 100) * grams : 0;
-  }
+  //   const food1: Food = {
+  //     id: 1,
+  //     name: "Brown Rice",
+  //     image: "https://example.com/rice.jpg",
+  //     brand: "Example Brand",
+  //     kcal: 150,
+  //     proteins: 3,
+  //     carbs: 30,
+  //     fats: 1
+  //   };
 
-  // Ordenar filas
-  getSortedFoodInstances(foodInstances: FoodInstance[]): FoodInstance[] {
-    const mealTypeOrder: { [key: string]: number } = {
-      breakfast: 1,
-      lunch: 2,
-      dinner: 3,
-      snacks: 4,
-    };
+  //   const food2: Food = {
+  //     id: 2,
+  //     name: "Avocado",
+  //     image: "https://example.com/avocado.jpg",
+  //     brand: "Example Brand",
+  //     kcal: 160,
+  //     proteins: 2,
+  //     carbs: 9,
+  //     fats: 15
+  //   };
 
-    return foodInstances.sort((a, b) => {
-      const mealTypeA = a.mealType.toLowerCase();
-      const mealTypeB = b.mealType.toLowerCase();
+  //   if (foodId === 1) {
+  //     return food1;
+  //   } else if (foodId === 2) {
+  //     return food2;
+  //   } else {
+  //     return {} as Food; // Return an empty object if the food item is not found
+  //   }
+  // }
 
-      const orderA = mealTypeOrder[mealTypeA];
-      const orderB = mealTypeOrder[mealTypeB];
-
-      if (orderA && orderB) {
-        if (orderA < orderB) {
-          return -1;
-        }
-        if (orderA > orderB) {
-          return 1;
-        }
-      }
-
-      return a!.id! - b!.id!;
-    });
-  }
-
-  // Añadir linea gruesa
-  shouldAddThickRow(foodInstances: FoodInstance[], currentIndex: number): boolean {
-    if (currentIndex === 0) {
-      return true; // Add thick row for the first row
-    }
-
-    const currentMealType = foodInstances[currentIndex].mealType;
-    const previousMealType = foodInstances[currentIndex - 1].mealType;
-
-    return currentMealType !== previousMealType;
-  }
 }
