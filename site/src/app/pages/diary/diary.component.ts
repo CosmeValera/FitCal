@@ -29,12 +29,32 @@ export class DiaryComponent {
   constructor(
     private alimentoService: FoodService,
     public dialog: MatDialog,
-    private dayService: DiaryService,
+    private diaryService: DiaryService,
     private fitcalAuthService: AuthService,
     private dateService: DateService
     )
     {
       this.user = fitcalAuthService.getUser();
+  }
+
+  ngOnInit() {
+    const fechaFormateada = this.transformarDia(this.appFecha.fecha);
+    // 1. Sacamos dia
+    this.diaryService.searchByDateAndUser(fechaFormateada, this.user.id)
+      .subscribe((daysParam: Day[]) => {
+        const day = daysParam[0];
+        if (Array.isArray(daysParam) && daysParam.length === 0) {
+          console.log(`No hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
+        } else {
+          console.log(`Ya hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
+          console.log(day);
+
+          // 2. Sacamos FoodInstances
+          this.diaryService.getFoodInstancesByDayAndUser(day.id!, this.user.id).subscribe((foodInstances: FoodInstance[])=> {
+            console.log(foodInstances);
+          });
+        }
+    });
   }
 
   // FECHA
