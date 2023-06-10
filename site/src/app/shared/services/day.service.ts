@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Day } from '@shared/interfaces/dayInterface';
 import { User } from '@shared/interfaces/userInterface';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class DayService {
     console.log("Id: " + id + " Fecha del dia: " + date)
     return this.http.get<Day>(`${this.API_URL}/${id}`);
   }
-
+  
   /** CREAMOS EL DIA */
   createDay(day: Day) {
     return this.http.post<Day>(this.API_URL, day);

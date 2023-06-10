@@ -72,12 +72,13 @@ export class DiaryService {
   getFoodInstanceByFechaAndUser(fecha: Date, id_user: number) {
     return this.http.get<FoodInstance>(`${this.API_URL_FOODINSTANCE}/${fecha}`);
   }
-
+  
   createFoodInstance(foodInstance: FoodInstance) {
     console.log("¿Que obtengo? " + foodInstance)
     
     return this.http.post<FoodInstance>(this.API_URL_FOODINSTANCE, foodInstance);
   }
+  
 
   //Al pulsar añadir alimento, se comprueba si existe en day (primera consulta)
   //y entonces añadimos el dato en day (Usa lo anterior)

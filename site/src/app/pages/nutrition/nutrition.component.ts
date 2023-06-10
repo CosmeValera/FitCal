@@ -6,6 +6,10 @@ import { User } from '@shared/interfaces/userInterface';
 import { Day } from '@shared/interfaces/dayInterface';
 import { FoodInstance } from '@shared/interfaces/foodInstanceInterface';
 import { Food } from '@shared/interfaces/foodInterface';
+import { DateService } from '@shared/services/date.service';
+import { DiaryService } from '@shared/services/diary.service';
+import { FoodService } from '@shared/services/food.service';
+import { NutricionService } from '@shared/services/nutricion.service';
 
 @Component({
   selector: 'app-nutrition',
@@ -13,41 +17,100 @@ import { Food } from '@shared/interfaces/foodInterface';
   styleUrls: ['./nutrition.component.scss'],
 })
 export class NutritionComponent {
-  @ViewChild('appFecha', { static: false }) appFecha: any;
-
   donutChart: Chart;
   caloriasTotales: number = 120;
   user: any;
+  fecha!: Date;
+  fechaFormateda!: string;
+  datosDia!: Day;
+  datosDiaArray!: Day[];
+  datosFoodInstance!: FoodInstance[];
+  idDia!: number;
 
-  // BOrrar
-  mockUser: any;
-
-  constructor(private fitcalAuthService: AuthService) {
+  constructor(
+    private fitcalAuthService: AuthService,
+    private dateService: DateService,
+    private diaryService: DiaryService,
+    private foodService: FoodService,
+    private nutricionService: NutricionService) {
     this.donutChart = new Chart(donutChartOptions);
     this.user = fitcalAuthService.getUser();
-    this.updateChartWithData();
+    this.fecha = diaryService.fecha;
+
+    this.getDayByIdAndDate();
   }
 
+  formatearFecha(date: Date): void {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    this.fechaFormateda = `${year}-${month}-${day}`;
+  }
+
+  //Buscamos el dia mediante el id de usuario y fecha
+  private getDayByIdAndDate(){
+    const fechaGlobal: Date = this.dateService.getFecha();
+    this.formatearFecha(fechaGlobal);
+    
+    this.diaryService
+      .searchByDateAndUser(this.fechaFormateda, this.user.id)
+      .subscribe(
+        (dayParam) => {
+          if (Array.isArray(dayParam) && dayParam.length === 0) {
+            console.log("El dia no existe");
+          } else {
+            this.datosDia = dayParam[0];
+            this.datosDiaArray = dayParam;
+            this.idDia = this.datosDia.id!;
+            console.log("Id de DAY: ", this.datosDia.id) //NECESITAMOS EL ID
+            console.log("Id de DAY: ", this.idDia) //NECESITAMOS EL ID
+            
+            this.updateChartWithData();
+          }
+        },
+        (error) => {
+          console.error(
+            'Error al verificar la existencia del dia en diario:',
+            error
+          );
+          // Manejar el error si ocurre alguna falla en la verificación
+        }
+      );
+  }
+  
   private updateChartWithData() {
-    // REAL
-    // console.log("user localstorage", this.user);
-
-    //Mock
-    this.mockUser = this.mockInfo();
-    console.log("mockUser", this.mockUser);
-
-    const day = this.mockUser.days[0]; // Assuming there is only one day in the user's days array
+    console.log("Datos devueltos: ", this.idDia) 
 
     // Calculate the total macros from food instances
-    const totalProteins = 0;
-    const totalCarbs = 0;
-    const totalFats = 0;
+    let totalProteins = 0;
+    let totalCarbs = 0;
+    let totalFats = 0;
 
-    day.foodInstances?.forEach((foodInstance: FoodInstance) => {
-      // const food: Food = this.getFoodById(foodInstance.food_id);
-      // totalProteins += (food.proteins / 100) * foodInstance.grams;
-      // totalCarbs += (food.carbs / 100) * foodInstance.grams;
-      // totalFats += (food.fats / 100) * foodInstance.grams;
+    this.nutricionService.searchByIdDay(this.datosDia.id!)
+    .subscribe(
+      (foodInstanceParam) => {
+        if (Array.isArray(foodInstanceParam) && foodInstanceParam.length === 0) {
+          console.log("No existen datos");
+        } else {
+          this.datosFoodInstance = foodInstanceParam;
+          console.log("Datos devueltos: ", foodInstanceParam)
+        }
+      },
+      (error) => {
+        console.error(
+          'Error al verificar la existencia de datos foodInstance:',
+          error
+        );
+        // Manejar el error si ocurre alguna falla en la verificación
+      }
+    );
+
+    this.datosFoodInstance?.forEach((foodInstance: FoodInstance) => {
+      const food: Food = this.getFoodById(foodInstance.food.id!);
+      totalProteins += (food.proteins / 100) * foodInstance.grams;
+      totalCarbs += (food.carbs / 100) * foodInstance.grams;
+      totalFats += (food.fats / 100) * foodInstance.grams;
     });
 
     const totalCalories = totalProteins * 4 + totalCarbs * 4 + totalFats * 9;
@@ -65,81 +128,99 @@ export class NutritionComponent {
     });
   }
 
-  private mockInfo() {
-    // Example user
-    const user: User = {
-      email: 'example@example.com',
-      googleId: 'googleId123',
-      name: 'John Doe',
-      photoUrl: 'https://example.com/photo.jpg',
-      weight: 70,
-      height: 170,
-      gender: 'Male',
-      birth_date: '1990-01-01',
-      goal: 'Lose weight',
-      activityLevel: 'Moderate',
-      calories: 2000,
-      days: [],
-    };
+  // private mockInfo() {
+  //   const fechaGlobal: Date = this.dateService.getFecha();
+  //   this.formatearFecha(fechaGlobal);
 
-    // Example day
-    const day: Day = {
-      date: new Date(),
-      user: this.user,
-      foodInstances: [],
-    };
+  //   // Usuario registrado
+  //   const user: User = {
+  //     email: this.user.email,
+  //     googleId: this.user.googleId,
+  //     name: this.user.name,
+  //     photoUrl: this.user.photoUrl,
+  //     weight: this.user.weight,
+  //     height: this.user.height,
+  //     gender: this.user.gender,
+  //     birth_date: this.user.birth_date,
+  //     goal: this.user.goal,
+  //     activityLevel: this.user.activityLevel,
+  //     calories: this.user.calories,
+  //     days: [],
+  //   };
 
-    // Example food instances
-    // const foodInstance4: FoodInstance = {
-    //   food_id: 2,
-    //   day_id: 1,
-    //   meal_type: 'Snacks',
-    //   grams: 200,
-    // };
+  //   // Day Real
+  //   const day: Day = {
+  //     date: fechaGlobal,
+  //     user: this.user,
+  //     foodInstances: [],
+  //   };
 
-    // const foodInstance1: FoodInstance = {
-    //   food_id: 1,
-    //   day_id: 1,
-    //   meal_type: 'Breakfast',
-    //   grams: 200,
-    // };
+  //   // Example food instances
+  //   // const foodInstance4: FoodInstance = {
+  //   //   food_id: 2,
+  //   //   day_id: 1,
+  //   //   meal_type: 'Snacks',
+  //   //   grams: 200,
+  //   // };
 
-    // const foodInstance2: FoodInstance = {
-    //   food_id: 2,
-    //   day_id: 1,
-    //   meal_type: 'Lunch',
-    //   grams: 300,
-    // };
+  //   // const foodInstance1: FoodInstance = {
+  //   //   food_id: 1,
+  //   //   day_id: 1,
+  //   //   meal_type: 'Breakfast',
+  //   //   grams: 200,
+  //   // };
 
-    // const foodInstance3: FoodInstance = {
-    //   food_id: 1,
-    //   day_id: 1,
-    //   meal_type: 'Breakfast',
-    //   grams: 200,
-    // };
+  //   // const foodInstance2: FoodInstance = {
+  //   //   food_id: 2,
+  //   //   day_id: 1,
+  //   //   meal_type: 'Lunch',
+  //   //   grams: 300,
+  //   // };
 
-    // const foodInstance5: FoodInstance = {
-    //   food_id: 2,
-    //   day_id: 1,
-    //   meal_type: 'Dinner',
-    //   grams: 200,
-    // };
+  //   // const foodInstance3: FoodInstance = {
+  //   //   food_id: 1,
+  //   //   day_id: 1,
+  //   //   meal_type: 'Breakfast',
+  //   //   grams: 200,
+  //   // };
 
-    // const foodInstance6: FoodInstance = {
-    //   food_id: 1,
-    //   day_id: 1,
-    //   meal_type: 'Snacks',
-    //   grams: 200,
-    // };
+  //   // const foodInstance5: FoodInstance = {
+  //   //   food_id: 2,
+  //   //   day_id: 1,
+  //   //   meal_type: 'Dinner',
+  //   //   grams: 200,
+  //   // };
 
-    // day.foodInstances!.push(foodInstance1, foodInstance2, foodInstance3, foodInstance4, foodInstance5, foodInstance6);
-    user.days.push(day);
+  //   // const foodInstance6: FoodInstance = {
+  //   //   food_id: 1,
+  //   //   day_id: 1,
+  //   //   meal_type: 'Snacks',
+  //   //   grams: 200,
+  //   // };
 
-    return user;
-  }
+  //   // day.foodInstances!.push(foodInstance1, foodInstance2, foodInstance3, foodInstance4, foodInstance5, foodInstance6);
+  //   user.days.push();
+
+  //   return user;
+  // }
 
   // TODO: en vez de esto llamar al servicio
+  
   private getFoodById(foodId: number): Food {
+    
+    this.foodService
+      .getFoodById(foodId)
+      .subscribe(
+        (foodParam) => {   
+          console.log(foodParam)       
+        },
+        (error) => {
+          console.error(
+            'Error', error
+          );
+        }
+      );
+    
     const food1: Food = {
       id: 1,
       name: "Brown Rice",
@@ -171,36 +252,13 @@ export class NutritionComponent {
     }
   }
 
-  // FECHA
-  onDiaIncrementado(fecha: Date) {
-    const selectedDate = this.transformarDia(fecha);
-    console.log('Selected date:', selectedDate);
-    console.log('Dia incrementado:', fecha);
-  }
-
-  onDiaDecrementado(fecha: Date) {
-    const selectedDate = this.transformarDia(fecha);
-    console.log('Selected date:', selectedDate);
-    console.log('Dia decrementado:', fecha);
-  }
-
-  transformarDia(fecha: Date): string {
-    const date = new Date(fecha);
-
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-
-    const selectedDate = `${year}-${month}-${day}`;
-    return selectedDate;
-  }
-
   // HELPERS métodos
   getFoodName(foodId: number): string {
     const food: Food = this.getFoodById(foodId);
     return food ? food.name : '';
   }
   getFoodCarbs(foodId: number): number {
+    console.log(foodId);
     const food: Food = this.getFoodById(foodId);
     return food ? food.carbs : 0;
   }

@@ -26,6 +26,11 @@ public class FoodInstanceService {
         return foodInstanceRepository.findById(id);
     }
 
+    /* Buscamos segun el id de day */
+    public List<FoodInstance> findByIdDay(Long dayId) {
+        return foodInstanceRepository.findByDayId(dayId);
+    }
+
     public FoodInstance createFoodInstance(FoodInstance foodInstance) {
         System.out.println(foodInstance);
         return foodInstanceRepository.save(foodInstance);

@@ -2,6 +2,9 @@ package com.fitcal.api.controller;
 
 import com.fitcal.api.model.FoodInstance;
 import com.fitcal.api.service.FoodInstanceService;
+
+import jakarta.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +36,11 @@ public class FoodInstanceController {
         Optional<FoodInstance> foodInstance = foodInstanceService.getFoodInstanceById(id);
         return foodInstance.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/search")
+    public List<FoodInstance> searchByIdDay(@RequestParam @NotNull Long dayId) {
+        return foodInstanceService.findByIdDay(dayId);
     }
 
     @PostMapping
