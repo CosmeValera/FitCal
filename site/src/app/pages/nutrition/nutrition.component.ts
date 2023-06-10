@@ -11,6 +11,7 @@ import { DiaryService } from '@shared/services/diary.service';
 import { FoodService } from '@shared/services/food.service';
 import { NutricionService } from '@shared/services/nutricion.service';
 import { FechaComponentComponent } from '@shared/components/fecha-component/fecha-component.component';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-nutrition',
@@ -46,10 +47,20 @@ export class NutritionComponent {
   onDiaIncrementado(fecha: Date) {
     this.traerAlimentos();
   }
-
   onDiaDecrementado(fecha: Date) {
     this.traerAlimentos();
   }
+  transformarDia(fecha: Date): string {
+    const date = new Date(fecha);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    const selectedDate = `${year}-${month}-${day}`;
+    return selectedDate;
+  }
+
 
   traerAlimentos() {
     const fecha = this.dateService.getFecha();
@@ -67,27 +78,47 @@ export class NutritionComponent {
           console.log(day);
 
           // 2. Sacamos FoodInstances
-          this.diaryService.getFoodInstancesByDayAndUser(day.id!).subscribe((foodInstances: FoodInstance[])=> {
-            console.log(foodInstances);
-
-            this.foodInstances = foodInstances;
-            this.updateChartWithData();
+          this.diaryService.getFoodInstancesByDay(day.id!).subscribe((foodInstances: FoodInstance[])=> {
+            this.updateChartWithData(foodInstances);
           });
         }
     });
   }
+  private updateChartWithData(foodInstances: FoodInstance[]) {
+    // Calculate the total macros from food instances
+    let totalProteins = 0;
+    let totalCarbs = 0;
+    let totalFats = 0;
 
-  transformarDia(fecha: Date): string {
-    const date = new Date(fecha);
+    // Prepare an array of observables to fetch food data for each food instance
+    const fetchFoodObservables = foodInstances.map((foodInstance) =>
+      this.foodService.getFoodById(foodInstance.food.id!)
+    );
 
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    // Use forkJoin to combine multiple observables into a single observable
+    forkJoin(fetchFoodObservables).subscribe((foods: Food[]) => {
+      foods.forEach((food: Food, index: number) => {
+        const foodInstance = foodInstances[index];
+        totalProteins += (food.proteins / 100) * foodInstance.grams;
+        totalCarbs += (food.carbs / 100) * foodInstance.grams;
+        totalFats += (food.fats / 100) * foodInstance.grams;
+      });
 
-    const selectedDate = `${year}-${month}-${day}`;
-    return selectedDate;
+      const totalCalories = totalProteins * 4 + totalCarbs * 4 + totalFats * 9;
+
+      const macros = [
+        { name: 'Carbohidratos', y: totalCarbs, color: '#00ffff' },
+        { name: 'Grasas', y: totalFats, color: '#ff00ff' },
+        { name: 'Proteínas', y: totalProteins, color: '#ffa800' },
+      ];
+
+      this.donutChart.ref$.subscribe((chartRef) => {
+        chartRef.series[0].setData(macros);
+        chartRef.setTitle({ text: 'Macros' });
+        chartRef.setSubtitle({ text: 'Calorías totales: ' + totalCalories });
+      });
+    });
   }
-
   // //Buscamos el dia mediante el id de usuario y fecha
   // private getDayByIdAndDate(){
   //   const fechaGlobal: Date = this.dateService.getFecha();
@@ -110,91 +141,63 @@ export class NutritionComponent {
   //     );
   // }
 
-  private updateChartWithData() {
-    // Calculate the total macros from food instances
-    let totalProteins = 0;
-    let totalCarbs = 0;
-    let totalFats = 0;
-
-    this.foodInstances.forEach((foodInstance: FoodInstance) => {
-      const food: Food = this.getFoodById(foodInstance.food.id!);
-      totalProteins += (food.proteins / 100) * foodInstance.grams;
-      totalCarbs += (food.carbs / 100) * foodInstance.grams;
-      totalFats += (food.fats / 100) * foodInstance.grams;
-    });
-
-    const totalCalories = totalProteins * 4 + totalCarbs * 4 + totalFats * 9;
-
-    const macros = [
-      { name: 'Carbohidratos', y: totalCarbs, color: '#00ffff' },
-      { name: 'Grasas', y: totalFats, color: '#ff00ff' },
-      { name: 'Proteínas', y: totalProteins, color: '#ffa800' },
-    ];
-
-    this.donutChart.ref$.subscribe((chartRef) => {
-      chartRef.series[0].setData(macros);
-      chartRef.setTitle({ text: 'Macros' });
-      chartRef.setSubtitle({ text: 'Calorías totales: ' + totalCalories });
-    });
-  }
-
 
   // HELPERS métodos
-  getFoodName(foodId: number): string {
-    const food: Food = this.getFoodById(foodId);
-    return food ? food.name : '';
-  }
-  getFoodCarbs(foodId: number): number {
-    // console.log(foodId);
-    const food: Food = this.getFoodById(foodId);
-    return food ? food.carbs : 0;
-  }
-  getFoodProteins(foodId: number): number {
-    const food: Food = this.getFoodById(foodId);
-    return food ? food.proteins : 0;
-  }
-  getFoodFats(foodId: number): number {
-    const food: Food = this.getFoodById(foodId);
-    return food ? food.fats : 0;
-  }
-  getFoodCalories(foodId: number, grams: number): number {
-    const food: Food = this.getFoodById(foodId);
-    return food ? (food.kcal / 100) * grams : 0;
-  }
+  // getFoodName(foodId: number): string {
+  //   const food: Food = this.foodService.getFoodById(foodId);
+  //   return food ? food.name : '';
+  // }
+  // getFoodCarbs(foodId: number): number {
+  //   // console.log(foodId);
+  //   const food: Food = this.foodService.getFoodById(foodId);
+  //   return food ? food.carbs : 0;
+  // }
+  // getFoodProteins(foodId: number): number {
+  //   const food: Food = await this.foodService.getFoodById(foodId);
+  //   return food ? food.proteins : 0;
+  // }
+  // getFoodFats(foodId: number): number {
+  //   const food: Food = this.foodService.getFoodById(foodId);
+  //   return food ? food.fats : 0;
+  // }
+  // getFoodCalories(foodId: number, grams: number): number {
+  //   const food: Food = this.foodService.getFoodById(foodId);
+  //   return food ? (food.kcal / 100) * grams : 0;
+  // }
 
   // BORRAR
-  getFoodById(foodId: number) {
-    return {} as Food;
-  }
+  // getFoodById(foodId: number) {
+  //   return {} as Food;
+  // }
 
-  // Ordenar filas
-  getSortedFoodInstances(foodInstances: FoodInstance[]): FoodInstance[] {
-    const mealTypeOrder: { [key: string]: number } = {
-      BREAKFAST: 1,
-      LUNCH: 2,
-      DINNER: 3,
-      SNACKS: 4,
-    };
+  // // Ordenar filas
+  // getSortedFoodInstances(foodInstances: FoodInstance[]): FoodInstance[] {
+  //   const mealTypeOrder: { [key: string]: number } = {
+  //     BREAKFAST: 1,
+  //     LUNCH: 2,
+  //     DINNER: 3,
+  //     SNACKS: 4,
+  //   };
 
-    return foodInstances.sort((a, b) => {
-      const mealTypeA = a.mealType.toLowerCase();
-      const mealTypeB = b.mealType.toLowerCase();
+  //   return foodInstances.sort((a, b) => {
+  //     const mealTypeA = a.mealType.toLowerCase();
+  //     const mealTypeB = b.mealType.toLowerCase();
 
-      const orderA = mealTypeOrder[mealTypeA];
-      const orderB = mealTypeOrder[mealTypeB];
+  //     const orderA = mealTypeOrder[mealTypeA];
+  //     const orderB = mealTypeOrder[mealTypeB];
 
-      if (orderA && orderB) {
-        if (orderA < orderB) {
-          return -1;
-        }
-        if (orderA > orderB) {
-          return 1;
-        }
-      }
+  //     if (orderA && orderB) {
+  //       if (orderA < orderB) {
+  //         return -1;
+  //       }
+  //       if (orderA > orderB) {
+  //         return 1;
+  //       }
+  //     }
 
-      return a!.id! - b!.id!;
-    });
-  }
+  //     return a!.id! - b!.id!;
+  //   });
+  // }
 
   // Añadir linea gruesa
   shouldAddThickRow(foodInstances: FoodInstance[], currentIndex: number): boolean {

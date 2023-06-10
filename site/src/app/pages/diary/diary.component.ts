@@ -56,7 +56,7 @@ export class DiaryComponent implements OnInit {
           console.log(day);
 
           // 2. Sacamos FoodInstances
-          this.diaryService.getFoodInstancesByDayAndUser(day.id!).subscribe((foodInstances: FoodInstance[])=> {
+          this.diaryService.getFoodInstancesByDay(day.id!).subscribe((foodInstances: FoodInstance[])=> {
             this.foodInstances = foodInstances;
           });
         }

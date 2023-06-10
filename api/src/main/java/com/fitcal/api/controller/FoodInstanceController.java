@@ -42,14 +42,6 @@ public class FoodInstanceController {
     public List<FoodInstance> searchByIdDay(@PathVariable("dayId") @NotNull Long dayId) {
         return foodInstanceService.findByIdDay(dayId);
     }
-    
-
-    // @GetMapping("/day/{dayId}/{userId}")
-    // public List<FoodInstance> getFoodInstancesByDayAndUser(@PathVariable("dayId") Long dayId,
-    //                                                     @PathVariable("userId") Long userId) {
-    //     return foodInstanceService.findFoodInstancesByDayAndUser(dayId, userId);
-    // }
-
 
     @PostMapping
     public ResponseEntity<FoodInstance> createFoodInstance(@RequestBody FoodInstance foodInstance) {

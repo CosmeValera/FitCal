@@ -72,7 +72,7 @@ export class DiaryService {
   //   return this.http.get<FoodInstance>(`${this.API_URL_FOODINSTANCE}/${fecha}`);
   // }
 
-  getFoodInstancesByDayAndUser(dayId: number): Observable<FoodInstance[]> {
+  getFoodInstancesByDay(dayId: number): Observable<FoodInstance[]> {
     const url = `${this.API_URL_FOODINSTANCE}/search/${dayId}`;
     return this.http.get<FoodInstance[]>(url);
   }
