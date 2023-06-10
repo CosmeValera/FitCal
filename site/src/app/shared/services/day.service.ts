@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class DayService {
   private readonly API_URL = environment.dayUrl;
 
   constructor(private http: HttpClient) { }

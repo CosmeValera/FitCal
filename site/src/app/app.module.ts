@@ -44,6 +44,7 @@ import { ChartModule } from 'angular-highcharts';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
+import { GramosDialogComponent } from '@shared/components/gramos-dialog/gramos-dialog.component';
 
 registerLocaleData(localeEs);
 export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
@@ -68,6 +69,7 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
     CaloriesProfileComponent,
     FechaComponentComponent,
     ConfirmationDialogComponent,
+    GramosDialogComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -85,7 +87,7 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
     SocialLoginModule,
     ChartModule,
     MatDatepickerModule,
-    MatNativeDateModule,
+    MatNativeDateModule,    
   ],
   providers: [
     LoginGuardService,

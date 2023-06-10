@@ -1,5 +1,6 @@
 package com.fitcal.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fitcal.api.enums.ActivityLevel;
 import com.fitcal.api.enums.Goals;
 import jakarta.persistence.*;
@@ -68,7 +69,7 @@ public class User {
     private String activityLevel;
 
     // Un UserData tiene muchos dias
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Day> days = new ArrayList<>();
-
 }

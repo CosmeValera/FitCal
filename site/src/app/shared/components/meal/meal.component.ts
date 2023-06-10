@@ -28,6 +28,7 @@ export class MealComponent {
 
     this.foodService.alimentoSeleccionado$.subscribe(alimento => {
       if (alimento && this.meal === this.idBoton) {
+        console.log(alimento.name)
         this.foods.push(alimento.name);
         this.idBoton = "";
       }
@@ -43,16 +44,26 @@ export class MealComponent {
    *  lo debemos añadir en el que corresponde.
    */
   anadirAlimentoModal(){
-    this.diaryService.setHabilitarEditar(false);
-
     this.idBoton = document.getElementById(this.meal)!.id;
-    console.log(this.idBoton);
 
-    this.matDialog.open(FoodComponent,{
+    this.diaryService.setHabilitarEditar(false);
+    this.diaryService.setMealType(this.idBoton);
+
+    const dialogRef = this.matDialog.open(FoodComponent,{
       width: '1300px',
       height: '600px',
-      data: { habilitarEditar: this.habilitarEditar}
+      data: { 
+        habilitarEditar: this.habilitarEditar,
+        mealType: this.idBoton
+      }
     })
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log(result)
+        // this.guardarDatos();
+      }
+    });
   }
 
 }

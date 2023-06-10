@@ -27,6 +27,7 @@ public class FoodInstanceService {
     }
 
     public FoodInstance createFoodInstance(FoodInstance foodInstance) {
+        System.out.println(foodInstance);
         return foodInstanceRepository.save(foodInstance);
     }
 

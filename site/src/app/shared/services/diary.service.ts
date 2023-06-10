@@ -12,6 +12,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class DiaryService {
   private readonly API_URL_DAY = environment.dayUrl;
   private readonly API_URL_FOODINSTANCE = environment.foodInstanceUrl;
+  fecha!: Date;
+  mealType!: string;
 
   alimentoSeleccionado: AlimentoSeleccionado | null = null;
 
@@ -33,6 +35,14 @@ export class DiaryService {
 
   getHabilitarEditar() {
     return this.habilitarEditar;
+  }
+
+  setMealType(value: string) {
+    this.mealType = value;
+  }
+
+  getMealType() {
+    return this.mealType;
   }
 
   /**
@@ -64,6 +74,8 @@ export class DiaryService {
   }
 
   createFoodInstance(foodInstance: FoodInstance) {
+    console.log("¿Que obtengo? " + foodInstance)
+    
     return this.http.post<FoodInstance>(this.API_URL_FOODINSTANCE, foodInstance);
   }
 

@@ -28,12 +28,12 @@
         <ng-container *ngFor="let day of mockUser.days">
           <ng-container *ngFor="let foodInstance of getSortedFoodInstances(day.foodInstances); let i = index">
             <tr [ngClass]="{ 'thick-row': shouldAddThickRow(day.foodInstances, i) }">
-              <td>{{ foodInstance.meal_type }}</td>
-              <td>{{ getFoodName(foodInstance.food_id) }}</td>
+              <td>{{ foodInstance.mealType }}</td>
+              <!-- <td>{{ getFoodName(foodInstance.food_id) }}</td>
               <td>{{ getFoodCarbs(foodInstance.food_id) }}</td>
               <td>{{ getFoodProteins(foodInstance.food_id) }}</td>
               <td>{{ getFoodFats(foodInstance.food_id) }}</td>
-              <td>{{ getFoodCalories(foodInstance.food_id, foodInstance.grams) }}</td>
+              <td>{{ getFoodCalories(foodInstance.food_id, foodInstance.grams) }}</td> -->
             </tr>
           </ng-container>
         </ng-container>
