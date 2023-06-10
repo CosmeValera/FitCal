@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { CaloriesDialogComponent } from '@shared/components/calories-dialog/calories-dialog.component';
@@ -17,19 +17,18 @@ import { FoodService } from '@shared/services/food.service';
   templateUrl: './diary.component.html',
   styleUrls: ['./diary.component.scss']
 })
-export class DiaryComponent {
+export class DiaryComponent implements OnInit {
   @ViewChild('appFecha', { static: false }) appFecha!: FechaComponentComponent;
 
-  selectedDate: any;
   calories: number = 2500;
   day: any;
   user: any;
-  foodInstance: FoodInstance | any;
+  foodInstances: FoodInstance[] = [];
 
   constructor(
     private alimentoService: FoodService,
     public dialog: MatDialog,
-    private dayService: DiaryService,
+    private diaryService: DiaryService,
     private fitcalAuthService: AuthService,
     private dateService: DateService
     )
@@ -37,17 +36,40 @@ export class DiaryComponent {
       this.user = fitcalAuthService.getUser();
   }
 
+  ngOnInit() {
+    this.traerAlimentos();
+  }
+
+  traerAlimentos() {
+    const fecha = this.dateService.getFecha();
+    const fechaFormateada = this.transformarDia(fecha);
+
+    // 1. Sacamos dia
+    this.diaryService.searchByDateAndUser(fechaFormateada, this.user.id)
+      .subscribe((daysParam: Day[]) => {
+        const day = daysParam[0];
+        if (Array.isArray(daysParam) && daysParam.length === 0) {
+          console.log(`No hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
+          this.foodInstances = [];
+        } else {
+          console.log(`Ya hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
+          console.log(day);
+
+          // 2. Sacamos FoodInstances
+          this.diaryService.getFoodInstancesByDayAndUser(day.id!).subscribe((foodInstances: FoodInstance[])=> {
+            this.foodInstances = foodInstances;
+          });
+        }
+    });
+  }
+
   // FECHA
   onDiaIncrementado(fecha: Date) {
-    this.selectedDate = this.transformarDia(fecha);
-    console.log('Selected date:', this.selectedDate);
-    console.log('Dia incrementado:', fecha);
+    this.traerAlimentos();
   }
 
   onDiaDecrementado(fecha: Date) {
-    this.selectedDate = this.transformarDia(fecha);
-    console.log('Selected date:', this.selectedDate);
-    console.log('Dia decrementado:', fecha);
+    this.traerAlimentos();
   }
 
   transformarDia(fecha: Date): string {
@@ -57,9 +79,14 @@ export class DiaryComponent {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
 
-    this.selectedDate = `${year}-${month}-${day}`;
-    return this.selectedDate;
+    const selectedDate = `${year}-${month}-${day}`;
+    return selectedDate;
   }
+
+  getMealFoods(mealType: string): FoodInstance[] {
+    return this.foodInstances.filter(foodInstance => foodInstance.mealType === mealType);
+  }
+
 
   openCaloriesDialog(): void {
     const dialogRef = this.dialog.open(CaloriesDialogComponent, {

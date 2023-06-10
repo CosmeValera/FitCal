@@ -31,6 +31,10 @@ public class FoodInstanceService {
         return foodInstanceRepository.findByDayId(dayId);
     }
 
+    // public List<FoodInstance> findFoodInstancesByDayAndUser(Long dayId, Long userId) {
+    //     return foodInstanceRepository.findByDayIdAndUserId(dayId, userId);
+    // }
+
     public FoodInstance createFoodInstance(FoodInstance foodInstance) {
         System.out.println(foodInstance);
         return foodInstanceRepository.save(foodInstance);
@@ -57,4 +61,5 @@ public class FoodInstanceService {
         }
         return false;
     }
+
 }
