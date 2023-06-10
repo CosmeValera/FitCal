@@ -23,7 +23,7 @@ export class DiaryComponent implements OnInit {
   calories: number = 2500;
   day: any;
   user: any;
-  foodInstance: FoodInstance | any;
+  foodInstances: FoodInstance[] = [];
 
   constructor(
     private alimentoService: FoodService,
@@ -50,13 +50,14 @@ export class DiaryComponent implements OnInit {
         const day = daysParam[0];
         if (Array.isArray(daysParam) && daysParam.length === 0) {
           console.log(`No hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
+          this.foodInstances = [];
         } else {
           console.log(`Ya hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
           console.log(day);
 
           // 2. Sacamos FoodInstances
           this.diaryService.getFoodInstancesByDayAndUser(day.id!).subscribe((foodInstances: FoodInstance[])=> {
-            console.log(foodInstances);
+            this.foodInstances = foodInstances;
           });
         }
     });
@@ -81,6 +82,11 @@ export class DiaryComponent implements OnInit {
     const selectedDate = `${year}-${month}-${day}`;
     return selectedDate;
   }
+
+  getMealFoods(mealType: string): FoodInstance[] {
+    return this.foodInstances.filter(foodInstance => foodInstance.mealType === mealType);
+  }
+
 
   openCaloriesDialog(): void {
     const dialogRef = this.dialog.open(CaloriesDialogComponent, {
