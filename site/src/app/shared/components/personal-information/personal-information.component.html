@@ -4,12 +4,24 @@
     <h5 *ngIf="!editarDato">{{ datoPrincipal }} {{ tipo }}</h5>
     <div *ngIf="editarDato" class="input-group">
       <!-- <input type="number" class="form-control form-control-sm"> -->
-      <input type="number" class="form-control form-control-sm" [(ngModel)]="nuevoDato">
+      <input
+        type="number"
+        class="form-control form-control-sm"
+        [(ngModel)]="nuevoDato"
+      />
       <div class="input-group-append">
         <button class="btn btn-success" (click)="guardarDato()">Guardar</button>
-        <button class="btn btn-danger" (click)="cancelarDato()">Cancelar</button>
+        <button class="btn btn-danger" (click)="cancelarDato()">
+          Cancelar
+        </button>
       </div>
     </div>
-    <button class="btn btn-primary" *ngIf="!editarDato" (click)="editarDato = true">Editar</button>
+    <button
+      class="btn btn-primary"
+      *ngIf="!editarDato"
+      (click)="editarDato = true"
+    >
+      Editar
+    </button>
   </div>
 </div>

@@ -19,16 +19,17 @@ import {
   styleUrls: ['./food-image.component.scss'],
 })
 export class FoodImageComponent implements AfterViewInit {
-  @Input() imageUrl: string | undefined;
   @ViewChild('imageInput') imageInput!:
-    | ElementRef<HTMLInputElement>
-    | undefined;
+  | ElementRef<HTMLInputElement>
+  | undefined;
+  @Input() imageUrl: string | undefined;
+  @Input() editMode: boolean = false;
+
   selectedFile: File | undefined;
   storage: Storage;
 
   constructor(storage: Storage) {
     this.storage = storage;
-    console.log('pr', this.imageUrl);
   }
 
   ngAfterViewInit() {
@@ -76,10 +77,12 @@ export class FoodImageComponent implements AfterViewInit {
   }
 
   openFileExplorer(event: Event) {
-    // Abre el explorador de archivos cuando se hace clic en un elemento
-    event.preventDefault();
-    if (this.imageInput) {
-      this.imageInput.nativeElement.click();
+    if (this.editMode) {
+      // Abre el explorador de archivos cuando se hace clic en un elemento
+      event.preventDefault();
+      if (this.imageInput) {
+        this.imageInput.nativeElement.click();
+      }
     }
   }
 }

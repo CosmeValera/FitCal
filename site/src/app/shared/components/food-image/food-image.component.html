@@ -1,5 +1,7 @@
 <div class="profile-picture justify-content-center">
-  <input #imageInput id="imageInput" type="file" accept="image/*" />
+  <div *ngIf="editMode">
+    <input #imageInput id="imageInput" type="file" accept="image/*" />
+  </div>
   <label for="imageInput">
     <img
       [src]="imageUrl || 'https://via.placeholder.com/150'"
