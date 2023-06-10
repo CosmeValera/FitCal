@@ -20,7 +20,6 @@ import { FoodService } from '@shared/services/food.service';
 export class DiaryComponent implements OnInit {
   @ViewChild('appFecha', { static: false }) appFecha!: FechaComponentComponent;
 
-  selectedDate: any;
   calories: number = 2500;
   day: any;
   user: any;
@@ -38,6 +37,10 @@ export class DiaryComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.traerAlimentos();
+  }
+
+  traerAlimentos() {
     const fecha = this.dateService.getFecha();
     const fechaFormateada = this.transformarDia(fecha);
 
@@ -61,15 +64,11 @@ export class DiaryComponent implements OnInit {
 
   // FECHA
   onDiaIncrementado(fecha: Date) {
-    this.selectedDate = this.transformarDia(fecha);
-    console.log('Selected date:', this.selectedDate);
-    console.log('Dia incrementado:', fecha);
+    this.traerAlimentos();
   }
 
   onDiaDecrementado(fecha: Date) {
-    this.selectedDate = this.transformarDia(fecha);
-    console.log('Selected date:', this.selectedDate);
-    console.log('Dia decrementado:', fecha);
+    this.traerAlimentos();
   }
 
   transformarDia(fecha: Date): string {
@@ -79,8 +78,8 @@ export class DiaryComponent implements OnInit {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
 
-    this.selectedDate = `${year}-${month}-${day}`;
-    return this.selectedDate;
+    const selectedDate = `${year}-${month}-${day}`;
+    return selectedDate;
   }
 
   openCaloriesDialog(): void {
