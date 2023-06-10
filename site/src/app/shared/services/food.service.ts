@@ -5,7 +5,7 @@ import { Food } from '@shared/interfaces/foodInterface';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FoodService {
   private readonly API_URL = environment.foodUrl;
@@ -14,11 +14,11 @@ export class FoodService {
   alimentoSeleccionado$ = this.alimentoSeleccionadoSubject.asObservable();
 
   seleccionarAlimento(alimento: any) {
-    console.log(alimento)
+    console.log(alimento);
     this.alimentoSeleccionadoSubject.next(alimento);
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getFood() {
     return this.http.get<Food[]>(this.API_URL);
@@ -33,7 +33,9 @@ export class FoodService {
   }
 
   updateFood(food: Food) {
-    console.log("Alimento para actualizar: " + food);
+    console.log('Alimento para actualizar: ' + food);
+    console.log('Foto que se está guardando: ', food.image);
+    console.log('Nombre: ', food.name);
     console.log(food.id);
     return this.http.put<Food>(`${this.API_URL}/${food.id}`, food);
   }
