@@ -27,9 +27,15 @@
       </thead>
       <tbody>
         <ng-container *ngFor="let foodData of getSortedFoodData(foodDataArray); let i = index">
-          <tr [ngClass]="{ 'thick-row': shouldAddThickRow(foodDataArray, i) }">
-            <td>{{ foodData.foodInstance.mealType }}</td>
-            <td>{{ foodData.food.kcal }}</td>
+          <tr [ngClass]="{
+            'thick-row': shouldAddThickRow(foodDataArray, i),
+            'meal-breakfast': foodData.foodInstance.mealType === 'BREAKFAST',
+            'meal-lunch': foodData.foodInstance.mealType === 'LUNCH',
+            'meal-dinner': foodData.foodInstance.mealType === 'DINNER',
+            'meal-snacks': foodData.foodInstance.mealType === 'SNACKS'
+          }">
+            <td><b>{{ foodData.foodInstance.mealType }}</b></td>
+            <td><b>{{ foodData.food.kcal }}</b></td>
             <td>{{ foodData.food.name }}</td>
             <td>{{ foodData.foodInstance.grams }}</td>
             <td>{{ foodData.food.carbs }}</td>

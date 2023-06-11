@@ -9,3 +9,19 @@
 .thick-row {
   border-top: 2px solid #000;
 }
+
+.table tbody tr.meal-breakfast {
+  background-color: rgba(128, 128, 128, 0.1);
+}
+
+.table tbody tr.meal-lunch {
+  background-color: white;
+}
+
+.table tbody tr.meal-dinner {
+  background-color: rgba(128, 128, 128, 0.1);
+}
+
+.table tbody tr.meal-snacks {
+  background-color: white;
+}
