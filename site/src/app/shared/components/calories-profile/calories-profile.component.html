@@ -15,6 +15,7 @@
         type="number"
         class="form-control form-control-sm"
         [(ngModel)]="nuevoDato"
+        [ngClass]="{ 'negative-input': nuevoDato < 0 }"
       />
       <div class="input-group-append">
         <button class="btn btn-success" (click)="guardarDato()">Guardar</button>
