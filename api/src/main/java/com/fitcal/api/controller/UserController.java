@@ -22,12 +22,24 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * Obtiene todos los usuarios
+     * @return Una lista de objetos User.
+     */
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    
+    /**
+     * Verifica si existe un usuario con el correo electrónico especificado.
+     * @param email El correo electrónico del usuario a verificar.
+     * @return ResponseEntity con el cuerpo de la respuesta como el 
+     * usuario encontrado (HttpStatus.OK) si existe, 
+     * o una respuesta vacía (HttpStatus.NOT_FOUND) si no existe.
+    */
     @GetMapping("/{email}")
     public ResponseEntity<User> checkUserExists(@PathVariable("email") String email) {
         Optional<User> user = userService.getUserByEmail(email);
@@ -35,20 +47,26 @@ public class UserController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    /**
+     * Actualiza el perfil de un usuario existente con el ID especificado.
+     * @param id   El ID del usuario a actualizar.
+     * @param user El objeto User que contiene los nuevos datos del usuario.
+     * @return ResponseEntity con el cuerpo de la respuesta como el usuario actualizado (HttpStatus.OK) si se actualizó correctamente,
+     * o una respuesta vacía (HttpStatus.NOT_FOUND) si el usuario no se encuentra.
+     */
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User createdUser = userService.createUser(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
-    // @PutMapping("/{id}")
-    // public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody User updatedUser) {
-    //     User user = userService.updateUser(id, updatedUser);
-    //     return user != null ? new ResponseEntity<>(user, HttpStatus.OK)
-    //             : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    // }
-
-    // Actualizar un perfil existente
+    /**
+     * Actualiza el perfil de un usuario existente con el ID especificado.
+     * @param id   El ID del usuario a actualizar.
+     * @param user El objeto User que contiene los nuevos datos del usuario.
+     * @return ResponseEntity con el cuerpo de la respuesta como el usuario actualizado (HttpStatus.OK) si se actualizó correctamente,
+     * o una respuesta vacía (HttpStatus.NOT_FOUND) si el usuario no se encuentra.
+     */    
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         User updatedUser = userService.updateUserProfile(id, user);
@@ -59,6 +77,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Elimina un usuario existente con el ID especificado.
+     * @param id El ID del usuario a eliminar.
+     * @return ResponseEntity con una respuesta vacía (HttpStatus.NO_CONTENT) si se eliminó correctamente,
+     * o una respuesta vacía (HttpStatus.NOT_FOUND) si el usuario no se encuentra.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
         boolean deleted = userService.deleteUser(id);

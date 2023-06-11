@@ -1,8 +1,6 @@
 package com.fitcal.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fitcal.api.enums.ActivityLevel;
-import com.fitcal.api.enums.Goals;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -45,8 +43,7 @@ public class User {
     @Column(nullable = false)
     private String photoUrl;
 
-    // Informacion
-
+    // Información
     @Column(columnDefinition = "double default 50.0")
     private double weight;
 

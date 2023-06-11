@@ -20,13 +20,21 @@ public class FoodController {
         this.foodService = foodService;
     }
 
-    // Obtener todas las comidas
+    /**
+     * Obtiene todas las comidas.
+     * @return Una lista de objetos Food que representan todas las comidas.
+     */    
     @GetMapping
     public List<Food> getAllFoods() {
         return foodService.getAllFoods();
     }
 
-    // Obtener una comida por ID
+    /**
+     * Obtiene una comida por su ID.
+     * @param id El ID de la comida.
+     * @return Un objeto ResponseEntity que contiene la comida encontrada y 
+     * el estado OK, o el estado NOT_FOUND si no se encuentra la comida.
+    */    
     @GetMapping("/{id}")
     public ResponseEntity<Food> getFoodById(@PathVariable Long id) {
         Food food = foodService.getFoodById(id);
@@ -37,14 +45,25 @@ public class FoodController {
         }
     }
 
-    // Crear una nueva comida
+    /**
+     * Crea una nueva comida.
+     * @param food El objeto Food a crear.
+     * @return Un objeto ResponseEntity que contiene la comida creada y 
+     * el estado CREATED.
+     */    
     @PostMapping
     public ResponseEntity<Food> createFood(@RequestBody Food food) {
         Food createdFood = foodService.createFood(food);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdFood);
     }
 
-    // Actualizar una comida existente
+    /**
+     * Actualiza una comida existente.
+     * @param id El ID de la comida a actualizar.
+     * @param food El objeto Food actualizado.
+     * @return Un objeto ResponseEntity que contiene la comida actualizada y 
+     * el estado OK, o el estado NOT_FOUND si no se encuentra la comida.
+     */    
     @PutMapping("/{id}")
     public ResponseEntity<Food> updateFood(@PathVariable Long id, @RequestBody Food food) {
         Food updatedFood = foodService.updateFood(id, food);
@@ -55,7 +74,12 @@ public class FoodController {
         }
     }
 
-    // Eliminar una comida
+    /**
+     * Elimina una comida por su ID.
+     * @param id El ID de la comida a eliminar.
+     * @return Un objeto ResponseEntity con el estado NO_CONTENT si se 
+     * elimina la comida, o el estado NOT_FOUND si no se encuentra la comida.
+    */    
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFood(@PathVariable Long id) {
         boolean deleted = foodService.deleteFood(id);
