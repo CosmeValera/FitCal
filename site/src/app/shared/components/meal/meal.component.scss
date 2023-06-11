@@ -1,28 +1,42 @@
-p {
-  margin-bottom: 0.3rem;
-  font-size: 16px;
+.food-list {
+  list-style-type: none;
+  padding: 0;
 }
 
+.food-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.food-item p {
+  margin-right: 0.5rem;
+  font-size: 16px;
+  color: #333;
+}
 
 button {
-  padding: 2px 6px;
+  padding: 8px 12px;
   font-size: 16px;
-
-  &.add-food-button {
-    background-color: transparent;
-    border: none;
-    color: #000;
-    text-decoration: underline;
-    outline: none;
-    margin-bottom: 1rem;
-    cursor: pointer;
-  }
-  &.add-food-button:hover {
-    font-weight: bold;
-  }
+  border: none;
+  background-color: transparent;
+  color: #f00;
+  outline: none;
+  cursor: pointer;
 }
 
+.add-food-button {
+  background-color: #3c9b4c;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 16px;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-
-
-
+.add-food-button:hover {
+  background-color: hsl(131, 40%, 25%);
+}
