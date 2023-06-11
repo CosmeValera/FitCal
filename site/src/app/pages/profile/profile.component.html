@@ -59,11 +59,11 @@
               <h4>Fecha de nacimiento:</h4>
               <mat-form-field>
                 <input
+                  #datePicker
                   matInput
                   [matDatepicker]="picker"
                   placeholder="Select a date"
-                  [(ngModel)]="user.birth_date || selectedDate"
-                  (dateChange)="dateChanged($event)"
+                  [(ngModel)]="user.birth_date"
                 />
                 <mat-datepicker-toggle
                   matSuffix
