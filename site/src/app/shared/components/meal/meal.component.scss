@@ -9,6 +9,13 @@
 //   // font-weight: bold;
 // }
 
+.food-calories {
+  opacity: 0.75;
+}
+.food-grams {
+  opacity: 0.75;
+}
+
 .food-list {
   list-style-type: none;
   padding: 0;
@@ -42,6 +49,7 @@ button {
   color: #fff;
   font-weight: bold;
   padding: 10px 16px;
+  margin: 5px 0px 20px 0px;
   font-size: 18px;
   border-radius: 4px;
   cursor: pointer;

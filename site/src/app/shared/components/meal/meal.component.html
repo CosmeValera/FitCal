@@ -3,6 +3,13 @@
   <!-- <span class="calories-label">kcal</span>
 </div> -->
 <div *ngFor="let item of foods; let i = index">
-  <p id="{{item.food.id}}" class="food-item">{{i + 1}} - {{item.food.name}} <button class="removeButton" (click)="removeItem(i, item.food.id!)"><i class="fas fa-trash"></i></button></p>
+  <p id="{{item.food.id}}" class="food-item">
+    {{i + 1}} - {{item.food.name}}
+    <span class="food-calories">&nbsp;{{item.food.kcal}} kcal / </span>
+    <span class="food-grams">&nbsp;{{item.grams}} g</span>
+    <button class="removeButton" (click)="removeItem(i, item.food.id!)">
+      <i class="fas fa-trash"></i>
+    </button>
+  </p>
 </div>
 <button class="add-food-button" id="{{meal}}" (click)="anadirAlimentoModal()"><i class="fas fa-plus"></i> Añadir alimento</button>
