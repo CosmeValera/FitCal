@@ -1,10 +1,11 @@
 <app-fecha #appFecha (diaIncrementado)="onDiaIncrementado($event)" (diaDecrementado)="onDiaDecrementado($event)"></app-fecha>
 <div class="main-content">
-  <main class="beautiful-card m-5 p-5">
-    <app-meal [meal]="'Desayuno'" [foods]="getMealFoods('BREAKFAST')" [mealCalories]="getTotalCalories('BREAKFAST')"></app-meal>
-    <app-meal [meal]="'Comida'" [foods]="getMealFoods('LUNCH')" [mealCalories]="getTotalCalories('LUNCH')"></app-meal>
-    <app-meal [meal]="'Cena'" [foods]="getMealFoods('DINNER')" [mealCalories]="getTotalCalories('DINNER')"></app-meal>
-    <app-meal [meal]="'Snacks'" [foods]="getMealFoods('SNACKS')" [mealCalories]="getTotalCalories('SNACKS')"></app-meal>
+  <main class="beautiful-card m-5 p-5 row">
+    <app-meal class="col-12 col-lg-6 responsive-flex mb-5" [meal]="'Desayuno'" [foods]="getMealFoods('BREAKFAST')" [mealCalories]="getTotalCalories('BREAKFAST')"></app-meal>
+    <app-meal class="col-12 col-lg-6 responsive-flex mb-5" [meal]="'Comida'" [foods]="getMealFoods('LUNCH')" [mealCalories]="getTotalCalories('LUNCH')"></app-meal>
+    <hr>
+    <app-meal class="col-12 col-lg-6 responsive-flex mt-5" [meal]="'Cena'" [foods]="getMealFoods('DINNER')" [mealCalories]="getTotalCalories('DINNER')"></app-meal>
+    <app-meal class="col-12 col-lg-6 responsive-flex mt-5" [meal]="'Snacks'" [foods]="getMealFoods('SNACKS')" [mealCalories]="getTotalCalories('SNACKS')"></app-meal>
   </main>
 </div>
 
