@@ -120,4 +120,18 @@ export class DiaryComponent implements AfterViewInit {
   getMealFoods(mealType: string): FoodInstance[] {
     return this.foodInstances.filter(foodInstance => foodInstance.mealType === mealType);
   }
+
+
+  getTotalCalories(mealType: string): number {
+    const foods = this.getMealFoods(mealType);
+    let totalCaloriesOfMeal = 0;
+
+    foods.forEach((foodInstance: FoodInstance) => {
+      const caloriesFoodInstance = this.calcularCaloriasFoodInstance(foodInstance);
+      totalCaloriesOfMeal += caloriesFoodInstance;
+    });
+
+    return parseFloat(totalCaloriesOfMeal.toFixed(0));
+  }
+
 }

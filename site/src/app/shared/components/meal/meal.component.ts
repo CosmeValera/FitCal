@@ -16,6 +16,7 @@ import { AuthService } from '@shared/services/auth.service';
 })
 export class MealComponent {
   @Input() meal: string = '';
+  @Input() mealCalories: number = 0;
   @Input() foods: FoodInstance[] = []; // Update the type of foods to FoodInstance[]
   habilitarEditar = false;
   idBoton = '';
