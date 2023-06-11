@@ -32,6 +32,10 @@ export class FoodService {
     return this.http.post<Food>(this.API_URL, food);
   }
 
+  deleteFood(food_id: number) {
+    return this.http.delete(`${this.API_URL}/${food_id}`);
+  }
+
   updateFood(food: Food) {
     console.log('Alimento para actualizar: ' + food);
     console.log('Foto que se está guardando: ', food.image);

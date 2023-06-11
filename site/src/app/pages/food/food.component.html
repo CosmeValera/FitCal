@@ -65,19 +65,24 @@
               </div>
             </div>
             <div *ngIf="!habilitarEditar" id="anadirAliment" class="example-button-row">
-              <div class="example-flex-container">
+              <div class="example-flex-container d-flex justify-content-center">
                   <div class="example-button-container">
-                    <button (click)="anadirAlimento(food)" mat-mini-fab color="primary">
+                    <button (click)="anadirAlimento(food)" mat-mini-fab class="blue-mat-icon">
                         <mat-icon>add</mat-icon>
                     </button>
                   </div>
               </div>
             </div>
             <div *ngIf="habilitarEditar" class="example-button-row">
-              <div class="example-flex-container">
+              <div class="example-flex-container d-flex justify-content-around">
                   <div class="example-button-container">
                     <button (click)="openUpdateFood(food)" mat-mini-fab color="primary">
                         <mat-icon>edit</mat-icon>
+                    </button>
+                  </div>
+                  <div class="example-button-container">
+                    <button (click)="removeFood(food)" mat-mini-fab color="warn">
+                      <mat-icon>clear</mat-icon>
                     </button>
                   </div>
               </div>

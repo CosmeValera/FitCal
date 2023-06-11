@@ -1,3 +1,4 @@
+import { ConfirmationDialogComponent } from '@shared/components/confirmation-dialog/confirmation-dialog.component';
 import { Component, Inject, DoCheck } from '@angular/core';
 import { Food } from '@shared/interfaces/foodInterface';
 import { FoodService } from '@shared/services/food.service';
@@ -159,6 +160,26 @@ export class FoodComponent {
       console.error('Error al dar de alta el foodInstance:', error);
     });
 
+  }
+
+  removeFood(food: Food) {
+    console.log(food);
+    const dialogRef = this.matDialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: '¿Seguro que quieres eliminarlo?',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.foodService.deleteFood(food.id!).subscribe((result) => {
+          console.log("Se elimino con exito. Food id: ", food.id!);
+          console.log(result);
+          window.location.reload();
+        }, (error) => {
+          console.log("Error al eliminar. Food id: ", food.id!, error);
+        });
+      }
+    });
   }
 
   openCreateFood() {
