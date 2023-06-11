@@ -184,15 +184,15 @@ export class FoodComponent {
 
   openCreateFood() {
     this.matDialog.open(DialogCreateFoodComponent, {
-      width: '700px',
-      height: '600px',
+      width: '800px',
+      height: '660px',
     });
   }
 
   openUpdateFood(food: any) {
     this.matDialog.open(DialogUpdateFoodComponent, {
-      width: '700px',
-      height: '600px',
+      width: '800px',
+      height: '660px',
       data: { food: food },
     });
   }
