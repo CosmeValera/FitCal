@@ -55,7 +55,7 @@ export class FoodComponent {
     if (habilitarEditar != null) {
       this.habilitarEditar = habilitarEditar;
     }
-
+    this.diaryService.setHabilitarEditar(true);
     this.foodService.getFood().subscribe((data) => {
       this.foods = data;
 

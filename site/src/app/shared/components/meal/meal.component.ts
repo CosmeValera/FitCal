@@ -78,6 +78,7 @@ export class MealComponent {
         // this.guardarDatos();
       }
     });
+
   }
 
   // Function to filter and set the foods based on the meal type
