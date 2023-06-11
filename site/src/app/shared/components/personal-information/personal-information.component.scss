@@ -38,3 +38,23 @@ input {
   max-width: 100px;
   text-align: right;
 }
+
+.personal-information .negative-input {
+  color: red;
+}
+
+.data-container {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.negative-input {
+  color: red;
+}
+
+button.btn-primary {
+  background-color: #DCEAB2;
+  border-color: #DCEAB2;
+  color: black;
+}

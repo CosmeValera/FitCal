@@ -138,9 +138,11 @@ export class NutritionComponent {
 
   private defaultChart() {
     const macros = [
-      { name: 'Carbohidratos', y: 0, color: '#00ffff' },
-      { name: 'Grasas', y: 0, color: '#ff00ff' },
-      { name: 'Proteínas', y: 0, color: '#ffa800' },
+      [
+        { name: 'Carbohidratos', y: 0, color: '#8AC2D1' },
+        { name: 'Grasas', y: 0, color: '#fcb3e6' },
+        { name: 'Proteínas', y: 0, color: '#ffd89e' },
+      ]
     ];
 
     this.donutChart.ref$.subscribe((chartRef) => {

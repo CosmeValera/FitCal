@@ -16,26 +16,37 @@ export class CaloriesProfileComponent {
 
   disableButtonRecalculate: boolean = false; // Deshabilitar recalcular
 
-
   nuevoDato: number = 0;
   editarDato = false;
+  previousValue: string = '';
 
-  constructor(private snackBar: MatSnackBar, public disableRecalculator: DisableRecalculator) {
+  constructor(private snackBar: MatSnackBar, public disableRecalculator: DisableRecalculator) {}
 
-
+  onInputChange(event: any) {
+    const value = event.target.value;
+    if (parseInt(value) < 0) {
+      console.error('El valor no puede ser negativo');
+      this.nuevoDato = parseInt(this.datoPrincipal); // Restablecer el valor anterior
+    } else {
+      this.nuevoDato = parseInt(value);
+    }
   }
 
   guardarDato() {
-    console.log('Guardar dato');
-    this.datoPrincipal = '' + this.nuevoDato;
+    if (this.nuevoDato < 0) {
+      console.error('El valor no puede ser negativo');
+      this.nuevoDato = parseInt(this.datoPrincipal); // Restablecer el valor anterior
+      return;
+    }
 
+    this.datoPrincipal = this.nuevoDato.toString();
     this.editarDato = false;
+    this.disableRecalculator.disableRecalculate();
   }
 
   cancelarDato() {
-    console.log('Cancelar dato');
-
     this.editarDato = false;
+    this.nuevoDato = parseInt(this.datoPrincipal); // Restablecer el valor anterior
   }
 
   recalcularKcal(): void {
@@ -117,7 +128,7 @@ export class CaloriesProfileComponent {
     this.datoPrincipal = calorias.toString();
 
     const aviso =
-      '¡Se han recalculado las calorias correctamente según tus necesidades!';
+      '¡Se han recalculado las calorías correctamente según tus necesidades!';
     const recordatorio = '¡No olvides guardar los cambios!.';
     const snackBarRef = this.snackBar.open(aviso, recordatorio, {
       duration: 5000, // Duración de la notificación en milisegundos
@@ -128,7 +139,6 @@ export class CaloriesProfileComponent {
     snackBarRef.onAction().subscribe(() => {});
   }
 
-  // Metodo para calcular edad para la formula
   calculateAge(birthDate: string): number {
     const today = new Date();
     const birthDateObj = new Date(birthDate);

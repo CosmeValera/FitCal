@@ -56,6 +56,12 @@ button {
   transition: background-color 0.3s ease;
 }
 
+
 .add-food-button:hover {
   background-color: hsl(131, 40%, 25%);
+}
+
+.add-food-button.custom-color {
+  color: black;
+  background-color: #dceab2;
 }

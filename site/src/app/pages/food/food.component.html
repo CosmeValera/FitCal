@@ -16,7 +16,7 @@
 
 <div *ngIf="(foods | filtro: searchText).length === 0"  class="row">
   <div class="message-container">
-      <p>No se encuentran alimentos en la base de datos. ¿Desea crear uno?</p>
+      <p>El alimento que buscas no está en la base de datos. ¿Desea crearlo?</p>
       <div class="input-group-append">
         <button class="btn btn-primary ms-2" (click)="openCreateFood()">
           Crear Alimento

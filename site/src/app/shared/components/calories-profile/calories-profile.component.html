@@ -15,6 +15,7 @@
         type="number"
         class="form-control form-control-sm"
         [(ngModel)]="nuevoDato"
+        [ngClass]="{ 'negative-input': nuevoDato < 0 }"
       />
       <div class="input-group-append">
         <button class="btn btn-success" (click)="guardarDato()">Guardar</button>
@@ -40,6 +41,6 @@
 <br />
 <div class="row">
   <label class="main-content d-flex justify-content-center">
-    Tu determinación es la clave para alcanzar tus metas saludables.</label
+    Tu determinación es la clave para alcanzar tus metas.</label
   >
 </div>
