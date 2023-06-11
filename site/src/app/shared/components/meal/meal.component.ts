@@ -5,6 +5,9 @@ import { DialogCreateFoodComponent } from '../dialog-create-food/dialog-create-f
 import { FoodService } from '@shared/services/food.service';
 import { DiaryService } from '@shared/services/diary.service';
 import { FoodInstance } from '@shared/interfaces/foodInstanceInterface';
+import { DateService } from '@shared/services/date.service';
+import { Day } from '@shared/interfaces/dayInterface';
+import { AuthService } from '@shared/services/auth.service';
 
 @Component({
   selector: 'app-meal',
@@ -17,12 +20,17 @@ export class MealComponent {
   habilitarEditar = false;
   idBoton = '';
   modalAlimentoAbierto = false;
+  user: any;
 
   constructor(
     private matDialog: MatDialog,
     private foodService: FoodService,
-    private diaryService: DiaryService
-  ) {}
+    private diaryService: DiaryService,
+    private dateService: DateService,
+    private fitcalAuthService: AuthService,
+  ) {
+    this.user = fitcalAuthService.getUser();
+  }
 
   ngOnInit() {
     this.foodService.alimentoSeleccionado$.subscribe(alimento => {
@@ -36,9 +44,17 @@ export class MealComponent {
     this.setFoodsByMealType();
   }
 
-  removeItem(index: number): void {
-    this.foods.splice(index, 1);
+  
+
+  removeItem(index: number, id:number): void {
+    const idSenalado = this.foods[index].id!;
+    this.diaryService.deleteFoodInstance(idSenalado).subscribe(correcto=>{
+      console.log(correcto)
+    })
+
+    window.location.reload();
   }
+
 
   anadirAlimentoModal() {
     this.idBoton = document.getElementById(this.meal)!.id;
