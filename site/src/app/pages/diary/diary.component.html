@@ -9,9 +9,9 @@
 </div>
 
 <div class="half-circle-container">
-  <button mat-mini-fab class="half-circle left">
-    <span class="top">Calorías restantes</span>
-    <span class="bottom">{{leftCalories}}</span>
+  <button mat-mini-fab class="half-circle center">
+    <span class="top">Calorías totales</span>
+    <span class="bottom">{{leftCalories + caloriasConsumidas}}</span>
   </button>
 
   <button mat-mini-fab class="half-circle right">
@@ -19,8 +19,9 @@
     <span class="bottom">{{caloriasConsumidas}}</span>
   </button>
 
-  <button mat-mini-fab class="half-circle center">
-    <span class="top">Calorías totales</span>
-    <span class="bottom">{{leftCalories + caloriasConsumidas}}</span>
+  <button mat-mini-fab class="half-circle left">
+    <span class="top">Calorías restantes</span>
+    <span class="bottom">{{leftCalories}}</span>
   </button>
+
 </div>
