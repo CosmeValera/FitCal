@@ -35,7 +35,6 @@ export class FoodComponent {
   foods: Food[] = [];
   socialAuthService: any;
   user: any;
-  // fecha!: Date;
 
   constructor(
     private foodService: FoodService,
@@ -47,7 +46,6 @@ export class FoodComponent {
     private dateService: DateService
   ) {
     this.user = fitcalAuthService.getUser();
-    // this.fecha = diaryService.fecha;
   }
 
   ngOnInit() {
@@ -184,15 +182,15 @@ export class FoodComponent {
 
   openCreateFood() {
     this.matDialog.open(DialogCreateFoodComponent, {
-      width: '700px',
-      height: '600px',
+      width: '800px',
+      height: '660px',
     });
   }
 
   openUpdateFood(food: any) {
     this.matDialog.open(DialogUpdateFoodComponent, {
-      width: '700px',
-      height: '600px',
+      width: '800px',
+      height: '660px',
       data: { food: food },
     });
   }

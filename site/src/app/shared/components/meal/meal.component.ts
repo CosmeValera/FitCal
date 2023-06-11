@@ -69,7 +69,8 @@ export class MealComponent {
       height: '600px',
       data: {
         habilitarEditar: this.habilitarEditar,
-        mealType: this.idBoton
+        mealType: this.idBoton,
+        margin: true
       }
     });
 
