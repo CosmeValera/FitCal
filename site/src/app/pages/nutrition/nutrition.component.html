@@ -34,7 +34,14 @@
             'meal-dinner': foodData.foodInstance.mealType === 'DINNER',
             'meal-snacks': foodData.foodInstance.mealType === 'SNACKS'
           }">
-            <td><b>{{ foodData.foodInstance.mealType }}</b></td>
+            <td *ngIf="shouldAddThickRow(foodDataArray, i)">
+              <b>
+                {{ foodData.foodInstance.mealType === 'BREAKFAST' ? 'Desayuno' :
+                  (foodData.foodInstance.mealType === 'LUNCH' ? 'Comida' :
+                  (foodData.foodInstance.mealType === 'DINNER' ? 'Cena' : 'Snacks')) }}
+              </b>
+            </td>
+            <td *ngIf="!shouldAddThickRow(foodDataArray, i)"></td>
             <td><b>{{ foodData.food.kcal }}</b></td>
             <td>{{ foodData.food.name }}</td>
             <td>{{ foodData.foodInstance.grams }}</td>

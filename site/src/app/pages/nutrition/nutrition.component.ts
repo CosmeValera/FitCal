@@ -150,6 +150,26 @@ export class NutritionComponent {
     });
   }
 
+  isFirstOccurrence(mealType: string, foodDataArray: { food: Food; foodInstance: FoodInstance }[], currentIndex: number): boolean {
+    if (currentIndex === 0) {
+      return true;
+    }
+
+    const previousMealType = foodDataArray[currentIndex - 1].foodInstance.mealType;
+    return mealType !== previousMealType;
+  }
+
+  getMealTypeLabel(mealType: string): string {
+    const mealTypeLabels: { [key: string]: string } = {
+      BREAKFAST: 'Desayuno',
+      LUNCH: 'Comida',
+      DINNER: 'Cena',
+      SNACKS: 'Snacks',
+    };
+
+    return mealTypeLabels[mealType] || '';
+  }
+
   // Añadir linea gruesa
   shouldAddThickRow(foodDataArray: { food: Food; foodInstance: FoodInstance }[], currentIndex: number): boolean {
     if (currentIndex === 0) {
