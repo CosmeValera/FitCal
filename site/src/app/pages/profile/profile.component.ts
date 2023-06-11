@@ -13,7 +13,7 @@ import { UserService } from '@shared/services/user.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { ConfirmationDialogComponent } from '@shared/components/confirmation-dialog/confirmation-dialog.component';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { DisableRecalculator } from '@shared/services/disableRecalculator.service';
@@ -38,7 +38,9 @@ export class ProfileComponent {
   @ViewChild(CaloriesProfileComponent)
   caloriasPerfil!: CaloriesProfileComponent;
 
-  selectedDate: string = '2001-01-01';
+  @ViewChild('datePicker')
+  datePicker: any;
+
   user: User | any;
   modalOpen = false;
   autenticacion: IGoogleAuth | undefined;
@@ -110,17 +112,15 @@ export class ProfileComponent {
       });
   }
 
-  dateChanged(event: MatDatepickerInputEvent<Date>) {
-    const fechaPrevia = event.value;
-    const date = new Date(fechaPrevia!);
+  obtenerFecha(): string {
+    const fechaPicker = this.datePicker.nativeElement.value;
+    const date = new Date(fechaPicker!);
 
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
 
-    this.selectedDate = `${year}-${month}-${day}`;
-    console.log('Selected date:', this.selectedDate);
-    this.disableRecalculator.disableRecalculate();
+    return `${year}-${month}-${day}`;
   }
 
   guardarDatos(): void {
@@ -133,7 +133,7 @@ export class ProfileComponent {
       weight: this.user.weight,
       height: this.user.height,
       gender: this.user.gender,
-      birth_date: this.selectedDate,
+      birth_date: this.obtenerFecha(),
       goal: this.user.goal,
       activityLevel: this.user.activityLevel,
       calories: this.user.calories,

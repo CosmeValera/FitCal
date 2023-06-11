@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { CaloriesDialogComponent } from '@shared/components/calories-dialog/calories-dialog.component';
@@ -11,16 +11,16 @@ import { DateService } from '@shared/services/date.service';
 import { DiaryService } from '@shared/services/diary.service';
 import { FoodService } from '@shared/services/food.service';
 
-
 @Component({
   selector: 'app-diary',
   templateUrl: './diary.component.html',
   styleUrls: ['./diary.component.scss']
 })
-export class DiaryComponent implements OnInit {
+export class DiaryComponent implements AfterViewInit {
   @ViewChild('appFecha', { static: false }) appFecha!: FechaComponentComponent;
 
-  calories: number = 2500;
+  leftCalories: number = 2500;
+  caloriasConsumidas: number = 0;
   day: any;
   user: any;
   foodInstances: FoodInstance[] = [];
@@ -31,44 +31,78 @@ export class DiaryComponent implements OnInit {
     private diaryService: DiaryService,
     private fitcalAuthService: AuthService,
     private dateService: DateService
-    )
-    {
-      this.user = fitcalAuthService.getUser();
+  ) {
+    this.user = fitcalAuthService.getUser();
+    this.leftCalories = this.user.calories;
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    const fechaHoy = new Date();
+    this.appFecha.fecha = fechaHoy; // Establecer la fecha actual en el componente FechaComponent
+
+    this.appFecha.diaIncrementado.subscribe((fecha: Date) => {
+      this.onDiaIncrementado(fecha);
+    });
+
+    this.appFecha.diaDecrementado.subscribe((fecha: Date) => {
+      this.onDiaDecrementado(fecha);
+    });
+
     this.traerAlimentos();
   }
 
   traerAlimentos() {
-    const fecha = this.dateService.getFecha();
+    const fecha = this.appFecha.fecha;
+    if (!fecha) return;
+
     const fechaFormateada = this.transformarDia(fecha);
 
-    // 1. Sacamos dia
-    this.diaryService.searchByDateAndUser(fechaFormateada, this.user.id)
-      .subscribe((daysParam: Day[]) => {
-        const day = daysParam[0];
-        if (Array.isArray(daysParam) && daysParam.length === 0) {
-          console.log(`No hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
-          this.foodInstances = [];
-        } else {
-          console.log(`Ya hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
-          console.log(day);
+    // 1. Sacamos día
+    this.diaryService.searchByDateAndUser(fechaFormateada, this.user.id).subscribe((daysParam: Day[]) => {
+      const day = daysParam[0];
+      if (!day) {
+        this.foodInstances = [];
+        this.calcularCaloriasConsumidas();
 
-          // 2. Sacamos FoodInstances
-          this.diaryService.getFoodInstancesByDay(day.id!).subscribe((foodInstances: FoodInstance[])=> {
-            this.foodInstances = foodInstances;
-          });
-        }
+      } else {
+        // 2. Sacamos FoodInstances
+        this.diaryService.getFoodInstancesByDay(day.id!).subscribe((foodInstances: FoodInstance[]) => {
+          this.foodInstances = foodInstances;
+
+          // 3. Calcular calorías consumidas
+          this.calcularCaloriasConsumidas();
+        });
+      }
     });
   }
 
-  // FECHA
+  calcularCaloriasFoodInstance(foodInstance: FoodInstance): number {
+    const pesoEnGramos = foodInstance.grams;
+    const caloriasPorGramo = foodInstance.food.kcal;
+
+    const caloriasTotales = (pesoEnGramos * caloriasPorGramo) / 100;
+    return caloriasTotales;
+  }
+
+  calcularCaloriasConsumidas() {
+    let caloriasConsumidas = 0;
+    this.foodInstances.forEach((foodInstance: FoodInstance) => {
+      const caloriasFoodInstance = this.calcularCaloriasFoodInstance(foodInstance);
+      caloriasConsumidas += caloriasFoodInstance;
+    });
+
+    const caloriasRestantes = this.user.calories - caloriasConsumidas;
+    this.leftCalories = caloriasRestantes;
+    this.caloriasConsumidas = caloriasConsumidas;
+  }
+
   onDiaIncrementado(fecha: Date) {
+    this.calcularCaloriasConsumidas();
     this.traerAlimentos();
   }
 
   onDiaDecrementado(fecha: Date) {
+    this.calcularCaloriasConsumidas();
     this.traerAlimentos();
   }
 
@@ -85,22 +119,5 @@ export class DiaryComponent implements OnInit {
 
   getMealFoods(mealType: string): FoodInstance[] {
     return this.foodInstances.filter(foodInstance => foodInstance.mealType === mealType);
-  }
-
-
-  openCaloriesDialog(): void {
-    const dialogRef = this.dialog.open(CaloriesDialogComponent, {
-      width: '250px',
-      data: {
-        goalCalories: '3000',
-        foodCalories: '500',
-        leftCalories: '2500'
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-    });
   }
 }
