@@ -61,14 +61,10 @@ export class DiaryComponent implements AfterViewInit {
     this.diaryService.searchByDateAndUser(fechaFormateada, this.user.id).subscribe((daysParam: Day[]) => {
       const day = daysParam[0];
       if (!day) {
-        console.log(`No hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
         this.foodInstances = [];
         this.calcularCaloriasConsumidas();
 
       } else {
-        console.log(`Ya hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
-        console.log(day);
-
         // 2. Sacamos FoodInstances
         this.diaryService.getFoodInstancesByDay(day.id!).subscribe((foodInstances: FoodInstance[]) => {
           this.foodInstances = foodInstances;
@@ -96,11 +92,8 @@ export class DiaryComponent implements AfterViewInit {
     });
 
     const caloriasRestantes = this.user.calories - caloriasConsumidas;
-    console.log(`Calorías consumidas: ${caloriasConsumidas}`);
-    console.log(`Calorías restantes: ${caloriasRestantes}`);
     this.leftCalories = caloriasRestantes;
     this.caloriasConsumidas = caloriasConsumidas;
-
   }
 
   onDiaIncrementado(fecha: Date) {
@@ -126,21 +119,5 @@ export class DiaryComponent implements AfterViewInit {
 
   getMealFoods(mealType: string): FoodInstance[] {
     return this.foodInstances.filter(foodInstance => foodInstance.mealType === mealType);
-  }
-
-  openCaloriesDialog(): void {
-    const dialogRef = this.dialog.open(CaloriesDialogComponent, {
-      width: '250px',
-      data: {
-        goalCalories: '3000',
-        foodCalories: '500',
-        leftCalories: '2500'
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-    });
   }
 }
