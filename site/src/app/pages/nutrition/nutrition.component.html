@@ -26,14 +26,14 @@
       </thead>
       <tbody>
         <!-- <ng-container *ngFor="let foodInstance of getSortedFoodInstances(foodInstances); let i = index"> -->
-        <ng-container *ngFor="let foodInstance of foodInstances; let i = index">
-          <tr [ngClass]="{ 'thick-row': shouldAddThickRow(foodInstances, i) }">
-            <td>{{ foodInstance.mealType }}</td>
-            <!-- <td>{{ getFoodName(foodInstances[i].id!) }}</td>
-            <td>{{ getFoodCarbs(foodInstances[i].id!) }}</td>
-            <td>{{ getFoodProteins(foodInstances[i].id!) }}</td>
-            <td>{{ getFoodFats(foodInstances[i].id!) }}</td>
-            <td>{{ getFoodCalories(foodInstances[i].id!, foodInstances[i].id!) }}</td> -->
+        <ng-container *ngFor="let foodData of foodDataArray; let i = index">
+          <tr [ngClass]="{ 'thick-row': shouldAddThickRow(foodDataArray, i) }">
+            <td>{{ foodData.foodInstance.mealType }}</td>
+            <td>{{ foodData.food.id }}</td>
+            <td>{{ foodData.food.carbs }}</td>
+            <td>{{ foodData.food.proteins }}</td>
+            <td>{{ foodData.food.fats }}</td>
+            <td>{{ foodData.food.kcal }}</td>
           </tr>
         </ng-container>
       </tbody>

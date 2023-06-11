@@ -25,7 +25,7 @@ export class NutritionComponent {
   caloriasTotales: number = 120;
   user: any;
   fecha: Date;
-  foodInstances: FoodInstance[] = [];
+  foodDataArray: { food: Food; foodInstance: FoodInstance }[] = [];
 
   constructor(
     private fitcalAuthService: AuthService,
@@ -72,7 +72,8 @@ export class NutritionComponent {
         const day = daysParam[0];
         if (Array.isArray(daysParam) && daysParam.length === 0) {
           console.log(`No hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
-          this.foodInstances = [];
+          // this.foodInstances = [];
+          this.foodDataArray = [];
         } else {
           console.log(`Ya hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
           console.log(day);
@@ -85,6 +86,8 @@ export class NutritionComponent {
     });
   }
   private updateChartWithData(foodInstances: FoodInstance[]) {
+    const foodDataArray: { food: Food; foodInstance: FoodInstance }[] = [];
+
     // Calculate the total macros from food instances
     let totalProteins = 0;
     let totalCarbs = 0;
@@ -102,7 +105,11 @@ export class NutritionComponent {
         totalProteins += (food.proteins / 100) * foodInstance.grams;
         totalCarbs += (food.carbs / 100) * foodInstance.grams;
         totalFats += (food.fats / 100) * foodInstance.grams;
+
+        foodDataArray.push({food, foodInstance});
       });
+      this.foodDataArray = foodDataArray;
+      console.log(this.foodDataArray);
 
       const totalCalories = totalProteins * 4 + totalCarbs * 4 + totalFats * 9;
 
@@ -119,221 +126,17 @@ export class NutritionComponent {
       });
     });
   }
-  // //Buscamos el dia mediante el id de usuario y fecha
-  // private getDayByIdAndDate(){
-  //   const fechaGlobal: Date = this.dateService.getFecha();
-  //   const fechaFormateda = this.formatearFecha(fechaGlobal);
-
-  //   this.diaryService.searchByDateAndUser(fechaFormateda, this.user.id)
-  //     .subscribe((daysParam) => {
-  //         if (Array.isArray(daysParam) && daysParam.length === 0) {
-  //           console.log("El dia no existe");
-  //         } else {
-  //           this.datosDia = daysParam[0];
-  //           const idDia = this.datosDia.id!;
-  //           console.log("Id de DAY: ", idDia) //NECESITAMOS EL ID
-
-  //           this.updateChartWithData();
-  //         }
-  //       }, (error) => {
-  //         console.error('Error al verificar la existencia del dia en diario:', error);
-  //       }
-  //     );
-  // }
-
-
-  // HELPERS métodos
-  // getFoodName(foodId: number): string {
-  //   const food: Food = this.foodService.getFoodById(foodId);
-  //   return food ? food.name : '';
-  // }
-  // getFoodCarbs(foodId: number): number {
-  //   // console.log(foodId);
-  //   const food: Food = this.foodService.getFoodById(foodId);
-  //   return food ? food.carbs : 0;
-  // }
-  // getFoodProteins(foodId: number): number {
-  //   const food: Food = await this.foodService.getFoodById(foodId);
-  //   return food ? food.proteins : 0;
-  // }
-  // getFoodFats(foodId: number): number {
-  //   const food: Food = this.foodService.getFoodById(foodId);
-  //   return food ? food.fats : 0;
-  // }
-  // getFoodCalories(foodId: number, grams: number): number {
-  //   const food: Food = this.foodService.getFoodById(foodId);
-  //   return food ? (food.kcal / 100) * grams : 0;
-  // }
-
-  // BORRAR
-  // getFoodById(foodId: number) {
-  //   return {} as Food;
-  // }
-
-  // // Ordenar filas
-  // getSortedFoodInstances(foodInstances: FoodInstance[]): FoodInstance[] {
-  //   const mealTypeOrder: { [key: string]: number } = {
-  //     BREAKFAST: 1,
-  //     LUNCH: 2,
-  //     DINNER: 3,
-  //     SNACKS: 4,
-  //   };
-
-  //   return foodInstances.sort((a, b) => {
-  //     const mealTypeA = a.mealType.toLowerCase();
-  //     const mealTypeB = b.mealType.toLowerCase();
-
-  //     const orderA = mealTypeOrder[mealTypeA];
-  //     const orderB = mealTypeOrder[mealTypeB];
-
-  //     if (orderA && orderB) {
-  //       if (orderA < orderB) {
-  //         return -1;
-  //       }
-  //       if (orderA > orderB) {
-  //         return 1;
-  //       }
-  //     }
-
-  //     return a!.id! - b!.id!;
-  //   });
-  // }
 
   // Añadir linea gruesa
-  shouldAddThickRow(foodInstances: FoodInstance[], currentIndex: number): boolean {
+  shouldAddThickRow(foodDataArray: { food: Food; foodInstance: FoodInstance }[], currentIndex: number): boolean {
     if (currentIndex === 0) {
       return true; // Add thick row for the first row
     }
 
-    const currentMealType = foodInstances[currentIndex].mealType;
-    const previousMealType = foodInstances[currentIndex - 1].mealType;
+    const currentMealType = foodDataArray[currentIndex].foodInstance.mealType;
+    const previousMealType = foodDataArray[currentIndex - 1].foodInstance.mealType;
 
     return currentMealType !== previousMealType;
   }
-
-
-  // private mockInfo() {
-  //   const fechaGlobal: Date = this.dateService.getFecha();
-  //   this.formatearFecha(fechaGlobal);
-
-  //   // Usuario registrado
-  //   const user: User = {
-  //     email: this.user.email,
-  //     googleId: this.user.googleId,
-  //     name: this.user.name,
-  //     photoUrl: this.user.photoUrl,
-  //     weight: this.user.weight,
-  //     height: this.user.height,
-  //     gender: this.user.gender,
-  //     birth_date: this.user.birth_date,
-  //     goal: this.user.goal,
-  //     activityLevel: this.user.activityLevel,
-  //     calories: this.user.calories,
-  //     days: [],
-  //   };
-
-  //   // Day Real
-  //   const day: Day = {
-  //     date: fechaGlobal,
-  //     user: this.user,
-  //     foodInstances: [],
-  //   };
-
-  //   // Example food instances
-  //   // const foodInstance4: FoodInstance = {
-  //   //   food_id: 2,
-  //   //   day_id: 1,
-  //   //   meal_type: 'Snacks',
-  //   //   grams: 200,
-  //   // };
-
-  //   // const foodInstance1: FoodInstance = {
-  //   //   food_id: 1,
-  //   //   day_id: 1,
-  //   //   meal_type: 'Breakfast',
-  //   //   grams: 200,
-  //   // };
-
-  //   // const foodInstance2: FoodInstance = {
-  //   //   food_id: 2,
-  //   //   day_id: 1,
-  //   //   meal_type: 'Lunch',
-  //   //   grams: 300,
-  //   // };
-
-  //   // const foodInstance3: FoodInstance = {
-  //   //   food_id: 1,
-  //   //   day_id: 1,
-  //   //   meal_type: 'Breakfast',
-  //   //   grams: 200,
-  //   // };
-
-  //   // const foodInstance5: FoodInstance = {
-  //   //   food_id: 2,
-  //   //   day_id: 1,
-  //   //   meal_type: 'Dinner',
-  //   //   grams: 200,
-  //   // };
-
-  //   // const foodInstance6: FoodInstance = {
-  //   //   food_id: 1,
-  //   //   day_id: 1,
-  //   //   meal_type: 'Snacks',
-  //   //   grams: 200,
-  //   // };
-
-  //   // day.foodInstances!.push(foodInstance1, foodInstance2, foodInstance3, foodInstance4, foodInstance5, foodInstance6);
-  //   user.days.push();
-
-  //   return user;
-  // }
-
-  // TODO: en vez de esto llamar al servicio
-
-  // private getFoodById(foodId: number): Food {
-
-  //   this.foodService
-  //     .getFoodById(foodId)
-  //     .subscribe(
-  //       (foodParam) => {
-  //         console.log(foodParam)
-  //       },
-  //       (error) => {
-  //         console.error(
-  //           'Error', error
-  //         );
-  //       }
-  //     );
-
-  //   const food1: Food = {
-  //     id: 1,
-  //     name: "Brown Rice",
-  //     image: "https://example.com/rice.jpg",
-  //     brand: "Example Brand",
-  //     kcal: 150,
-  //     proteins: 3,
-  //     carbs: 30,
-  //     fats: 1
-  //   };
-
-  //   const food2: Food = {
-  //     id: 2,
-  //     name: "Avocado",
-  //     image: "https://example.com/avocado.jpg",
-  //     brand: "Example Brand",
-  //     kcal: 160,
-  //     proteins: 2,
-  //     carbs: 9,
-  //     fats: 15
-  //   };
-
-  //   if (foodId === 1) {
-  //     return food1;
-  //   } else if (foodId === 2) {
-  //     return food2;
-  //   } else {
-  //     return {} as Food; // Return an empty object if the food item is not found
-  //   }
-  // }
 
 }
