@@ -38,3 +38,17 @@ input {
   max-width: 100px;
   text-align: right;
 }
+
+.personal-information .negative-input {
+  color: red;
+}
+
+.data-container {
+  height: 40px; /* Ajusta la altura según sea necesario */
+  display: flex;
+  align-items: center;
+}
+
+.negative-input {
+  color: red;
+}
