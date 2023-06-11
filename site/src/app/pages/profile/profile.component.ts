@@ -16,6 +16,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { DisableRecalculator } from '@shared/services/disableRecalculator.service';
 
 @NgModule({
   imports: [CommonModule, MatDialogModule, MatButtonModule],
@@ -42,12 +43,14 @@ export class ProfileComponent {
   modalOpen = false;
   autenticacion: IGoogleAuth | undefined;
 
+
   constructor(
     private dialog: MatDialog,
     private fitcalAuthService: AuthService,
     private socialAuthService: SocialAuthService,
     private loginService: LoginService,
-    private userService: UserService
+    private userService: UserService,
+    public disableRecalculator: DisableRecalculator,
   ) {}
 
   ngOnInit() {
@@ -117,6 +120,7 @@ export class ProfileComponent {
 
     this.selectedDate = `${year}-${month}-${day}`;
     console.log('Selected date:', this.selectedDate);
+    this.disableRecalculator.disableRecalculate();
   }
 
   guardarDatos(): void {
@@ -218,4 +222,6 @@ export class ProfileComponent {
     this.fitcalAuthService.logout();
     this.user = null;
   }
+
+
 }

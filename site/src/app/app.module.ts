@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import {
   SocialLoginModule,
   SocialAuthServiceConfig,
@@ -46,6 +45,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
 import { GramosDialogComponent } from '@shared/components/gramos-dialog/gramos-dialog.component';
 import { DateService } from '@shared/services/date.service';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+import { DisableRecalculator } from '@shared/services/disableRecalculator.service';
 
 registerLocaleData(localeEs);
 export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
@@ -70,7 +73,7 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
     CaloriesProfileComponent,
     FechaComponentComponent,
     ConfirmationDialogComponent,
-    GramosDialogComponent
+    GramosDialogComponent,
   ],
   imports: [
     MatSnackBarModule,
@@ -89,12 +92,15 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
     ChartModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideStorage(() => getStorage()),
   ],
   providers: [
     LoginGuardService,
     AuthService,
     FoodService,
     DateService,
+    DisableRecalculator,
     { provide: MAT_MDC_DIALOG_DATA, useValue: {} },
     {
       provide: 'SocialAuthServiceConfig',
