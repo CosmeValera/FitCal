@@ -44,11 +44,17 @@ input {
 }
 
 .data-container {
-  height: 40px; /* Ajusta la altura según sea necesario */
+  height: 40px;
   display: flex;
   align-items: center;
 }
 
 .negative-input {
   color: red;
+}
+
+button.btn-primary {
+  background-color: #DCEAB2;
+  border-color: #DCEAB2;
+  color: black;
 }

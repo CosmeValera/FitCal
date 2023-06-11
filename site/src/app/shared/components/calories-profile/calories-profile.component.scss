@@ -1,13 +1,23 @@
-button.btn-primary {
-  background-color: #DCEAB2;
-  border-color: #DCEAB2;
-}
-
-button.btn-warning {
-  background-color: #B3D6C6;
-  border: black;
-}
-
 .negative-input {
   color: red;
 }
+
+button.btn-primary {
+  background-color: #DCEAB2;
+  border-color: #DCEAB2;
+  color: black;
+
+}
+
+button.btn-warning {
+  background-color: #198754;
+  color: white;
+  border: black;
+}
+
+button.btn-warning:disabled {
+  background-color: #B3D6C6;
+  border: black;
+  color: black;
+}
+

@@ -30,13 +30,19 @@ button {
   border: none;
   color: #fff;
   font-weight: bold;
-  padding: 10px 16px;
-  font-size: 18px;
+  padding: 8px 12px; /* Ajusta el padding a tu preferencia */
+  font-size: 14px; /* Ajusta el tamaño de fuente a tu preferencia */
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
+
 .add-food-button:hover {
   background-color: hsl(131, 40%, 25%);
+}
+
+.add-food-button.custom-color {
+  color: black;
+  background-color: #dceab2;
 }
