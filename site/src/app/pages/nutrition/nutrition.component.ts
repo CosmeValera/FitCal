@@ -72,9 +72,8 @@ export class NutritionComponent {
         const day = daysParam[0];
         if (Array.isArray(daysParam) && daysParam.length === 0) {
           console.log(`No hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
-          // this.foodInstances = [];
-          this.foodDataArray = [];
-          this.defaultChart();
+
+          this.updateChartNothing();
         } else {
           console.log(`Ya hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
           console.log(day);
@@ -82,13 +81,14 @@ export class NutritionComponent {
           // 2. Sacamos FoodInstances
           this.diaryService.getFoodInstancesByDay(day.id!).subscribe((foodInstances: FoodInstance[])=> {
             if (foodInstances.length === 0) {
-              this.defaultChart();
+              this.updateChartNothing();
             }
             this.updateChartWithData(foodInstances);
           });
         }
     });
   }
+
   private updateChartWithData(foodInstances: FoodInstance[]) {
     const foodDataArray: { food: Food; foodInstance: FoodInstance }[] = [];
 
@@ -130,6 +130,12 @@ export class NutritionComponent {
       });
     });
   }
+
+  private updateChartNothing() {
+    this.foodDataArray = [];
+    this.defaultChart();
+  }
+
   private defaultChart() {
     const macros = [
       { name: 'Carbohidratos', y: 0, color: '#00ffff' },
@@ -154,6 +160,35 @@ export class NutritionComponent {
     const previousMealType = foodDataArray[currentIndex - 1].foodInstance.mealType;
 
     return currentMealType !== previousMealType;
+  }
+
+  // Ordenar filas
+  getSortedFoodData(foodDataArray: { food: Food; foodInstance: FoodInstance }[]): { food: Food; foodInstance: FoodInstance }[] {
+    const mealTypeOrder: { [key: string]: number } = {
+      BREAKFAST: 1,
+      LUNCH: 2,
+      DINNER: 3,
+      SNACKS: 4,
+    };
+
+    return foodDataArray.sort((a, b) => {
+      const mealTypeA = a.foodInstance.mealType.toUpperCase();
+      const mealTypeB = b.foodInstance.mealType.toUpperCase();
+
+      const orderA = mealTypeOrder[mealTypeA];
+      const orderB = mealTypeOrder[mealTypeB];
+
+      if (orderA && orderB) {
+        if (orderA < orderB) {
+          return -1;
+        }
+        if (orderA > orderB) {
+          return 1;
+        }
+      }
+
+      return a!.foodInstance.id! - b!.foodInstance.id!;
+    });
   }
 
 }

@@ -17,24 +17,24 @@
       <thead>
         <tr>
           <th>Tipo</th>
+          <th>Calorías</th>
           <th>Nombre</th>
           <th>Gramos</th>
           <th>Carbos</th>
           <th>Proteínas</th>
           <th>Grasas</th>
-          <th>Calorías</th>
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let foodData of foodDataArray; let i = index">
+        <ng-container *ngFor="let foodData of getSortedFoodData(foodDataArray); let i = index">
           <tr [ngClass]="{ 'thick-row': shouldAddThickRow(foodDataArray, i) }">
             <td>{{ foodData.foodInstance.mealType }}</td>
+            <td>{{ foodData.food.kcal }}</td>
             <td>{{ foodData.food.name }}</td>
             <td>{{ foodData.foodInstance.grams }}</td>
             <td>{{ foodData.food.carbs }}</td>
             <td>{{ foodData.food.proteins }}</td>
             <td>{{ foodData.food.fats }}</td>
-            <td>{{ foodData.food.kcal }}</td>
           </tr>
         </ng-container>
       </tbody>
