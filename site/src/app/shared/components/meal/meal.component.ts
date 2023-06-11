@@ -44,15 +44,16 @@ export class MealComponent {
     this.setFoodsByMealType();
   }
 
-  
+
 
   removeItem(index: number, id:number): void {
     const idSenalado = this.foods[index].id!;
     this.diaryService.deleteFoodInstance(idSenalado).subscribe(correcto=>{
       console.log(correcto)
+      window.location.reload();
     })
 
-    window.location.reload();
+
   }
 
 
