@@ -76,7 +76,7 @@
             <div class="d-flex align-items-center fake-component">
               <h4 class="me-3">Género:</h4>
               <div class="flex-grow-1">
-                <select class="form-select" [(ngModel)]="user.gender">
+                <select class="form-select" [(ngModel)]="user.gender" (change)="disableRecalculator.disableRecalculate()">
                   <option value="M">Masculino</option>
                   <option value="F">Femenino</option>
                 </select>

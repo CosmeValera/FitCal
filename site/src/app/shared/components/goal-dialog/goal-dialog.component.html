@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center">
     <h5 class="me-3">{{ selectTipo }}</h5>
     <div class="flex-grow-1">
-      <select class="form-select" [(ngModel)]="selectedOption">
+      <select class="form-select" [(ngModel)]="selectedOption" (change)="disableRecalculator.disableRecalculate()">
         <ng-container *ngIf="selectTipo === 'Meta Semanal:'">
           <option *ngFor="let option of metasSemanal" [value]="option.value" [selected]="option.value === selectedOption">{{ option.label }}</option>
         </ng-container>

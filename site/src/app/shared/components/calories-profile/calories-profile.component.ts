@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DisableRecalculator } from '@shared/services/disableRecalculator.service';
 
 @Component({
   selector: 'app-calories-profile',
@@ -13,10 +14,16 @@ export class CaloriesProfileComponent {
   @Input() calRecomendada: string = '2000';
   @Input() user: any; // Para recalcular
 
+  disableButtonRecalculate: boolean = false; // Deshabilitar recalcular
+
+
   nuevoDato: number = 0;
   editarDato = false;
 
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private snackBar: MatSnackBar, public disableRecalculator: DisableRecalculator) {
+
+
+  }
 
   guardarDato() {
     console.log('Guardar dato');

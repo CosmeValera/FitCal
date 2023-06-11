@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DisableRecalculator } from '@shared/services/disableRecalculator.service';
 
 @Component({
   selector: 'app-goal-dialog',
@@ -9,6 +10,11 @@ export class GoalDialogComponent {
   @Input() selectTipo: string = '';
 
   @Input() selectedOption: string = '';
+
+
+  constructor(
+    public disableRecalculator: DisableRecalculator,
+  ) {}
 
   metasSemanal: any[] = [
     { value: 'GAIN1000', label: 'Ganar 1kg a la semana' },

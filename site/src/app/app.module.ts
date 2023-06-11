@@ -48,6 +48,7 @@ import { DateService } from '@shared/services/date.service';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideStorage, getStorage } from '@angular/fire/storage';
+import { DisableRecalculator } from '@shared/services/disableRecalculator.service';
 
 registerLocaleData(localeEs);
 export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
@@ -99,6 +100,7 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
     AuthService,
     FoodService,
     DateService,
+    DisableRecalculator,
     { provide: MAT_MDC_DIALOG_DATA, useValue: {} },
     {
       provide: 'SocialAuthServiceConfig',

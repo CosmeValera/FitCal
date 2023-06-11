@@ -32,7 +32,7 @@
       Editar
     </button>
     &nbsp;
-    <button class="btn btn-warning" (click)="recalcularKcal()">
+    <button class="btn btn-warning" (click)="recalcularKcal()" [disabled]="disableRecalculator.disableButtonRecalculate">
       Recalcular
     </button>
   </div>

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DisableRecalculator } from '@shared/services/disableRecalculator.service';
 
 @Component({
   selector: 'app-personal-information',
@@ -13,11 +14,16 @@ export class PersonalInformationComponent {
   nuevoDato: number = 0;
   editarDato = false;
 
+  constructor(private disableRecalculator: DisableRecalculator) {
+
+  }
+
   guardarDato() {
     console.log("Guardar datgo");
     this.datoPrincipal = '' + this.nuevoDato;
-
+    this.disableRecalculator.disableRecalculate();
     this.editarDato = false;
+
   }
 
   cancelarDato() {
