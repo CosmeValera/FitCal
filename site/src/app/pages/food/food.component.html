@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<div *ngIf="!datosEncontrados" class="row">
+<div *ngIf="(foods | filtro: searchText).length === 0"  class="row">
   <div class="message-container">
       <p>No se encuentran alimentos en la base de datos. ¿Desea crear uno?</p>
       <div class="input-group-append">
