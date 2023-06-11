@@ -74,12 +74,16 @@ export class NutritionComponent {
           console.log(`No hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
           // this.foodInstances = [];
           this.foodDataArray = [];
+          this.defaultChart();
         } else {
           console.log(`Ya hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
           console.log(day);
 
           // 2. Sacamos FoodInstances
           this.diaryService.getFoodInstancesByDay(day.id!).subscribe((foodInstances: FoodInstance[])=> {
+            if (foodInstances.length === 0) {
+              this.defaultChart();
+            }
             this.updateChartWithData(foodInstances);
           });
         }
@@ -124,6 +128,19 @@ export class NutritionComponent {
         chartRef.setTitle({ text: 'Macros' });
         chartRef.setSubtitle({ text: 'Calorías totales: ' + totalCalories.toFixed(2) });
       });
+    });
+  }
+  private defaultChart() {
+    const macros = [
+      { name: 'Carbohidratos', y: 0, color: '#00ffff' },
+      { name: 'Grasas', y: 0, color: '#ff00ff' },
+      { name: 'Proteínas', y: 0, color: '#ffa800' },
+    ];
+
+    this.donutChart.ref$.subscribe((chartRef) => {
+      chartRef.series[0].setData(macros);
+      chartRef.setTitle({ text: 'Macros' });
+      chartRef.setSubtitle({ text: 'Calorías totales: 0' });
     });
   }
 
