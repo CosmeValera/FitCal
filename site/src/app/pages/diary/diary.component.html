@@ -1,4 +1,4 @@
-<app-fecha (diaIncrementado)="onDiaIncrementado($event)" (diaDecrementado)="onDiaDecrementado($event)"></app-fecha>
+<app-fecha #appFecha (diaIncrementado)="onDiaIncrementado($event)" (diaDecrementado)="onDiaDecrementado($event)"></app-fecha>
 <div class="main-content">
   <main class="beautiful-card m-5 p-5">
     <app-meal [meal]="'Desayuno'" [foods]="getMealFoods('BREAKFAST')"></app-meal>
@@ -8,7 +8,19 @@
   </main>
 </div>
 
-<button mat-mini-fab class="half-circle" (click)="openCaloriesDialog()">
-  <span class="top">Calorías restantes</span>
-  <span class="bottom">{{calories}}</span>
-</button>
+<div class="half-circle-container">
+  <button mat-mini-fab class="half-circle left" (click)="openCaloriesDialog()">
+    <span class="top">Calorías restantes</span>
+    <span class="bottom">{{leftCalories}}</span>
+  </button>
+
+  <button mat-mini-fab class="half-circle right" (click)="openCaloriesDialog()">
+    <span class="top">Calorías consumidas</span>
+    <span class="bottom">{{caloriasConsumidas}}</span>
+  </button>
+
+  <button mat-mini-fab class="half-circle center">
+    <span class="top">Calorías totales</span>
+    <span class="bottom">{{leftCalories + caloriasConsumidas}}</span>
+  </button>
+</div>

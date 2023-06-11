@@ -6,38 +6,61 @@
   box-shadow: 0px 2px 5px rgba(255, 173, 173, 0.6);
 }
 
+.half-circle-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 380px; /* Ajusta el ancho según tus necesidades */
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
 .half-circle {
   border-radius: 50%;
   width: 130px;
   height: 130px;
   background: linear-gradient(to bottom, #000000 50%, #ffe9f1 50%);
   overflow: hidden;
-  position: absolute;
-  bottom: 40px;
-  right: 40px;
+  position: relative;
   z-index: 2;
 }
 
-.top,
-.bottom {
+.half-circle:not(:last-child) {
+  margin-right: 20px; /* Ajusta el margen lateral entre los círculos */
+}
+
+.half-circle .top,
+.half-circle .bottom {
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
   color: #fff;
 }
 
-.top {
+.half-circle .top {
   top: 29%;
   color: rgb(226, 226, 226);
   font-weight: bold;
   font-size: 14px;
 }
 
-.bottom {
+.half-circle .bottom {
   top: 70%;
   color: black;
   font-weight: bold;
   font-size: 18px;
+}
+
+.left .bottom {
+  color: green;
+}
+
+.right .bottom {
+  color: red;
+}
+
+.center .bottom {
+  color: blue;
 }
 
 .mat-mini-fab {
