@@ -32,16 +32,16 @@ export class DialogCreateFoodComponent {
       image: this.foodImage.imageUrl!,
       brand: (document.getElementById('brandInput') as HTMLInputElement).value,
       kcal: Number(
-        (document.getElementById('kcalInput') as HTMLInputElement).value
+        (document.getElementById('kcalInput') as HTMLInputElement).value.replace(',', '.')
       ),
       proteins: Number(
-        (document.getElementById('proteinsInput') as HTMLInputElement).value
+        (document.getElementById('proteinsInput') as HTMLInputElement).value.replace(',', '.')
       ),
       carbs: Number(
-        (document.getElementById('carbsInput') as HTMLInputElement).value
+        (document.getElementById('carbsInput') as HTMLInputElement).value.replace(',', '.')
       ),
       fats: Number(
-        (document.getElementById('fatsInput') as HTMLInputElement).value
+        (document.getElementById('fatsInput') as HTMLInputElement).value.replace(',', '.')
       ),
     };
 
