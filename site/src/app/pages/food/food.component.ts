@@ -35,7 +35,6 @@ export class FoodComponent {
   foods: Food[] = [];
   socialAuthService: any;
   user: any;
-  // fecha!: Date;
 
   constructor(
     private foodService: FoodService,
@@ -47,7 +46,6 @@ export class FoodComponent {
     private dateService: DateService
   ) {
     this.user = fitcalAuthService.getUser();
-    // this.fecha = diaryService.fecha;
   }
 
   ngOnInit() {
