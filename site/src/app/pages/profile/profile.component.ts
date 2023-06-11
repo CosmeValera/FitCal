@@ -82,7 +82,7 @@ export class ProfileComponent {
   openConfirmationDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '400px',
-      data: '¿Seguro que quieres actualizar los datos?',
+      data: '¿Estás seguro que quieres actualizar los datos?',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

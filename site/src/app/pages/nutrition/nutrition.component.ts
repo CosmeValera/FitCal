@@ -118,8 +118,8 @@ export class NutritionComponent {
       const totalCalories = totalProteins * 4 + totalCarbs * 4 + totalFats * 9;
 
       const macros = [
-        { name: 'Carbohidratos', y: parseFloat(totalCarbs.toFixed(2)), color: '#00ffff' },
-        { name: 'Grasas', y: parseFloat(totalFats.toFixed(2)), color: '#ff00ff' },
+        { name: 'Carbohidratos', y: parseFloat(totalCarbs.toFixed(2)), color: '#2ed6e5' },
+        { name: 'Grasas', y: parseFloat(totalFats.toFixed(2)), color: '#cc2ea8' },
         { name: 'Proteínas', y: parseFloat(totalProteins.toFixed(2)), color: '#ffa800' },
       ];
 

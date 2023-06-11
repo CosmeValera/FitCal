@@ -164,7 +164,7 @@ export class FoodComponent {
     console.log(food);
     const dialogRef = this.matDialog.open(ConfirmationDialogComponent, {
       width: '400px',
-      data: '¿Seguro que quieres eliminarlo?',
+      data: '¿Estás seguro que quieres eliminar este alimento?',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

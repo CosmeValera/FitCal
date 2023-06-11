@@ -1,0 +1,23 @@
+.dialog-content {
+  text-align: center;
+  padding: 24px;
+}
+
+p {
+  color: black;
+  margin-bottom: 16px;
+  text-align: center;
+  font-size: medium;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
