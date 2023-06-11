@@ -80,4 +80,7 @@ export class DiaryService {
   createFoodInstance(foodInstance: FoodInstance) {
     return this.http.post<FoodInstance>(this.API_URL_FOODINSTANCE, foodInstance);
   }
+
+  deleteFoodInstance(id:number){
+    return this.http.delete<FoodInstance>(`${this.API_URL_FOODINSTANCE}/${id}`); }
 }
