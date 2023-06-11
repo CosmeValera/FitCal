@@ -7,7 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./gramos-dialog.component.scss'],
 })
 export class GramosDialogComponent {
-  grams: number = 0;
+  grams: number = 100;
 
   constructor(public dialogRef: MatDialogRef<GramosDialogComponent>) { }
 
