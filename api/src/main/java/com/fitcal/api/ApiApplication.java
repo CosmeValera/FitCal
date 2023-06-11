@@ -23,6 +23,10 @@ public class ApiApplication {
 		SpringApplication.run(ApiApplication.class, args);
 	}
 
+	/*
+	 * Configuración de CORS para permitir solicitudes desde cualquier origen 
+	 * y cualquier método HTTP en todas las rutas de la aplicación.
+	 */
 	@Bean
 	public WebMvcConfigurer corsConfigurer(){
 		return new WebMvcConfigurer() {
@@ -33,6 +37,13 @@ public class ApiApplication {
 		};
 	}
 
+	/*
+	 * Configuración de la verificación del token de Google ID.
+	 * Se crea un verificador de GoogleIdToken utilizando un objeto HttpTransport 
+	 * y un objeto JsonFactory.
+	 * El verificador se configura con la audiencia del cliente especificado 
+	 * por CLIENT_ID.
+	 */
 	@Bean
 	public GoogleIdTokenVerifier googleIdTokenVerifier() {
 		// Crea el objeto HttpTransport
@@ -47,6 +58,11 @@ public class ApiApplication {
 				.build();
 	}
 
+	/*
+	 * Configuración de RestTemplate.
+	 * Se crea una instancia de RestTemplate que se utilizará para 
+	 * realizar llamadas REST en la aplicación.
+	 */
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();

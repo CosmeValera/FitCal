@@ -18,6 +18,12 @@ public class GoogleAuthService {
     private static final HttpTransport transport = new NetHttpTransport();
     private static final JsonFactory jsonFactory = new JacksonFactory();
 
+    /**
+     * Autentica con Google utilizando un token de ID.
+     * @param idTokenString El token de ID proporcionado por Google.
+     * @return Un objeto de tipo GoogleAuthMessages que indica el resultado 
+     * de la autenticación.
+     */
     public GoogleAuthMessages authenticateWithGoogle(String idTokenString) {
         try {
             GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)

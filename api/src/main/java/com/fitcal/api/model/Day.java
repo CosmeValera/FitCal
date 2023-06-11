@@ -34,5 +34,4 @@ public class Day {
     @JsonIgnore
     @OneToMany(mappedBy = "day", orphanRemoval = true)
     private List<FoodInstance> foodInstances = new ArrayList<>();
-
 }

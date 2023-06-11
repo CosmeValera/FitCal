@@ -1,8 +1,5 @@
 package com.fitcal.api.model;
 
-import javax.print.DocFlavor.STRING;
-
-import com.fitcal.api.enums.MealType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

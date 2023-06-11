@@ -9,7 +9,6 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +31,11 @@ public class AuthController {
     private final GoogleIdTokenVerifier verifier;
     private final GoogleAuthService googleAuthService;
 
+    /**
+     * Constructor de la clase AuthController.
+     * @param userService Servicio de usuarios.
+     * @param googleAuthService Servicio de autenticación de Google.
+     */
     @Autowired
     public AuthController(UserService userService, GoogleAuthService googleAuthService) {
         this.userService = userService;
@@ -44,6 +48,12 @@ public class AuthController {
                 .build();
     }
 
+    /**
+     * Controlador para autenticarse con Google.
+     * @param googleAuthDTO El objeto GoogleAuthDTO que contiene el ID de token de Google.
+     * @return Un objeto ResponseEntity que contiene el DTO de autenticación de Google.
+     * @throws ResponseStatusException Si la autenticación falla o el usuario no está autorizado.
+     */
     @PostMapping("/auth/google")
     public ResponseEntity<GoogleAuthDTO> authenticateWithGoogle(@RequestBody GoogleAuthDTO googleAuthDTO) {
         String idTokenString = googleAuthDTO.getIdToken();
