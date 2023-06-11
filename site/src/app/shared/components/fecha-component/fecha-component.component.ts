@@ -21,7 +21,6 @@ export class FechaComponentComponent {
     private dateService: DateService) {
       this.user = fitcalAuthService.getUser();
       this.fecha = this.dateService.getFecha();
-      console.log('fecha', this.fecha);
   }
   ngOnInit() {
   }

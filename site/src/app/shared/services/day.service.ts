@@ -17,13 +17,10 @@ export class DayService {
     return this.http.get<Day[]>(this.API_URL);
   }
 
-  /** IMPORTANTE PARA VER SI EXISTE */
   getDayByIdAndDate(id: number, date: Date) {
-    console.log("Id: " + id + " Fecha del dia: " + date)
     return this.http.get<Day>(`${this.API_URL}/${id}`);
   }
   
-  /** CREAMOS EL DIA */
   createDay(day: Day) {
     return this.http.post<Day>(this.API_URL, day);
   }

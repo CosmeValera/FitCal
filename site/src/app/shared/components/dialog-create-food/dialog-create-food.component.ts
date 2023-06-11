@@ -27,8 +27,6 @@ export class DialogCreateFoodComponent {
   }
 
   saveFood(): void {
-    console.log('save');
-
     const food: Food = {
       name: (document.getElementById('nameInput') as HTMLInputElement).value,
       image: this.foodImage.imageUrl!,
@@ -48,7 +46,6 @@ export class DialogCreateFoodComponent {
     };
 
     this.foodService.createFood(food).subscribe((data) => {
-      console.log('Alimento dado de alta:', data);
       this.dialogRef.close();
       window.location.reload();
     });

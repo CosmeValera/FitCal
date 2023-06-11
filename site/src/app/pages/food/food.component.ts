@@ -85,12 +85,12 @@ export class FoodComponent {
         (daysParam: Day[]) => {
           const day = daysParam[0];
           if (Array.isArray(daysParam) && daysParam.length === 0) {
-            console.log(`No hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
+            //No hay un registro con esta fecha y dicho usuario
 
             /** 3.a. Si no hay dia primero lo creamos y despues llamamos al crearFoodInstance dentro */
             this.crearDia(food, grams);
           } else {
-            console.log(`Ya hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
+            //Ya hay un registro con esta fecha y dicho usuario
 
             /** 3.b. Creamos instancia de alimento */
             this.crearFoodInstance(day, food, grams);
@@ -102,6 +102,9 @@ export class FoodComponent {
     });
   }
 
+  /**
+   * Formateo de la fecha
+   */
   formatearFecha(date: Date): string {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -110,7 +113,11 @@ export class FoodComponent {
     return `${year}-${month}-${day}`;
   }
 
-
+  /**
+   * Crea el dia, con el alimento y los gramos
+   * @param food Alimento para insertar
+   * @param grams Gramos para insertar
+   */
   crearDia(food: Food, grams: number): void {
     const fechaGlobal: Date = this.dateService.getFecha();
     const dayCrear: Day = {
@@ -119,12 +126,13 @@ export class FoodComponent {
     };
 
     this.diaryService.createDay(dayCrear).subscribe((day) => {
-      console.log('fecha Frontend: ', fechaGlobal);
-      console.log('fecha Backend añadida: ', day);
       this.crearFoodInstance(day, food, grams);
     });
   }
 
+  /**
+   * Pasa los tipos para poder insertarlos en la base de datos
+   */
   transformMealType(mealtype: string): string {
     switch (mealtype) {
       case "DESAYUNO":
@@ -141,6 +149,12 @@ export class FoodComponent {
   }
 
 
+  /**
+   * Crear FoodInstance en la base de datos
+   * @param day Dia en el que esta en la pantalla
+   * @param food Alimento seleccionado
+   * @param grams Gramos del alimento
+   */
   crearFoodInstance(day: Day, food: Food, grams: number) {
     const mealTypeUpper = this.diaryService.getMealType().toUpperCase();
     const mealTypeEspañolUpper = this.transformMealType(mealTypeUpper);
@@ -152,7 +166,6 @@ export class FoodComponent {
       mealType: mealTypeEspañolUpper
     }
     this.diaryService.createFoodInstance(foodInstance).subscribe(()=> {
-      console.log(`FoodInstance dado de alta :)`, foodInstance);
       window.location.reload();
     }, (error) =>{
       console.error('Error al dar de alta el foodInstance:', error);
@@ -160,8 +173,11 @@ export class FoodComponent {
 
   }
 
+  /**
+   * Elimina el alimento seleccionado, muestra un modal para ver si estas seguro
+   * y lo elimina en la base de datos.
+   */
   removeFood(food: Food) {
-    console.log(food);
     const dialogRef = this.matDialog.open(ConfirmationDialogComponent, {
       width: '400px',
       data: '¿Estás seguro que quieres eliminar este alimento?',
@@ -170,8 +186,7 @@ export class FoodComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.foodService.deleteFood(food.id!).subscribe((result) => {
-          console.log("Se elimino con exito. Food id: ", food.id!);
-          console.log(result);
+          //Se elimino con exito.
           window.location.reload();
         }, (error) => {
           console.log("Error al eliminar. Food id: ", food.id!, error);
@@ -180,6 +195,9 @@ export class FoodComponent {
     });
   }
 
+  /**
+   * Abre el modal para crear alimentos
+   */
   openCreateFood() {
     this.matDialog.open(DialogCreateFoodComponent, {
       width: '800px',
@@ -187,6 +205,10 @@ export class FoodComponent {
     });
   }
 
+  /**
+   * Abre el modal para editar alimentos
+   * @param food Alimento que queremos editar
+   */
   openUpdateFood(food: any) {
     this.matDialog.open(DialogUpdateFoodComponent, {
       width: '800px',

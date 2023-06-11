@@ -25,15 +25,10 @@ export class UserService {
   }
 
   updateUser(user: User) {
-    console.log("Usuario para actualizar: ", user);
-    console.log(user.id);
-    console.log(user.email);
     return this.http.put<User>(`${this.API_URL}/${user.id}`, user);
   }
 
   checkUserExists(email: string) {
-    console.log(`${this.API_URL}/${email}`);
-
     return this.http.get<User>(`${this.API_URL}/${email}`);
   }
 }

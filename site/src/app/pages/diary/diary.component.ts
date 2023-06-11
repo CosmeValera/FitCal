@@ -36,11 +36,9 @@ export class DiaryComponent implements AfterViewInit {
     this.leftCalories = this.user.calories;
   }
 
+  // Se ejecuta después de que la vista se haya inicializado completamente.
   ngAfterViewInit() {
-    // const fechaHoy = new Date();
-    // this.appFecha.fecha = fechaHoy; // Establecer la fecha actual en el componente FechaComponent
-
-    this.traerAlimentos();
+    this.traerAlimentos();  // Llama al método para obtener los alimentos.
   }
 
   traerAlimentos() {
@@ -49,16 +47,17 @@ export class DiaryComponent implements AfterViewInit {
 
     const fechaFormateada = this.transformarDia(fecha);
 
-    // 1. Sacamos día
+    // 1. Obtener el día correspondiente a la fecha y usuario actual.
     this.diaryService.searchByDateAndUser(fechaFormateada, this.user.id).subscribe((daysParam: Day[]) => {
       const day = daysParam[0];
       if (!day) {
-        this.foodInstances = [];
-        this.calcularCaloriasConsumidas();
-
+          // No hay datos para el día seleccionado.
+          // Se establecen los alimentos como vacíos y se calculan las calorías consumidas.
+          this.foodInstances = [];
+          this.calcularCaloriasConsumidas();
       } else {
-        // 2. Sacamos FoodInstances
-        this.diaryService.getFoodInstancesByDay(day.id!).subscribe((foodInstances: FoodInstance[]) => {
+          // 2. Obtener las instancias de alimentos correspondientes al día.
+          this.diaryService.getFoodInstancesByDay(day.id!).subscribe((foodInstances: FoodInstance[]) => {
           this.foodInstances = foodInstances;
 
           // 3. Calcular calorías consumidas
@@ -69,6 +68,7 @@ export class DiaryComponent implements AfterViewInit {
   }
 
   calcularCaloriasFoodInstance(foodInstance: FoodInstance): number {
+    // Calcula las calorías totales de una instancia de alimento
     const pesoEnGramos = foodInstance.grams;
     const caloriasPorGramo = foodInstance.food.kcal;
 
@@ -77,28 +77,35 @@ export class DiaryComponent implements AfterViewInit {
   }
 
   calcularCaloriasConsumidas() {
+    // Calcula las calorías consumidas en base a las instancias de alimentos obtenidas.
     let caloriasConsumidas = 0;
     this.foodInstances.forEach((foodInstance: FoodInstance) => {
       const caloriasFoodInstance = this.calcularCaloriasFoodInstance(foodInstance);
       caloriasConsumidas += caloriasFoodInstance;
     });
 
+    // Calcula las calorías restantes y actualiza las variables correspondientes.
     const caloriasRestantes = this.user.calories - caloriasConsumidas;
     this.leftCalories = caloriasRestantes;
     this.caloriasConsumidas = caloriasConsumidas;
   }
 
   onDiaIncrementado(fecha: Date) {
+    // Se ejecuta cuando se incrementa la fecha.
+    // Recalcula las calorías consumidas y obtiene los alimentos actualizados.
     this.calcularCaloriasConsumidas();
     this.traerAlimentos();
   }
 
   onDiaDecrementado(fecha: Date) {
+    // Se ejecuta cuando se decrementa la fecha.
+    // Recalcula las calorías consumidas y obtiene los alimentos actualizados.
     this.calcularCaloriasConsumidas();
     this.traerAlimentos();
   }
 
   transformarDia(fecha: Date): string {
+    // Transforma una fecha en el formato "YYYY-MM-DD".
     const date = new Date(fecha);
 
     const year = date.getFullYear();
@@ -110,11 +117,13 @@ export class DiaryComponent implements AfterViewInit {
   }
 
   getMealFoods(mealType: string): FoodInstance[] {
+    // Obtiene las instancias de alimentos correspondientes a un tipo de comida específico.
     return this.foodInstances.filter(foodInstance => foodInstance.mealType === mealType);
   }
 
 
   getTotalCalories(mealType: string): number {
+    // Obtiene el total de calorías de un tipo de comida específico.
     const foods = this.getMealFoods(mealType);
     let totalCaloriesOfMeal = 0;
 

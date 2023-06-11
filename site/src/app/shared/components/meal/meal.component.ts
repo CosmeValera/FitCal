@@ -41,22 +41,16 @@ export class MealComponent {
       }
     });
 
-    // Call a function to filter and set the foods based on the meal type
+    // Llama a una función para filtrar y configurar los alimentos según el tipo de comida    
     this.setFoodsByMealType();
   }
-
-
-
+  
   removeItem(index: number, id:number): void {
     const idSenalado = this.foods[index].id!;
     this.diaryService.deleteFoodInstance(idSenalado).subscribe(correcto=>{
-      console.log(correcto)
       window.location.reload();
     })
-
-
   }
-
 
   anadirAlimentoModal() {
     this.idBoton = document.getElementById(this.meal)!.id;
@@ -73,17 +67,9 @@ export class MealComponent {
         margin: true
       }
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        console.log(result);
-        // this.guardarDatos();
-      }
-    });
-
   }
 
-  // Function to filter and set the foods based on the meal type
+  // Función para filtrar y configurar los alimentos según el tipo de comida
   setFoodsByMealType() {
     this.foods = this.foods.filter(food => food.mealType === this.meal.toUpperCase());
   }

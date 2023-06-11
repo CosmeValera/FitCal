@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { AlimentoSeleccionado } from '@shared/interfaces/alimentoSeleccionado';
+import { AlimentoSeleccionado } from '@shared/interfaces/AlimentoSeleccionado';
 import { Day } from '@shared/interfaces/dayInterface';
 import { FoodInstance } from '@shared/interfaces/foodInstanceInterface';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -51,9 +51,6 @@ export class DiaryService {
 
   /** Tabla Day */
   getDayByFechaAndUser(fecha: Date, id_user: number) {
-    console.log(fecha, id_user)
-    console.log(`${this.API_URL_DAY}/${id_user}?fecha=${fecha}`)
-    // const params = new HttpParams().set('fecha', fecha);
     return this.http.get<Day>(`${this.API_URL_DAY}/${id_user}?fecha=${fecha}`);
   }
 
@@ -63,15 +60,10 @@ export class DiaryService {
   }
 
   createDay(day: Day) {
-    console.log(day);
     return this.http.post<Day>(this.API_URL_DAY, day);
   }
 
   /** Tabla FoodInstance */
-  // getFoodInstanceByFechaAndUser(fecha: Date, id_user: number) {
-  //   return this.http.get<FoodInstance>(`${this.API_URL_FOODINSTANCE}/${fecha}`);
-  // }
-
   getFoodInstancesByDay(dayId: number): Observable<FoodInstance[]> {
     const url = `${this.API_URL_FOODINSTANCE}/search/${dayId}`;
     return this.http.get<FoodInstance[]>(url);

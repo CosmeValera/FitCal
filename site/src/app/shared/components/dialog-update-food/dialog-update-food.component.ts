@@ -22,12 +22,9 @@ export class DialogUpdateFoodComponent {
     private router: Router
   ) {
     this.food = data.food;
-    console.log(this.food);
   }
 
   updateFood(): void {
-    console.log('save');
-
     const foodEdited: Food = {
       id: this.food.id,
       name: (document.getElementById('nameInput') as HTMLInputElement).value,
@@ -48,7 +45,6 @@ export class DialogUpdateFoodComponent {
     };
 
     this.foodService.updateFood(foodEdited).subscribe((data) => {
-      console.log('Alimento editado:', data);
       this.dialogRef.close();
       window.location.reload();
     });

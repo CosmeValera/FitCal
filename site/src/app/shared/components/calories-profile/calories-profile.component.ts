@@ -25,7 +25,6 @@ export class CaloriesProfileComponent {
   onInputChange(event: any) {
     const value = event.target.value;
     if (parseInt(value) < 0) {
-      console.error('El valor no puede ser negativo');
       this.nuevoDato = parseInt(this.datoPrincipal); // Restablecer el valor anterior
     } else {
       this.nuevoDato = parseInt(value);
@@ -34,7 +33,6 @@ export class CaloriesProfileComponent {
 
   guardarDato() {
     if (this.nuevoDato < 0) {
-      console.error('El valor no puede ser negativo');
       this.nuevoDato = parseInt(this.datoPrincipal); // Restablecer el valor anterior
       return;
     }
@@ -57,18 +55,6 @@ export class CaloriesProfileComponent {
     const metaSemanal = this.user.goal || 'MAINTENANCE';
 
     let calorias = peso * 10 + altura * 6.25 + edad * 5; // Formula metabolismo basal
-
-    console.log(
-      'Peso ' +
-        peso +
-        ' x 10 +' +
-        ' Altura ' +
-        altura +
-        ' x 6,25 + edad ' +
-        edad +
-        ' * 5 = ' +
-        calorias
-    );
 
     if (genero === 'F') {
       calorias -= 161;
@@ -93,7 +79,6 @@ export class CaloriesProfileComponent {
         calorias *= 1.725;
         break;
     }
-    console.log('+ ' + nivelActividad + ' ' + calorias);
 
     // Sumamos/Restamos segun el objetivo y si es mantenimiento mantenemos las calorias
     switch (metaSemanal) {

@@ -14,8 +14,6 @@ export class GramosDialogComponent {
   onAcceptClick(): void {
     if (this.grams >= 0) {
       this.dialogRef.close(this.grams);
-    } else {
-      console.log("La cantidad no puede ser negativa");
     }
   }
 

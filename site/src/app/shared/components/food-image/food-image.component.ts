@@ -59,7 +59,6 @@ export class FoodImageComponent implements AfterViewInit {
     uploadBytes(imgRef, file)
       .then((response) => {
         // La imagen se cargó exitosamente
-        console.log(response);
         this.getImageUrl(imgRef);
       })
       .catch((error) => console.log(error));
@@ -71,7 +70,6 @@ export class FoodImageComponent implements AfterViewInit {
       .then((url) => {
         // URL de la imagen obtenida con éxito
         this.imageUrl = url;
-        console.log(this.imageUrl);
       })
       .catch((error) => console.log(error));
   }

@@ -56,22 +56,21 @@ export class ProfileComponent {
   ) {}
 
   ngOnInit() {
-    this.user = this.fitcalAuthService.getUser();
+    this.user = this.fitcalAuthService.getUser(); //Conseguimos el usuario
     this.socialAuthService.authState.subscribe((user) => {
-      this.userService.checkUserExists(user.email).subscribe(
+      this.userService.checkUserExists(user.email).subscribe( //Comprobamos si existe
         (userParam?) => {
           if (userParam) {
-            console.log('El usuario existe en la base de datos', userParam);
+            //El usuario existe en la base de datos
             this.user = userParam;
             this.fitcalAuthService.login(this.user);
           } else {
-            console.log('El usuario no existe en la base de datos, lo creamos');
+            //El usuario no existe en la base de datos, lo creamos
             this.crearUsuario(user);
             this.fitcalAuthService.login(this.user);
           }
         },
-        (error) => {
-          console.error('Error al verificar la existencia del usuario:', error);
+        (error) => { //Si nos da error lo creamos y nos logueamos
           this.crearUsuario(user);
           this.fitcalAuthService.login(this.user);
         }
@@ -79,6 +78,9 @@ export class ProfileComponent {
     });
   }
 
+  /**
+   * Confirmamos los datos para actualizar
+   */
   openConfirmationDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '400px',
@@ -92,6 +94,10 @@ export class ProfileComponent {
     });
   }
 
+  /**
+   * Creamos al usuario
+   * @param user pasamos el usuario
+   */
   crearUsuario(user: any): void {
     this.loginService
       .createUser({
@@ -102,7 +108,6 @@ export class ProfileComponent {
       })
       .subscribe({
         next: (res: HttpResponse<IGoogleAuth>) => {
-          console.log(res.body);
           this.user = res.body;
           this.user.googleId = user.idToken;
         },
@@ -112,6 +117,9 @@ export class ProfileComponent {
       });
   }
 
+  /** 
+   * Obtenemos la fecha correcta 
+   */
   obtenerFecha(): string {
     const fechaPicker = this.datePicker.nativeElement.value;
     const date = new Date(fechaPicker!);
@@ -123,6 +131,9 @@ export class ProfileComponent {
     return `${year}-${month}-${day}`;
   }
 
+  /**
+   * Guardamos los datos del usuario en la base de datos
+   */
   guardarDatos(): void {
     const userEdited: User = {
       id: this.user.id,
@@ -158,8 +169,6 @@ export class ProfileComponent {
 
     this.metasPersonales.forEach((component: GoalDialogComponent) => {
       if (component.selectTipo === 'Meta Semanal:') {
-        console.log(component.selectedOption);
-
         switch (component.selectedOption) {
           case 'GAIN1000':
             userEdited.goal = 'GAIN1000';
@@ -190,7 +199,6 @@ export class ProfileComponent {
             break;
         }
       } else if (component.selectTipo === 'Nivel de Actividad:') {
-        console.log(component.selectedOption);
         switch (component.selectedOption) {
           case 'ANY':
             userEdited.activityLevel = 'ANY';
@@ -210,14 +218,15 @@ export class ProfileComponent {
 
     userEdited.calories = parseInt(this.caloriasPerfil.datoPrincipal);
 
-    console.log(userEdited);
     this.fitcalAuthService.saveUser(userEdited);
     this.userService.updateUser(userEdited).subscribe((data: any) => {
-      console.log('Perfil actualizado:', data);
       window.location.reload();
     });
   }
 
+  /**
+   * Desconectamos al usuario al pulsar
+   */
   logout() {
     this.fitcalAuthService.logout();
     this.user = null;

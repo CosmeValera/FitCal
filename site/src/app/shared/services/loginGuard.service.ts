@@ -9,10 +9,8 @@ export class LoginGuardService implements CanActivate {
   constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    console.log(this.authService.isAuthenticated());
-
     // Descomenta esta linea, si no quieres tener que logearte
-    return true;
+    // return true;
 
     if (this.authService.isAuthenticated()) {
       return true;

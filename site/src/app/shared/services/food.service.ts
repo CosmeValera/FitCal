@@ -14,7 +14,6 @@ export class FoodService {
   alimentoSeleccionado$ = this.alimentoSeleccionadoSubject.asObservable();
 
   seleccionarAlimento(alimento: any) {
-    console.log(alimento);
     this.alimentoSeleccionadoSubject.next(alimento);
   }
 
@@ -37,10 +36,6 @@ export class FoodService {
   }
 
   updateFood(food: Food) {
-    console.log('Alimento para actualizar: ' + food);
-    console.log('Foto que se está guardando: ', food.image);
-    console.log('Nombre: ', food.name);
-    console.log(food.id);
     return this.http.put<Food>(`${this.API_URL}/${food.id}`, food);
   }
 }

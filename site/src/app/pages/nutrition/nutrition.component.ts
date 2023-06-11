@@ -43,7 +43,6 @@ export class NutritionComponent {
     this.traerAlimentos();
   }
 
-  // FECHA
   onDiaIncrementado(fecha: Date) {
     this.traerAlimentos();
   }
@@ -71,12 +70,11 @@ export class NutritionComponent {
       .subscribe((daysParam: Day[]) => {
         const day = daysParam[0];
         if (Array.isArray(daysParam) && daysParam.length === 0) {
-          console.log(`No hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
+          //No hay registros
 
           this.updateChartNothing();
         } else {
-          console.log(`Ya hay un registro para ${fechaFormateada} y el usuario ${this.user.id}.`);
-          console.log(day);
+          //Ya hay registros
 
           // 2. Sacamos FoodInstances
           this.diaryService.getFoodInstancesByDay(day.id!).subscribe((foodInstances: FoodInstance[])=> {
@@ -92,17 +90,17 @@ export class NutritionComponent {
   private updateChartWithData(foodInstances: FoodInstance[]) {
     const foodDataArray: { food: Food; foodInstance: FoodInstance }[] = [];
 
-    // Calculate the total macros from food instances
+    // Calcular el total de macros de las instancias de comida
     let totalProteins = 0;
     let totalCarbs = 0;
     let totalFats = 0;
 
-    // Prepare an array of observables to fetch food data for each food instance
+    // Preparar una matriz de observables para obtener datos de alimentos para cada instancia de alimentos
     const fetchFoodObservables = foodInstances.map((foodInstance) =>
       this.foodService.getFoodById(foodInstance.food.id!)
     );
 
-    // Use forkJoin to combine multiple observables into a single observable
+    // Usa forkJoin para combinar múltiples observables en uno solo  
     forkJoin(fetchFoodObservables).subscribe((foods: Food[]) => {
       foods.forEach((food: Food, index: number) => {
         const foodInstance = foodInstances[index];
@@ -113,7 +111,6 @@ export class NutritionComponent {
         foodDataArray.push({food, foodInstance});
       });
       this.foodDataArray = foodDataArray;
-      console.log(this.foodDataArray);
 
       const totalCalories = totalProteins * 4 + totalCarbs * 4 + totalFats * 9;
 
