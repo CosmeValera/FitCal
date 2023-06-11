@@ -37,16 +37,8 @@ export class DiaryComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const fechaHoy = new Date();
-    this.appFecha.fecha = fechaHoy; // Establecer la fecha actual en el componente FechaComponent
-
-    this.appFecha.diaIncrementado.subscribe((fecha: Date) => {
-      this.onDiaIncrementado(fecha);
-    });
-
-    this.appFecha.diaDecrementado.subscribe((fecha: Date) => {
-      this.onDiaDecrementado(fecha);
-    });
+    // const fechaHoy = new Date();
+    // this.appFecha.fecha = fechaHoy; // Establecer la fecha actual en el componente FechaComponent
 
     this.traerAlimentos();
   }
