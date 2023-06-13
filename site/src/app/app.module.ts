@@ -49,6 +49,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { DisableRecalculator } from '@shared/services/disableRecalculator.service';
+import { WeightDaysComponent } from './shared/components/weight-days/weight-days.component';
 
 registerLocaleData(localeEs);
 export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
@@ -74,6 +75,7 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
     FechaComponentComponent,
     ConfirmationDialogComponent,
     GramosDialogComponent,
+    WeightDaysComponent,
   ],
   imports: [
     MatSnackBarModule,
