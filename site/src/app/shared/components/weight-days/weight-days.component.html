@@ -1,1 +1,35 @@
-<p>weight-days works!</p>
+<div>
+  <!-- Display the chart based on the weight data -->
+  <!-- Use a chart library like Chart.js or ngx-charts to render the chart -->
+  <!-- Refer to the library documentation for chart configuration options -->
+
+  <!-- Example using ngx-charts -->
+  <!-- <ngx-charts-bar-vertical
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="chartData"
+    [xAxis]="true"
+    [yAxis]="true"
+    [legend]="true"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    xAxisLabel="Date"
+    yAxisLabel="Weight"
+  ></ngx-charts-bar-vertical> -->
+
+  <!-- Display the weight data in a table or other format -->
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Weight</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let weightDay of weightDays">
+        <td>{{ weightDay.date }}</td>
+        <td>{{ weightDay.weight }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

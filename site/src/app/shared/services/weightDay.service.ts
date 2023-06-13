@@ -11,12 +11,12 @@ export class WeightDayService {
 
   constructor(private http: HttpClient) { }
 
-  getWeightDay() {
+  getWeightDays() {
     return this.http.get<WeightDay[]>(this.API_URL);
   }
 
-  getWeightDayById(id: number) {
-    return this.http.get<WeightDay>(`${this.API_URL}/${id}`);
+  getWeightDaysByUserId(userId: number) {
+    return this.http.get<WeightDay[]>(`${this.API_URL}/${userId}`);
   }
 
   createWeightDay(weightDay: WeightDay) {
