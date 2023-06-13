@@ -23,7 +23,15 @@ export class WeightDaysComponent implements OnInit {
   getWeightDays() {
     // Call the WeightDayService to fetch the weight data for the current user
     this.weightDayService.getWeightDaysByUserId(this.user.id).subscribe((data: WeightDay[]) => {
+      // for (const weightDay of data) {
+      //   this.weightDays.push(weightDay);
+      // }
+      // data.forEach((weightDay) => {
+      //   this.weightDays.push(weightDay);
+      // })
+      console.log(data);
       this.weightDays = data;
+
 
       // Call a method to update the chart data with the fetched weight data
       this.updateChartData();
