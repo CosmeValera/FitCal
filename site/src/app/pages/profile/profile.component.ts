@@ -58,7 +58,8 @@ export class ProfileComponent {
   ngOnInit() {
     // Theme
     const currentTheme = localStorage.getItem('theme');
-    document.documentElement.style.setProperty('--card-background-color', currentTheme === 'dark' ? '#EEE' : '#A8CCC9');
+    document.documentElement.style.setProperty('--card-background-color', currentTheme === 'light' ? '#A8CCC9' : '#49433d');
+    document.documentElement.style.setProperty('--card-color', currentTheme === 'light' ? '#333' : 'white');
 
     // Logic
     this.user = this.fitcalAuthService.getUser(); //Conseguimos el usuario

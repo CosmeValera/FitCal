@@ -10,6 +10,13 @@ export class BodyComponent {
   @Input() collapsed = false;
   @Input() screenWidth = 0;
 
+
+  ngOnInit() {
+    // Theme
+    const currentTheme = localStorage.getItem('theme');
+    document.documentElement.style.setProperty('--body-background-color', currentTheme === 'light' ? '#f4f7fa' : '#9b9792');
+  }
+
   getBodyClass(): string {
     let styleClass = '';
     if(this.collapsed && this.screenWidth > 768) {
