@@ -40,6 +40,12 @@ export class NutritionComponent {
   }
 
   ngOnInit() {
+    // Theme
+    const currentTheme = localStorage.getItem('theme');
+    document.documentElement.style.setProperty('--card-background-color', currentTheme === 'light' ? '#A8CCC9' : '#49433d');
+    document.documentElement.style.setProperty('--card-color', currentTheme === 'light' ? '#333' : 'white');
+
+    // LOGIC
     this.traerAlimentos();
   }
 
@@ -100,7 +106,7 @@ export class NutritionComponent {
       this.foodService.getFoodById(foodInstance.food.id!)
     );
 
-    // Usa forkJoin para combinar múltiples observables en uno solo  
+    // Usa forkJoin para combinar múltiples observables en uno solo
     forkJoin(fetchFoodObservables).subscribe((foods: Food[]) => {
       foods.forEach((food: Food, index: number) => {
         const foodInstance = foodInstances[index];

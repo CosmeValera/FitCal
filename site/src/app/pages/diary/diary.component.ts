@@ -36,6 +36,13 @@ export class DiaryComponent implements AfterViewInit {
     this.leftCalories = this.user.calories;
   }
 
+  ngOnInit() {
+    // Theme
+    const currentTheme = localStorage.getItem('theme');
+    document.documentElement.style.setProperty('--card-background-color', currentTheme === 'light' ? '#A8CCC9' : '#49433d');
+    document.documentElement.style.setProperty('--card-color', currentTheme === 'light' ? '#333' : 'white');
+  }
+
   // Se ejecuta después de que la vista se haya inicializado completamente.
   ngAfterViewInit() {
     this.traerAlimentos();  // Llama al método para obtener los alimentos.
