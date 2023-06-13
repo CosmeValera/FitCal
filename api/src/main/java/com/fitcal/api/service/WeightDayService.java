@@ -22,8 +22,11 @@ public class WeightDayService {
         return weightDayRepository.findAll();
     }
 
-    public Optional<WeightDay> getWeightDayById(Long id) {
-        return weightDayRepository.findById(id);
+    // public Optional<WeightDay> getWeightDayById(Long id) {
+    //     return weightDayRepository.findById(id);
+    // }
+    public List<WeightDay> getWeightDayByUserId(Long userId) {
+        return weightDayRepository.findByUserId(userId);
     }
 
     public WeightDay createWeightDay(WeightDay weightDay) {

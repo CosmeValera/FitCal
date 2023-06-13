@@ -27,11 +27,18 @@ public class WeightDayController {
         return ResponseEntity.ok(weightDays);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<WeightDay> getWeightDayById(@PathVariable Long id) {
-        Optional<WeightDay> weightDay = weightDayService.getWeightDayById(id);
-        return weightDay.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    @GetMapping("/{userId}")
+    public List<WeightDay> getWeightDaysByUserId(@PathVariable Long userId) {
+        List<WeightDay> weightDay = weightDayService.getWeightDayByUserId(userId);
+        return weightDay;
     }
+    
+
+    // @GetMapping("/{id}")
+    // public ResponseEntity<WeightDay> getWeightDayById(@PathVariable Long id) {
+    //     Optional<WeightDay> weightDay = weightDayService.getWeightDayById(id);
+    //     return weightDay.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    // }
 
     @PostMapping
     public ResponseEntity<WeightDay> createWeightDay(@RequestBody WeightDay weightDay) {
