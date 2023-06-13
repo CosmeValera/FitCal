@@ -56,6 +56,11 @@ export class ProfileComponent {
   ) {}
 
   ngOnInit() {
+    // Theme
+    const currentTheme = localStorage.getItem('theme');
+    document.documentElement.style.setProperty('--card-background-color', currentTheme === 'dark' ? '#EEE' : '#A8CCC9');
+
+    // Logic
     this.user = this.fitcalAuthService.getUser(); //Conseguimos el usuario
     this.socialAuthService.authState.subscribe((user) => {
       this.userService.checkUserExists(user.email).subscribe( //Comprobamos si existe
@@ -117,8 +122,8 @@ export class ProfileComponent {
       });
   }
 
-  /** 
-   * Obtenemos la fecha correcta 
+  /**
+   * Obtenemos la fecha correcta
    */
   obtenerFecha(): string {
     const fechaPicker = this.datePicker.nativeElement.value;

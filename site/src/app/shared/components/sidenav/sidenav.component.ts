@@ -61,7 +61,7 @@ export class SidenavComponent implements OnInit {
   ngOnInit(): void {
       this.screenWidth = window.innerWidth;
       const currentTheme = localStorage.getItem('theme');
-      this.themeIcon = currentTheme === 'dark' ? 'fal fa-toggle-on' : 'fal fa-toggle-off';
+      this.themeIcon = currentTheme === 'dark' ? 'fal fa-moon' : 'fal fa-sun';
   }
 
   toggleTheme(): void {
@@ -71,7 +71,8 @@ export class SidenavComponent implements OnInit {
     document.documentElement.setAttribute('data-theme', newTheme);
 
     // Update the themeIcon based on the new theme
-    this.themeIcon = newTheme === 'dark' ? 'fal fa-toggle-on' : 'fal fa-toggle-off';
+    this.themeIcon = newTheme === 'dark' ? 'fal fa-moon' : 'fal fa-sun';
+    location.reload();
   }
 
   toggleCollapse(): void {
