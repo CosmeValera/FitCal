@@ -25,6 +25,7 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
+    "@swimlane/ngx-charts": "^20.4.0",
     "angular-highcharts": "^15.0.1",
     "bootstrap": "^5.2.3",
     "firebase": "^9.22.2",

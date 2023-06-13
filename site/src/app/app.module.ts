@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import {
   SocialLoginModule,
   SocialAuthServiceConfig,
@@ -94,6 +95,7 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
     ChartModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    NgxChartsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideStorage(() => getStorage()),
   ],
