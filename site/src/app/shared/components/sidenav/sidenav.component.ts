@@ -45,6 +45,7 @@ export class SidenavComponent implements OnInit {
   collapsed = false;
   screenWidth = 0;
   navData = navbarData;
+  themeIcon: string = 'light';
 
   constructor(private authService: AuthService) { }
 
@@ -59,6 +60,18 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit(): void {
       this.screenWidth = window.innerWidth;
+      const currentTheme = localStorage.getItem('theme');
+      this.themeIcon = currentTheme === 'dark' ? 'fal fa-toggle-on' : 'fal fa-toggle-off';
+  }
+
+  toggleTheme(): void {
+    const currentTheme = localStorage.getItem('theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+
+    // Update the themeIcon based on the new theme
+    this.themeIcon = newTheme === 'dark' ? 'fal fa-toggle-on' : 'fal fa-toggle-off';
   }
 
   toggleCollapse(): void {

@@ -30,5 +30,15 @@
         </span>
       </a>
     </li>
+    <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link" href="#" (click)="toggleTheme()">
+        <i class="sidenav-link-icon" [class]="themeIcon"></i>
+        <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+          Toggle Theme
+        </span>
+      </a>
+    </li>
+
+
   </ul>
 </div>
