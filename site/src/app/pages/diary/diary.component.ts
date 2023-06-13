@@ -80,7 +80,7 @@ export class DiaryComponent implements AfterViewInit {
     const caloriasPorGramo = foodInstance.food.kcal;
 
     const caloriasTotales = (pesoEnGramos * caloriasPorGramo) / 100;
-    return caloriasTotales;
+    return Math.round(caloriasTotales);
   }
 
   calcularCaloriasConsumidas() {
@@ -93,8 +93,8 @@ export class DiaryComponent implements AfterViewInit {
 
     // Calcula las calorías restantes y actualiza las variables correspondientes.
     const caloriasRestantes = this.user.calories - caloriasConsumidas;
-    this.leftCalories = caloriasRestantes;
-    this.caloriasConsumidas = caloriasConsumidas;
+    this.leftCalories = Math.round(caloriasRestantes);
+    this.caloriasConsumidas = Math.round(caloriasConsumidas);
   }
 
   onDiaIncrementado(fecha: Date) {
@@ -139,7 +139,7 @@ export class DiaryComponent implements AfterViewInit {
       totalCaloriesOfMeal += caloriesFoodInstance;
     });
 
-    return parseFloat(totalCaloriesOfMeal.toFixed(0));
+    return Math.round(totalCaloriesOfMeal);
   }
 
 }
