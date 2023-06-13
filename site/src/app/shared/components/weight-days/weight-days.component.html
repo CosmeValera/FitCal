@@ -4,7 +4,8 @@
   <!-- Refer to the library documentation for chart configuration options -->
 
   <!-- Example using ngx-charts -->
-  <ngx-charts-bar-vertical
+  <div class="d-flex justify-content-center">
+    <ngx-charts-bar-vertical
     [view]="view"
     [scheme]="colorScheme"
     [results]="chartData"
@@ -15,20 +16,23 @@
     [showYAxisLabel]="true"
     xAxisLabel="Date"
     yAxisLabel="Weight"
-  ></ngx-charts-bar-vertical>
+    ></ngx-charts-bar-vertical>
+  </div>
 
-  <!-- Display the weight data in a table or other format -->
-  <table>
+  <!-- Display the weight data in a table -->
+  <table class="weight-table mt-2">
     <thead>
       <tr>
         <th>Date</th>
         <th>Weight</th>
+        <th>✅</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let weightDay of weightDays">
         <td>{{ weightDay.date }}</td>
         <td>{{ weightDay.weight }}</td>
+        <td>✏️</td>
       </tr>
     </tbody>
   </table>
