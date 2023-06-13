@@ -65,8 +65,13 @@ public class User {
     @Column
     private String activityLevel;
 
-    // Un UserData tiene muchos dias
+    // Un User tiene muchos dias
     @JsonIgnore
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Day> days = new ArrayList<>();
+
+    // Un User tiene muchos weightDays
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private List<WeightDay> weightDays = new ArrayList<>();
 }
