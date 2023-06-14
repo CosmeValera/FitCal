@@ -44,6 +44,7 @@ export class ProfileComponent {
   user: User | any;
   modalOpen = false;
   autenticacion: IGoogleAuth | undefined;
+  isExpanded: boolean = false;
 
 
   constructor(
@@ -237,6 +238,11 @@ export class ProfileComponent {
     this.fitcalAuthService.logout();
     this.user = null;
   }
+
+  toggleExpand() {
+    this.isExpanded = !this.isExpanded;
+  }
+
 
 
 }

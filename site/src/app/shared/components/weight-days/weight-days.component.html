@@ -1,10 +1,7 @@
 <div>
-  <!-- Display the chart based on the weight data -->
-  <!-- Use a chart library like Chart.js or ngx-charts to render the chart -->
-  <!-- Refer to the library documentation for chart configuration options -->
+  <h4 class="d-flex justify-content-center mt-4">Registro de peso</h4>
 
-  <!-- Example using ngx-charts -->
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center mt-4">
     <ngx-charts-bar-vertical
       [view]="view"
       [scheme]="colorScheme"
@@ -36,7 +33,7 @@
       <tr *ngFor="let weightDay of weightDays">
         <td class="text-center">{{ weightDay.date }}</td>
         <td class="text-center">{{ weightDay.weight }}</td>
-        <td class="text-center">
+        <td class="text-center width-25">
           <button class="btn btn-primary me-2" (click)="editWeightDay(weightDay)">
             <i class="fas fa-edit"></i>
           </button>

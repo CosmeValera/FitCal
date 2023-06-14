@@ -123,10 +123,14 @@
       <br />
 
       <!-- WEIGHTDAYS -->
+
       <div class="row beautiful-card mt-4">
-        <app-weight-days
-          [user]="user"
-        ></app-weight-days>
+        <div class="retractable-container">
+          <button class="retractable-button" (click)="toggleExpand()">
+            <i class="fas fa-arrow-down arrow-icon" [ngClass]="{ 'expanded': isExpanded }"></i>
+          </button>
+          <app-weight-days *ngIf="isExpanded" [user]="user"></app-weight-days>
+        </div>
       </div>
     </main>
   </div>

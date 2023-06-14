@@ -21,6 +21,71 @@ body {
   padding-right: 2rem;
 }
 
+// RETRACTABLE
+.retractable-container {
+  position: relative;
+  width: 100%;
+}
+
+.retractable-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #7cb8b2;
+  border: none;
+  border-radius: 45%;
+  cursor: pointer;
+  outline: none;
+  padding: 1rem;
+}
+
+.arrow-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.expanded {
+  transform: rotate(180deg);
+}
+
+/* Animation for the component */
+@keyframes slideIn {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: auto;
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    height: auto;
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+app-weight-days {
+  animation: slideIn 0.3s ease;
+}
+
+app-weight-days.ng-leave {
+  animation: slideOut 0.3s ease;
+}
+
+:host ::ng-deep .width-25 {
+  width: 25%;
+}
+
 .imagenYTexto {
   display: flex;
   align-items: flex-start;
