@@ -3,6 +3,9 @@ import { WeightDay } from '@shared/interfaces/weightDayInterface';
 import { WeightDayService } from '@shared/services/weightDay.service';
 import { NgModule } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogCreateWeightDayComponent } from '../dialog-create-weight-day/dialog-create-weight-day.component';
 
 @Component({
   selector: 'app-weight-days',
@@ -20,7 +23,10 @@ export class WeightDaysComponent implements OnInit {
   chartData: any[] = []; // Define the chart data array
 
 
-  constructor(private weightDayService: WeightDayService) {}
+  constructor(
+    private matDialog: MatDialog,
+    private weightDayService: WeightDayService
+  ) {}
 
   ngOnInit() {
     // Call a method to fetch the weight data when the component initializes
@@ -59,4 +65,47 @@ export class WeightDaysComponent implements OnInit {
     }
   }
 
+  openNewWeightDayComponent() {
+    const createWeightDaysComponent = this.matDialog.open(DialogCreateWeightDayComponent);
+    createWeightDaysComponent.afterClosed().subscribe((weightDay) => {
+      this.weightDayService.createWeightDay(weightDay).subscribe(()=> {
+        window.location.reload();
+      }, (error) =>{
+        console.error('Error al dar de alta el peso:', error);
+      });
+    });
+  }
+
+  editWeightDay(weightDay: WeightDay) {
+    const dialogRef = this.matDialog.open(DialogCreateWeightDayComponent, {
+      width: '400px',
+      data: weightDay, // Pass the weightDay to edit as data to the dialog
+    });
+
+    dialogRef.afterClosed().subscribe((result: WeightDay) => {
+      this.weightDayService.updateWeightDay(weightDay).subscribe(()=> {
+        window.location.reload();
+      }, (error) =>{
+        console.error('Error al actualizar el peso:', error);
+      });
+    });
+  }
+
+  deleteWeightDay(weightDay: WeightDay) {
+    const dialogRef = this.matDialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: '¿Estás seguro que quieres eliminar este dato?',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.weightDayService.deleteWeightDay(weightDay).subscribe((result) => {
+          //Se elimino con exito.
+          window.location.reload();
+        }, (error) => {
+          console.log("Error al eliminar. weightday id: ", weightDay.id!, error);
+        });
+      }
+    });
+  }
 }
