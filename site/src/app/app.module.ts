@@ -51,6 +51,7 @@ import { environment } from '../environments/environment';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { DisableRecalculator } from '@shared/services/disableRecalculator.service';
 import { WeightDaysComponent } from './shared/components/weight-days/weight-days.component';
+import { DialogCreateWeightDayComponent } from './shared/components/dialog-create-weight-day/dialog-create-weight-day.component';
 
 registerLocaleData(localeEs);
 export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
@@ -77,6 +78,7 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
     ConfirmationDialogComponent,
     GramosDialogComponent,
     WeightDaysComponent,
+    DialogCreateWeightDayComponent
   ],
   imports: [
     MatSnackBarModule,

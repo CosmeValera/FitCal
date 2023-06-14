@@ -11,17 +11,21 @@
 }
 
 .weight-table th {
-  background-color: #f2f2f2;
+  background-color: #82a7a4;
   font-weight: bold;
+  color: black;
 }
 
 .weight-table tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #b7e0dd;
+  color: black;
 }
 .weight-table tr:nth-child(odd) {
-  background-color: #d2d2d2;
+  background-color: #A8CCC9;
+  color: black;
 }
 
 .weight-table tr:hover {
-  background-color: #c0c0c0;
+  background-color: #88b1ae;
+  color: black;
 }

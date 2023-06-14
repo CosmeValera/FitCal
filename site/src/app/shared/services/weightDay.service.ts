@@ -26,4 +26,8 @@ export class WeightDayService {
   updateWeightDay(weightDay: WeightDay) {
     return this.http.put<WeightDay>(`${this.API_URL}/${weightDay.id}`, weightDay);
   }
+
+  deleteWeightDay(weightDay: WeightDay) {
+    return this.http.delete(`${this.API_URL}/${weightDay.id}`);
+  }
 }

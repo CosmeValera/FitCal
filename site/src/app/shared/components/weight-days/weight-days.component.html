@@ -1,21 +1,18 @@
 <div>
-  <!-- Display the chart based on the weight data -->
-  <!-- Use a chart library like Chart.js or ngx-charts to render the chart -->
-  <!-- Refer to the library documentation for chart configuration options -->
+  <h4 class="d-flex justify-content-center mt-4">Registro de peso</h4>
 
-  <!-- Example using ngx-charts -->
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center mt-4">
     <ngx-charts-bar-vertical
-    [view]="view"
-    [scheme]="colorScheme"
-    [results]="chartData"
-    [xAxis]="true"
-    [yAxis]="true"
-    [legend]="true"
-    [showXAxisLabel]="true"
-    [showYAxisLabel]="true"
-    xAxisLabel="Date"
-    yAxisLabel="Weight"
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="chartData"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      xAxisLabel="Date"
+      yAxisLabel="Weight"
     ></ngx-charts-bar-vertical>
   </div>
 
@@ -23,16 +20,27 @@
   <table class="weight-table mt-2">
     <thead>
       <tr>
-        <th>Date</th>
-        <th>Weight</th>
-        <th>✅</th>
+        <th class="text-center">Date</th>
+        <th class="text-center">Weight</th>
+        <th class="text-center">
+          <button class="btn btn-success" (click)="openNewWeightDayComponent()">
+            <i class="fas fa-plus"></i>
+          </button>
+        </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let weightDay of weightDays">
-        <td>{{ weightDay.date }}</td>
-        <td>{{ weightDay.weight }}</td>
-        <td>✏️</td>
+        <td class="text-center">{{ weightDay.date }}</td>
+        <td class="text-center">{{ weightDay.weight }}</td>
+        <td class="text-center width-25">
+          <button class="btn btn-primary me-2" (click)="editWeightDay(weightDay)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="btn btn-danger" (click)="deleteWeightDay(weightDay)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
