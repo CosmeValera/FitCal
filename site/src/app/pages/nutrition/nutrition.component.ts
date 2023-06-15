@@ -30,6 +30,9 @@ export class NutritionComponent {
   carbsPercentage: number = 50;
   proteinsPercentage: number = 25;
   fatsPercentage: number = 25;
+  carbsGrams: number = 0;
+  proteinsGrams: number = 0;
+  fatsGrams: number = 0;
 
   constructor(
     private fitcalAuthService: AuthService,
@@ -120,6 +123,10 @@ export class NutritionComponent {
 
         foodDataArray.push({food, foodInstance});
       });
+      this.carbsGrams = totalCarbs;
+      this.proteinsGrams = totalProteins;
+      this.fatsGrams = totalFats;
+
       this.foodDataArray = foodDataArray;
 
       const totalCalories = totalProteins * 4 + totalCarbs * 4 + totalFats * 9;
