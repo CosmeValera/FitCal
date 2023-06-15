@@ -1,12 +1,12 @@
-<div>
-  <label>Fats Goal (%)</label>
-  <input type="number" [(ngModel)]="fatsGoal" min="0" max="100" (change)="updateGoals('fats')"/>
+<div class="macros-input d-flex justify-content-between align-items-baseline">
+  <h5 for="carbsGoal">Carbohidratos (%):</h5>
+  <input id="carbsGoal" type="number" [(ngModel)]="carbsGoal" min="0" max="100" (change)="updateGoals('carbs')" placeholder="50"/>
 </div>
-<div>
-  <label>Proteins Goal (%)</label>
-  <input type="number" [(ngModel)]="proteinsGoal" min="0" max="100" (change)="updateGoals('proteins')"/>
+<div class="macros-input d-flex justify-content-between align-items-baseline">
+  <h5 for="proteinsGoal">Proteínas (%):</h5>
+  <input id="proteinsGoal" type="number" [(ngModel)]="proteinsGoal" min="0" max="100" (change)="updateGoals('proteins')" placeholder="25"/>
 </div>
-<div>
-  <label>Carbs Goal (%)</label>
-  <input type="number" [(ngModel)]="carbsGoal" min="0" max="100" (change)="updateGoals('carbs')"/>
+<div class="macros-input d-flex justify-content-between align-items-baseline mt-3">
+  <h5 for="fatsGoal">Grasas (%):</h5>
+  <input id="fatsGoal" type="number" [(ngModel)]="fatsGoal" min="0" max="100" (change)="updateGoals('fats')" placeholder="25"/>
 </div>

@@ -160,9 +160,9 @@ export class ProfileComponent {
       activityLevel: this.user.activityLevel,
       calories: this.user.calories,
       days: this.user.days,
-      carbsGoal: this.macrosPerc.carbsGoal || 1,
-      fatsGoal: this.macrosPerc.fatsGoal || 1,
-      proteinsGoal: this.macrosPerc.proteinsGoal || 1
+      carbsGoal: this.macrosPerc.carbsGoal || 50,
+      fatsGoal: this.macrosPerc.fatsGoal || 25,
+      proteinsGoal: this.macrosPerc.proteinsGoal || 25
     };
 
     if (this.user.gender === 'F') {

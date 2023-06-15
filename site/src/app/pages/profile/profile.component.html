@@ -37,25 +37,25 @@
     <main>
       <div class="row mb-2">
         <div class="col-12 col-md-6 p-0">
-          <div class="beautiful-card mb-4 mb-md-0 me-md-2">
+          <div class="beautiful-card mb-4 mb-md-0 me-md-2 h-100">
             <h4 class="d-flex justify-content-center mb-4">Datos personales</h4>
 
             <app-personal-information
-              class="d-flex justify-content-center"
+              class="d-flex justify-content-center mt-4"
               [dato]="'Altura:'"
               [datoPrincipal]="user.height || 0"
               [tipo]="'cm'"
             >
             </app-personal-information>
             <app-personal-information
-              class="d-flex justify-content-center"
+              class="d-flex justify-content-center mt-3"
               [dato]="'Peso:'"
               [datoPrincipal]="user.weight || 0"
               [tipo]="'kg'"
             >
             </app-personal-information>
 
-            <div class="d-flex justify-content-center fake-component">
+            <div class="d-flex justify-content-center fake-component align-items-stretch mt-3">
               <h4>Fecha de nacimiento:</h4>
               <mat-form-field>
                 <input
@@ -73,7 +73,7 @@
               </mat-form-field>
             </div>
 
-            <div class="d-flex align-items-center fake-component">
+            <div class="d-flex align-items-center fake-component mt-2">
               <h4 class="me-3">Género:</h4>
               <div class="flex-grow-1">
                 <select class="form-select" [(ngModel)]="user.gender" (change)="disableRecalculator.disableRecalculate()">
@@ -85,7 +85,7 @@
           </div>
         </div>
         <div class="col-12 col-md-6 p-0">
-          <div class="beautiful-card ms-md-2 h-100">
+          <div class="beautiful-card ms-md-2">
             <h4 class="d-flex justify-content-center mb-4">Metas</h4>
             <app-goal-dialog
               [selectTipo]="'Meta Semanal:'"
@@ -96,6 +96,9 @@
               [selectTipo]="'Nivel de Actividad:'"
               [selectedOption]="user.activityLevel"
             ></app-goal-dialog>
+          </div>
+
+          <div class="beautiful-card ms-md-2 mt-2 p-3">
             <app-macros-perc
             [fatsGoal]="user.fatsGoal"
             [proteinsGoal]="user.proteinsGoal"
