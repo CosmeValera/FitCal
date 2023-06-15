@@ -13,5 +13,8 @@ export interface User {
     goal: string;
     activityLevel: string;
     calories: number;
+    proteinsGoal: number;
+    carbsGoal: number;
+    fatsGoal: number;
     days: Day[];
 }

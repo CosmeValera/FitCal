@@ -156,6 +156,9 @@ export class ProfileComponent {
       activityLevel: this.user.activityLevel,
       calories: this.user.calories,
       days: this.user.days,
+      carbsGoal: 1,
+      fatsGoal: 1,
+      proteinsGoal: 1
     };
 
     if (this.user.gender === 'F') {
