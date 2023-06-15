@@ -1,12 +1,12 @@
 <div>
   <label>Fats Goal (%)</label>
-  <input type="number" [(ngModel)]="fatsGoal" min="0" max="100" (change)="updateGoals()" />
+  <input type="number" [(ngModel)]="fatsGoal" min="0" max="100" (change)="updateGoals('fats')"/>
 </div>
 <div>
   <label>Proteins Goal (%)</label>
-  <input type="number" [(ngModel)]="proteinsGoal" min="0" max="100" (change)="updateGoals()" />
+  <input type="number" [(ngModel)]="proteinsGoal" min="0" max="100" (change)="updateGoals('proteins')"/>
 </div>
 <div>
   <label>Carbs Goal (%)</label>
-  <input type="number" [(ngModel)]="carbsGoal" min="0" max="100" (change)="updateGoals()" />
+  <input type="number" [(ngModel)]="carbsGoal" min="0" max="100" (change)="updateGoals('carbs')"/>
 </div>

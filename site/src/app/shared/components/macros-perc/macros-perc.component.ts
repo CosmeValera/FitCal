@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-macros-perc',
   templateUrl: './macros-perc.component.html',
   styleUrls: ['./macros-perc.component.scss']
 })
-export class MacrosPercComponent {
+export class MacrosPercComponent implements OnChanges {
 
   @Input() fatsGoal: number = 0;
   @Input() proteinsGoal: number = 0;
@@ -13,9 +13,54 @@ export class MacrosPercComponent {
 
   constructor() {}
 
-  updateGoals() {
-    // Here, you can handle the logic to update the goals in the user object or perform any other necessary actions.
-    // For example, you can emit an event to pass the updated goals to the parent component.
-    // You can access the selectedOption, fatsGoal, proteinsGoal, and carbsGoal properties to get the selected values.
+  ngOnChanges() {
+    this.updateGoals('');
+  }
+
+
+  updateGoals(type: string) {
+    const sum = this.fatsGoal + this.proteinsGoal + this.carbsGoal;
+
+    if (sum !== 100) {
+      switch(type) {
+        case 'carbs':
+          {
+            const diff = 100 - sum;
+            const distribution = diff / 2;
+
+            this.fatsGoal += distribution;
+            this.proteinsGoal += distribution;
+          }
+          break;
+        case 'fats':
+          {
+            const diff = 100 - sum;
+            const distribution = diff / 2;
+
+            this.proteinsGoal += distribution;
+            this.carbsGoal += distribution;
+          }
+          break;
+        case 'proteins':
+          {
+            const diff = 100 - sum;
+            const distribution = diff / 2;
+
+            this.fatsGoal += distribution;
+            this.carbsGoal += distribution;
+          }
+          break;
+        default:
+          {
+            const diff = 100 - sum;
+            const distribution = diff / 3;
+
+            this.fatsGoal += distribution;
+            this.proteinsGoal += distribution;
+            this.carbsGoal += distribution;
+          }
+          break;
+      }
+    }
   }
 }
