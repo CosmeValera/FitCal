@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { WeightDaysComponent } from './weight-days.component';
 
 describe('WeightDaysComponent', () => {
