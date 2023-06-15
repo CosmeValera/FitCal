@@ -52,7 +52,6 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { DisableRecalculator } from '@shared/services/disableRecalculator.service';
 import { WeightDaysComponent } from './shared/components/weight-days/weight-days.component';
 import { DialogCreateWeightDayComponent } from './shared/components/dialog-create-weight-day/dialog-create-weight-day.component';
-import { MacrosPercentagesComponent } from './shared/components/macros-percentages/macros-percentages.component';
 import { MacrosPercComponent } from './shared/components/macros-perc/macros-perc.component';
 
 registerLocaleData(localeEs);
@@ -81,7 +80,6 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
     GramosDialogComponent,
     WeightDaysComponent,
     DialogCreateWeightDayComponent,
-    MacrosPercentagesComponent,
     MacrosPercComponent
   ],
   imports: [
