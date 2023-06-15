@@ -123,9 +123,9 @@ export class NutritionComponent {
 
         foodDataArray.push({food, foodInstance});
       });
-      this.carbsGrams = totalCarbs;
-      this.proteinsGrams = totalProteins;
-      this.fatsGrams = totalFats;
+      this.carbsGrams = Math.round(totalCarbs);
+      this.proteinsGrams = Math.round(totalProteins);
+      this.fatsGrams = Math.round(totalFats);
 
       this.foodDataArray = foodDataArray;
 

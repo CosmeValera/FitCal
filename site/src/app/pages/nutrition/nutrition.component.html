@@ -17,8 +17,10 @@
         <tr>
           <th>Tipo</th>
           <th>Objetivo (%)</th>
-          <th>Actual (%)</th>
-          <th>Actual (gramos)</th>
+          <th>Consumidos (%)</th>
+          <th>Consumidos (g)</th>
+          <th>Objetivos (g)</th>
+          <th>Restantes (g)</th>
         </tr>
       </thead>
       <tbody>
@@ -26,19 +28,31 @@
           <td><b>Carbohidratos</b></td>
           <td>{{ user.carbsGoal }}</td>
           <td>{{ carbsPercentage }}</td>
-          <td>{{ carbsGrams }}</td>
+          <td>{{ carbsGrams }}g</td>
+          <td> {{((((user.carbsGoal)/100 * user.calories)/4)).toFixed()}}g</td>
+          <td [ngClass]="{ 'negative-grams': ((((user.carbsGoal)/100 * user.calories)/4)-carbsGrams) < 0,
+           'positive-grams': ((((user.carbsGoal)/100 * user.calories)/4)-carbsGrams) > 0 }">
+           {{ ((((user.carbsGoal)/100 * user.calories)/4)-carbsGrams).toFixed() }}g</td>
         </tr>
         <tr>
           <td><b>Grasas</b></td>
           <td>{{ user.fatsGoal }}</td>
           <td>{{ fatsPercentage }}</td>
-          <td>{{ fatsGrams }}</td>
+          <td>{{ fatsGrams }}g</td>
+          <td> {{((((user.fatsGoal)/100 * user.calories)/4)).toFixed()}}g</td>
+          <td [ngClass]="{ 'negative-grams': ((((user.fatsGoal)/100 * user.calories)/4)-fatsGrams) < 0,
+          'positive-grams': ((((user.fatsGoal)/100 * user.calories)/4)-fatsGrams) > 0 }">
+          {{ ((((user.fatsGoal)/100 * user.calories)/4)-fatsGrams).toFixed() }}g</td>
         </tr>
         <tr class="meal-breakfast">
           <td><b>Proteínas</b></td>
           <td>{{ user.proteinsGoal }}</td>
           <td>{{ proteinsPercentage }}</td>
-          <td>{{ proteinsGrams }}</td>
+          <td>{{ proteinsGrams }}g</td>
+          <td> {{((((user.proteinsGoal)/100 * user.calories)/4)).toFixed()}}g</td>
+          <td [ngClass]="{ 'negative-grams': ((((user.proteinsGoal)/100 * user.calories)/4)-proteinsGrams) < 0,
+          'positive-grams': ((((user.proteinsGoal)/100 * user.calories)/4)-proteinsGrams) > 0 }">
+          {{ ((((user.proteinsGoal)/100 * user.calories)/4)-proteinsGrams).toFixed() }}g</td>
         </tr>
       </tbody>
     </table>
