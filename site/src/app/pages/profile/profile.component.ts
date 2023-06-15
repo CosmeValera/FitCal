@@ -17,6 +17,7 @@ import { CommonModule, formatDate } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { DisableRecalculator } from '@shared/services/disableRecalculator.service';
+import { MacrosPercComponent } from '@shared/components/macros-perc/macros-perc.component';
 
 @NgModule({
   imports: [CommonModule, MatDialogModule, MatButtonModule],
@@ -37,6 +38,9 @@ export class ProfileComponent {
 
   @ViewChild(CaloriesProfileComponent)
   caloriasPerfil!: CaloriesProfileComponent;
+
+  @ViewChild(MacrosPercComponent)
+  macrosPerc!: MacrosPercComponent;
 
   @ViewChild('datePicker')
   datePicker: any;
@@ -166,6 +170,9 @@ export class ProfileComponent {
       activityLevel: this.user.activityLevel,
       calories: this.user.calories,
       days: this.user.days,
+      carbsGoal: this.macrosPerc.carbsGoal || 50,
+      fatsGoal: this.macrosPerc.fatsGoal || 25,
+      proteinsGoal: this.macrosPerc.proteinsGoal || 25
     };
 
     if (this.user.gender === 'F') {

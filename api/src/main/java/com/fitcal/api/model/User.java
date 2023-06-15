@@ -65,6 +65,15 @@ public class User {
     @Column
     private String activityLevel;
 
+    @Column
+    private double proteinsGoal;
+
+    @Column
+    private double carbsGoal;
+
+    @Column
+    private double fatsGoal;
+
     // Un User tiene muchos dias
     @JsonIgnore
     @OneToMany(mappedBy = "user", orphanRemoval = true)

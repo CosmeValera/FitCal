@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidenavComponent } from '@shared/components/sidenav/sidenav.component';
 import { BodyComponent } from './core/body/body.component';
-import { ProfileComponent } from './pages/profile/profile.component';
+import { ProfileComponent, ProfileModule } from './pages/profile/profile.component';
 import { NutritionComponent } from './pages/nutrition/nutrition.component';
 import { DiaryComponent } from './pages/diary/diary.component';
 import { MealComponent } from './shared/components/meal/meal.component';
@@ -52,6 +52,7 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { DisableRecalculator } from '@shared/services/disableRecalculator.service';
 import { WeightDaysComponent } from './shared/components/weight-days/weight-days.component';
 import { DialogCreateWeightDayComponent } from './shared/components/dialog-create-weight-day/dialog-create-weight-day.component';
+import { MacrosPercComponent } from './shared/components/macros-perc/macros-perc.component';
 
 registerLocaleData(localeEs);
 export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
@@ -78,26 +79,27 @@ export const MAT_MDC_DIALOG_DATA = new InjectionToken<any>('MatMdcDialogData');
     ConfirmationDialogComponent,
     GramosDialogComponent,
     WeightDaysComponent,
-    DialogCreateWeightDayComponent
+    DialogCreateWeightDayComponent,
+    MacrosPercComponent
   ],
   imports: [
-    MatSnackBarModule,
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    MatCardModule,
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule,
     MatDialogModule,
-    MatCardModule,
-    HttpClientModule,
-    SocialLoginModule,
-    ChartModule,
+    MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
     NgxChartsModule,
+    ChartModule,
+    SocialLoginModule,
+    AppRoutingModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideStorage(() => getStorage()),
   ],

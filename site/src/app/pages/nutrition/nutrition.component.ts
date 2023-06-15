@@ -27,6 +27,13 @@ export class NutritionComponent {
   fecha: Date;
   foodDataArray: { food: Food; foodInstance: FoodInstance }[] = [];
 
+  carbsPercentage: number = 50;
+  proteinsPercentage: number = 25;
+  fatsPercentage: number = 25;
+  carbsGrams: number = 0;
+  proteinsGrams: number = 0;
+  fatsGrams: number = 0;
+
   constructor(
     private fitcalAuthService: AuthService,
     private dateService: DateService,
@@ -116,14 +123,22 @@ export class NutritionComponent {
 
         foodDataArray.push({food, foodInstance});
       });
+      this.carbsGrams = totalCarbs;
+      this.proteinsGrams = totalProteins;
+      this.fatsGrams = totalFats;
+
       this.foodDataArray = foodDataArray;
 
       const totalCalories = totalProteins * 4 + totalCarbs * 4 + totalFats * 9;
+      this.proteinsPercentage = parseFloat(((totalProteins * 4 / totalCalories) * 100).toFixed(1));
+      this.fatsPercentage = parseFloat(((totalFats * 9 / totalCalories) * 100).toFixed(1));
+      this.carbsPercentage = parseFloat(((totalCarbs * 4 / totalCalories) * 100).toFixed(1));
+
 
       const macros = [
-        { name: 'Carbohidratos', y: parseFloat(totalCarbs.toFixed(2)), color: '#2ed6e5' },
-        { name: 'Grasas', y: parseFloat(totalFats.toFixed(2)), color: '#cc2ea8' },
-        { name: 'Proteínas', y: parseFloat(totalProteins.toFixed(2)), color: '#ffa800' },
+        { name: 'Carbohidratos', y: this.carbsPercentage, color: '#2ed6e5' },
+        { name: 'Grasas', y: this.fatsPercentage, color: '#cc2ea8' },
+        { name: 'Proteínas', y: this.proteinsPercentage, color: '#ffa800' },
       ];
 
       this.donutChart.ref$.subscribe((chartRef) => {

@@ -9,6 +9,42 @@
     </div>
 </div>
 
+<div class="card m-5">
+  <div class="card-body">
+    <h5 class="card-title">Objetivos de Macronutrientes</h5>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Objetivo (%)</th>
+          <th>Actual (%)</th>
+          <th>Actual (gramos)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="thick-row meal-breakfast">
+          <td><b>Carbohidratos</b></td>
+          <td>{{ user.carbsGoal }}</td>
+          <td>{{ carbsPercentage }}</td>
+          <td>{{ carbsGrams }}</td>
+        </tr>
+        <tr>
+          <td><b>Grasas</b></td>
+          <td>{{ user.fatsGoal }}</td>
+          <td>{{ fatsPercentage }}</td>
+          <td>{{ fatsGrams }}</td>
+        </tr>
+        <tr class="meal-breakfast">
+          <td><b>Proteínas</b></td>
+          <td>{{ user.proteinsGoal }}</td>
+          <td>{{ proteinsPercentage }}</td>
+          <td>{{ proteinsGrams }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
 <div class="card m-5">
   <div class="card-body">

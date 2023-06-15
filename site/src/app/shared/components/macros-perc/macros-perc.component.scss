@@ -1,0 +1,36 @@
+// .macros-input {
+//   margin-bottom: 10px;
+// }
+
+// .macros-input label {
+//   display: block;
+//   font-weight: bold;
+// }
+
+// .macros-input input[type="number"] {
+//   width: 100px;
+// }
+
+.macros-input {
+  margin-bottom: 20px;
+}
+
+.macros-input label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.macros-input input[type="number"] {
+  width: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.macros-input input[type="number"]:focus {
+  outline: none;
+  border-color: #0066ff;
+  box-shadow: 0 0 5px #0066ff;
+}
