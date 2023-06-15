@@ -92,7 +92,7 @@
               </b>
             </td>
             <td *ngIf="!shouldAddThickRow(foodDataArray, i)"></td>
-            <td><b>{{ foodData.food.kcal }}</b></td>
+            <td><b>{{ (foodData.food.kcal * (foodData.foodInstance.grams)/100).toFixed() }}</b></td>
             <td>{{ foodData.food.name }}</td>
             <td>{{ foodData.foodInstance.grams }}</td>
             <td>{{ foodData.food.carbs }}</td>
