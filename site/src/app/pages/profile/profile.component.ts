@@ -75,11 +75,21 @@ export class ProfileComponent {
             //El usuario no existe en la base de datos, lo creamos
             this.crearUsuario(user);
             this.fitcalAuthService.login(this.user);
+
+            const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+              width: '400px',
+              data: 'Recuerda rellenar los datos del perfil para el buen funcionamiento de la aplicación.',
+            });
           }
         },
         (error) => { //Si nos da error lo creamos y nos logueamos
           this.crearUsuario(user);
           this.fitcalAuthService.login(this.user);
+
+          const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            width: '400px',
+            data: 'Recuerda rellenar los datos del perfil para el buen funcionamiento de la aplicación.',
+          });
         }
       );
     });
