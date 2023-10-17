@@ -71,7 +71,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ---
 
 ### Other functionalities
-- Steps tracker:
+- Weight tracker:
 ![](UIX/readme/steps.png)
 - Black theme:
 ![](UIX/readme/theme.png)
